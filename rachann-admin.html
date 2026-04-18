@@ -499,6 +499,231 @@ select.fc{cursor:pointer}
 .mini-bar-track{flex:1;background:var(--bg3);border-radius:99px;height:8px;overflow:hidden}
 .mini-bar-fill{height:100%;border-radius:99px;background:var(--accent);transition:width .6s}
 .mini-bar-val{width:50px;text-align:right;color:var(--text3);font-family:var(--font-mono);font-size:.7rem}
+
+/* ===== MOBILE MENU TOGGLE ===== */
+.sidebar-toggle{display:none;width:34px;height:34px;background:var(--bg3);border:1px solid var(--border);border-radius:6px;color:var(--text2);font-size:.9rem;cursor:pointer;transition:all .15s;align-items:center;justify-content:center}
+.sidebar-toggle:hover{background:var(--bg4);color:var(--text);border-color:var(--border2)}
+.sidebar-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:140;opacity:0;pointer-events:none;transition:opacity .2s}
+.sidebar-overlay.open{opacity:1;pointer-events:all}
+
+/* ===== RESPONSIVE MEDIA QUERIES ===== */
+@media(max-width:1024px){
+  :root{--sidebar-w:200px;--topbar-h:48px}
+  html{font-size:13px}
+  .g3{grid-template-columns:repeat(2,1fr)}
+  .g4{grid-template-columns:repeat(2,1fr)}
+  .content{padding:16px}
+}
+
+@media(max-width:768px){
+  :root{--sidebar-w:0;--topbar-h:56px}
+  html{font-size:13px}
+  
+  /* Sidebar as offcanvas */
+  .sidebar{
+    position:fixed;left:0;top:0;width:260px;
+    height:100vh;z-index:145;
+    transform:translateX(-100%);
+    transition:transform .3s cubic-bezier(.4,0,.2,1);
+    box-shadow:var(--shadow-lg);
+  }
+  
+  .sidebar.open{transform:translateX(0)}
+  
+  /* Menu toggle button */
+  .sidebar-toggle{display:flex}
+  .sidebar-overlay{display:block}
+  
+  /* Layout adjustment */
+  .shell{flex-direction:column}
+  .main{flex-direction:column;height:100vh}
+  
+  /* Topbar responsive */
+  .topbar{padding:0 14px;gap:10px}
+  .topbar-breadcrumb{display:none}
+  
+  /* Content responsive */
+  .content{padding:14px;flex:1;overflow-y:auto}
+  
+  /* Grid adjustments */
+  .g2,.g3,.g4{grid-template-columns:1fr}
+  
+  /* Cards */
+  .card{padding:14px}
+  
+  /* Buttons */
+  .btn{padding:7px 14px;font-size:.78rem}
+  .btn-sm{padding:4px 9px;font-size:.7rem}
+  
+  /* Tables */
+  .tbl-wrap{font-size:.75rem}
+  th{padding:7px 8px;font-size:.6rem}
+  td{padding:8px;font-size:.75rem}
+  
+  /* Modal */
+  .modal{width:95vw;max-height:85vh}
+  .modal-body{padding:14px 16px}
+  .modal-footer{padding:10px 16px}
+  
+  /* Chat */
+  .chat-wrap{height:300px}
+  
+  /* Section title */
+  .sh{margin-bottom:10px;gap:8px}
+  .sh-title{font-size:.85rem}
+  
+  /* Badge */
+  .badge{padding:2px 6px;font-size:.63rem}
+  
+  /* Stat cards */
+  .stat{padding:12px 14px}
+  .stat-val{font-size:1.4rem}
+  .stat-label{font-size:.65rem}
+  
+  /* Progress bar */
+  .prog-wrap{min-width:60px}
+  
+  /* Revision meter */
+  .rev-meter{padding:8px 10px}
+  .rev-dot{width:8px;height:8px}
+  
+  /* Alert */
+  .alert{padding:9px 11px;font-size:.75rem}
+  
+  /* Form */
+  .fg{margin-bottom:10px}
+  .fl{font-size:.65rem;margin-bottom:4px}
+  .fc{padding:8px 10px;font-size:.8rem}
+  .fr{grid-template-columns:1fr}
+  
+  /* Navbar items */
+  .nav-item{padding:6px 8px;font-size:.8rem}
+  .nav-icon{font-size:.85rem}
+  
+  /* Avatar */
+  .av{width:28px;height:28px;font-size:.7rem}
+  
+  /* Timeline */
+  .tl-item{gap:10px;margin-bottom:12px}
+  .tl-dot{width:20px;height:20px}
+  
+  /* Mini bar */
+  .mini-bar-label{width:70px;font-size:.7rem}
+}
+
+@media(max-width:480px){
+  :root{--radius:6px;--radius-lg:10px;--topbar-h:52px}
+  html{font-size:12px}
+  
+  /* Sidebar full width mobile */
+  .sidebar{width:100%}
+  .sidebar-toggle{width:32px;height:32px;font-size:.85rem}
+  
+  /* Compact topbar */
+  .topbar{padding:0 12px;height:52px}
+  .topbar-actions{gap:4px}
+  .ib{width:32px;height:32px}
+  
+  /* Tight content */
+  .content{padding:10px}
+  
+  /* Compact stat cards */
+  .stat{padding:10px 12px}
+  .stat-label{font-size:.6rem}
+  .stat-val{font-size:1.2rem}
+  .stat-ico{font-size:.9rem;opacity:.15}
+  
+  /* Milestone cards compact */
+  .ms-card{padding:10px}
+  .ms-title{font-size:.78rem}
+  
+  /* Full width buttons */
+  .btn{font-size:.73rem;padding:6px 12px}
+  .btn-primary{width:100%}
+  
+  /* Table compact */
+  th{padding:5px 4px;font-size:.58rem}
+  td{padding:5px 4px;font-size:.72rem}
+  .td-main{font-size:.75rem}
+  .td-sub{font-size:.65rem}
+  
+  /* Modal mobile */
+  .modal{width:100%;margin:8px;border-radius:14px}
+  .modal-body{padding:12px 14px}
+  .modal-footer{padding:8px 14px}
+  .modal-hd{padding:14px 14px 10px}
+  
+  /* Form inputs */
+  .fc{padding:9px 10px;font-size:.85rem}
+  .form-label{font-size:.6rem}
+  
+  /* Chat compact */
+  .chat-wrap{height:240px}
+  .cbubble{font-size:.73rem;padding:6px 9px}
+  .cmeta{font-size:.6rem}
+  
+  /* Sidebar user info compact */
+  .sb-user{padding:10px 12px;margin:8px 8px 0;gap:8px}
+  .sb-uinfo .uname{font-size:.75rem}
+  .sb-uinfo .urole{font-size:.62rem}
+  
+  /* Logo compact */
+  .sb-logo{padding:14px 14px 10px}
+  .sb-logo .brand{font-size:.95rem}
+  .sb-logo .sub{font-size:.62rem}
+  
+  /* Nav items */
+  .nav-item{padding:5px 8px;font-size:.75rem}
+  .nav-badge{font-size:.52rem;padding:0 4px}
+  
+  /* Avatar */
+  .av{width:26px;height:26px;font-size:.65rem}
+  
+  /* Alert */
+  .alert{padding:8px 9px;gap:7px;font-size:.7rem}
+  .alert-ico{font-size:.85rem}
+  
+  /* Section header */
+  .sh{margin-bottom:8px}
+  .sh-title{font-size:.78rem}
+  
+  /* Card spacing */
+  .card{padding:11px;margin-top:9px}
+  
+  /* Timeline */
+  .tl-item{gap:8px;margin-bottom:10px}
+  .tl-dot{width:18px;height:18px;font-size:.52rem}
+  .tl-title{font-size:.75rem}
+  .tl-sub{font-size:.65rem}
+  
+  /* Spacing utilities */
+  .mt12{margin-top:9px}
+  .mt16{margin-top:12px}
+  .mt20{margin-top:14px}
+  
+  /* Text utilities */
+  .text-sm{font-size:.73rem}
+  .text-xs{font-size:.63rem}
+  
+  /* Revision meter */
+  .rev-dots{gap:2px}
+  .rev-dot{width:6px;height:6px}
+  .rev-meter{padding:7px 8px}
+  .rev-label{font-size:.7rem}
+  
+  /* Mini bar */
+  .mini-bar-label{width:55px;font-size:.62rem}
+  .mini-bar-val{width:35px;font-size:.6rem}
+}
+
+@media(max-width:360px){
+  html{font-size:11px}
+  .content{padding:8px}
+  .card{padding:10px}
+  .stat{padding:9px 10px}
+  .modal-body{padding:10px 12px}
+  .fr{gap:8px}
+}
 </style>
 </head>
 <body>
@@ -529,6 +754,7 @@ select.fc{cursor:pointer}
 <!-- ===== MAIN ===== -->
 <div class="main">
   <header class="topbar">
+    <button class="sidebar-toggle" id="sidebar-toggle" onclick="toggleSidebar()">☰</button>
     <div class="topbar-breadcrumb" id="breadcrumb">admin / <span>dashboard</span></div>
     <div class="topbar-actions">
       <div class="ib" style="position:relative" id="notif-btn" onclick="toggleNotif()">
@@ -940,6 +1166,7 @@ select.fc{cursor:pointer}
 
   </div><!-- /content -->
 </div><!-- /main -->
+<div class="sidebar-overlay" id="sidebar-overlay" onclick="closeSidebar()"></div>
 </div><!-- /shell -->
 
 <!-- ==================== MODALS ==================== -->
@@ -1137,6 +1364,32 @@ function toast(msg) {
     el.style.opacity = '0';
   }, 3000);
 }
+
+function toggleSidebar() {
+  const sidebar = document.querySelector('.sidebar');
+  const overlay = document.getElementById('sidebar-overlay');
+  sidebar.classList.toggle('open');
+  overlay.classList.toggle('open');
+}
+
+function closeSidebar() {
+  const sidebar = document.querySelector('.sidebar');
+  const overlay = document.getElementById('sidebar-overlay');
+  sidebar.classList.remove('open');
+  overlay.classList.remove('open');
+}
+
+// Close sidebar when clicking on nav items
+document.addEventListener('DOMContentLoaded', () => {
+  const navItems = document.querySelectorAll('.nav-item');
+  navItems.forEach(item => {
+    item.addEventListener('click', () => {
+      if (window.innerWidth <= 768) {
+        closeSidebar();
+      }
+    });
+  });
+});
 
 buildNav('dashboard');
 </script>
