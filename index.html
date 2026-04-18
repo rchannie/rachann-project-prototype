@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Rachann's Project - Prototype Hub</title>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,300&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary: #c84b2f;
+      --primary-light: #e8a87c;
+      --success: #2d6a4f;
+      --info: #1a4a7a;
+      --bg: #f5f1eb;
+      --text: #1a1714;
+      --text-light: #7a7168;
+      --border: #e3ddd4;
+      --radius: 12px;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+
+    .container {
+      max-width: 900px;
+      width: 100%;
+    }
+
+    .header {
+      text-align: center;
+      margin-bottom: 48px;
+    }
+
+    .header h1 {
+      font-family: 'DM Serif Display', serif;
+      font-size: 48px;
+      margin-bottom: 8px;
+      letter-spacing: -.02em;
+    }
+
+    .header h1 em {
+      font-style: italic;
+      color: var(--primary);
+    }
+
+    .header p {
+      font-size: 16px;
+      color: var(--text-light);
+      margin-bottom: 8px;
+    }
+
+    .header .subtitle {
+      font-size: 14px;
+      color: var(--text-light);
+      letter-spacing: .05em;
+      text-transform: uppercase;
+    }
+
+    .prototypes-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 24px;
+      margin-bottom: 40px;
+    }
+
+    .proto-card {
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      overflow: hidden;
+      transition: all .3s;
+      box-shadow: 0 2px 8px rgba(26,23,20,.08);
+      display: flex;
+      flex-direction: column;
+      text-decoration: none;
+      color: inherit;
+    }
+
+    .proto-card:hover {
+      box-shadow: 0 8px 24px rgba(26,23,20,.12);
+      transform: translateY(-4px);
+    }
+
+    .proto-icon {
+      width: 100%;
+      height: 160px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 64px;
+      background: linear-gradient(135deg, rgba(200,75,47,.05) 0%, rgba(26,74,122,.05) 100%);
+    }
+
+    .proto-card.mobile .proto-icon {
+      background: linear-gradient(135deg, #d0e4f7 0%, #f2d4bf 100%);
+    }
+
+    .proto-card.admin .proto-icon {
+      background: linear-gradient(135deg, #d8f3dc 0%, #d0e4f7 100%);
+    }
+
+    .proto-content {
+      padding: 24px;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .proto-title {
+      font-size: 18px;
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+
+    .proto-desc {
+      font-size: 13px;
+      color: var(--text-light);
+      line-height: 1.6;
+      margin-bottom: 16px;
+      flex: 1;
+    }
+
+    .proto-features {
+      font-size: 12px;
+      color: var(--text-light);
+      margin-top: 12px;
+      padding-top: 12px;
+      border-top: 1px solid var(--border);
+    }
+
+    .proto-features li {
+      list-style: none;
+      padding: 4px 0;
+      padding-left: 20px;
+      position: relative;
+    }
+
+    .proto-features li:before {
+      content: '✓';
+      position: absolute;
+      left: 0;
+      color: var(--success);
+      font-weight: 700;
+    }
+
+    .proto-button {
+      background: var(--primary);
+      color: #fff;
+      padding: 12px 18px;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      font-weight: 600;
+      font-size: 13px;
+      transition: all .2s;
+      margin-top: 16px;
+      width: 100%;
+    }
+
+    .proto-button:hover {
+      background: #a83820;
+    }
+
+    .info-section {
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 32px;
+      margin-bottom: 32px;
+    }
+
+    .info-section h2 {
+      font-size: 20px;
+      font-weight: 700;
+      margin-bottom: 16px;
+    }
+
+    .info-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 20px;
+    }
+
+    .info-item {
+      padding: 16px;
+      background: var(--bg);
+      border-radius: 8px;
+    }
+
+    .info-item-title {
+      font-weight: 600;
+      margin-bottom: 8px;
+      font-size: 14px;
+    }
+
+    .info-item-text {
+      font-size: 13px;
+      color: var(--text-light);
+      line-height: 1.5;
+    }
+
+    .flow-diagram {
+      background: var(--bg);
+      padding: 24px;
+      border-radius: var(--radius);
+      margin-top: 16px;
+      font-size: 13px;
+      color: var(--text-light);
+      line-height: 1.8;
+      font-family: 'Courier New', monospace;
+    }
+
+    @media (max-width: 768px) {
+      .header h1 { font-size: 32px; }
+      .prototypes-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <h1>Rachann's <em>Project</em></h1>
+      <p>Design Management System</p>
+      <p class="subtitle">Interactive Prototype</p>
+    </div>
+
+    <div class="prototypes-grid">
+      <!-- CLIENT MOBILE -->
+      <a href="rachann-mobile.html" class="proto-card mobile">
+        <div class="proto-icon">📱</div>
+        <div class="proto-content">
+          <div class="proto-title">Client Mobile App</div>
+          <div class="proto-desc">
+            Interface untuk klien mengelola pesanan, milestone, dan pembayaran melalui aplikasi mobile.
+          </div>
+          <ul class="proto-features">
+            <li>Kelola pesanan & milestone</li>
+            <li>Tracking pembayaran</li>
+            <li>Approval & revisi</li>
+            <li>Chat dengan designer</li>
+          </ul>
+          <button class="proto-button">Buka App →</button>
+        </div>
+      </a>
+
+      <!-- DESIGNER MOBILE -->
+      <a href="rachann-mobile.html" class="proto-card mobile">
+        <div class="proto-icon">✏️</div>
+        <div class="proto-content">
+          <div class="proto-title">Designer Mobile App</div>
+          <div class="proto-desc">
+            Interface untuk designer menerima task, upload karya, dan mengelola revisi melalui mobile.
+          </div>
+          <ul class="proto-features">
+            <li>Kelola pekerjaan & milestone</li>
+            <li>Upload & manage revisi</li>
+            <li>Chat dengan klien & admin</li>
+            <li>Tracking kuota revisi</li>
+          </ul>
+          <button class="proto-button">Buka App →</button>
+        </div>
+      </a>
+
+      <!-- ADMIN WEB -->
+      <a href="rachann-admin.html" class="proto-card admin">
+        <div class="proto-icon">⚙️</div>
+        <div class="proto-content">
+          <div class="proto-title">Admin Dashboard</div>
+          <div class="proto-desc">
+            Dashboard web untuk admin mengelola seluruh sistem: pesanan, milestone, pembayaran, dan verifikasi.
+          </div>
+          <ul class="proto-features">
+            <li>Dashboard & statistik</li>
+            <li>Verifikasi pembayaran</li>
+            <li>Manage milestone & approval</li>
+            <li>Kelola designer & klien</li>
+          </ul>
+          <button class="proto-button">Buka Dashboard →</button>
+        </div>
+      </a>
+    </div>
+
+    <!-- ALUR SISTEM -->
+    <div class="info-section">
+      <h2>🔄 Alur Sistem Utama</h2>
+      
+      <div class="info-grid">
+        <div class="info-item">
+          <div class="info-item-title">1. Klien Membuat Pesanan</div>
+          <div class="info-item-text">Klien upload brief, tentukan harga estimasi, max revisi, dan deadline</div>
+        </div>
+        <div class="info-item">
+          <div class="info-item-title">2. Pembayaran DP</div>
+          <div class="info-item-text">Klien bayar DP (biasanya 50%), admin verifikasi pembayaran</div>
+        </div>
+        <div class="info-item">
+          <div class="info-item-title">3. Admin Setup Project</div>
+          <div class="info-item-text">Admin assign designer, buat milestone template, project status = active</div>
+        </div>
+        <div class="info-item">
+          <div class="info-item-title">4. Designer Upload Desain</div>
+          <div class="info-item-text">Designer upload file untuk setiap milestone, status berubah ke "Review"</div>
+        </div>
+        <div class="info-item">
+          <div class="info-item-title">5. Admin Send Preview</div>
+          <div class="info-item-text">Admin review desain, lalu kirim notifikasi preview ke klien</div>
+        </div>
+        <div class="info-item">
+          <div class="info-item-title">6. Klien Review & Approve</div>
+          <div class="info-item-text">Klien bisa approve atau request revisi dengan catatan</div>
+        </div>
+      </div>
+
+      
+    </div>
+
+    <!-- FITUR MOBILE APPS -->
+    <div class="info-section">
+      <h2>📱 Fitur Mobile Apps (Client & Designer)</h2>
+      
+      <div class="info-grid">
+        <div class="info-item">
+          <div class="info-item-title">Home / Dashboard</div>
+          <div class="info-item-text">Tampilan order/pekerjaan aktif dengan progress bar dan status real-time</div>
+        </div>
+        <div class="info-item">
+          <div class="info-item-title">Milestone Management</div>
+          <div class="info-item-text">List milestone dengan sequence, deadline, status, dan progress tracking</div>
+        </div>
+        <div class="info-item">
+          <div class="info-item-title">Chat Feature</div>
+          <div class="info-item-text">Direct messaging dengan klien/designer/admin dalam satu platform</div>
+        </div>
+        <div class="info-item">
+          <div class="info-item-title">Payment Tracking</div>
+          <div class="info-item-text">View invoice, due date, status pembayaran (klien app only)</div>
+        </div>
+        <div class="info-item">
+          <div class="info-item-title">Revision Management</div>
+          <div class="info-item-text">Track revisi kuota, history catatan revisi (designer app only)</div>
+        </div>
+        <div class="info-item">
+          <div class="info-item-title">Profile & Stats</div>
+          <div class="info-item-text">Profil pengguna, statistik pesanan/pekerjaan, rating/review</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- FITUR ADMIN WEB -->
+    <div class="info-section">
+      <h2>⚙️ Fitur Admin Dashboard</h2>
+      
+      <div class="info-grid">
+        <div class="info-item">
+          <div class="info-item-title">Dashboard Overview</div>
+          <div class="info-item-text">Stats: pesanan aktif, pendapatan, milestone pending, designer aktif</div>
+        </div>
+        <div class="info-item">
+          <div class="info-item-title">Order Management</div>
+          <div class="info-item-text">List semua pesanan, track status, assign designer, create project</div>
+        </div>
+        <div class="info-item">
+          <div class="info-item-title">Payment Verification</div>
+          <div class="info-item-text">Verifikasi bukti pembayaran, generate invoice, track payment status</div>
+        </div>
+        <div class="info-item">
+          <div class="info-item-title">Milestone Approval</div>
+          <div class="info-item-text">Review desain dari designer, send preview ke klien, manage revisi</div>
+        </div>
+        <div class="info-item">
+          <div class="info-item-title">Resource Management</div>
+          <div class="info-item-text">Manage designer & klien, view statistics, performance tracking</div>
+        </div>
+        <div class="info-item">
+          <div class="info-item-title">Reports & Analytics</div>
+          <div class="info-item-text">Monthly reports, revenue analysis, satisfaction rate, repeat customer rate</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="info-section" style="background: linear-gradient(135deg, rgba(200,75,47,.05) 0%, rgba(45,106,79,.05) 100%); border-color: var(--primary); text-align: center;">
+      <h2 style="margin-bottom: 24px;">🎯 Prototype Interaktif Siap Digunakan</h2>
+      <p style="color: var(--text-light); margin-bottom: 24px;">
+        Klik salah satu card di atas untuk membuka prototype interaktif sesuai role Anda.
+        <br>Setiap prototype menampilkan alur kerja lengkap berdasarkan diagram sequence yang sudah dibuat.
+      </p>
+      <p style="color: var(--text-light); font-size: 12px;">
+        <strong>Note:</strong> Semua fitur interaktif, navigasi antar page berfungsi dengan baik.
+        Database tidak digunakan karena ini adalah prototype UI/UX, namun alur sistemnya mengikuti diagram yang ada.
+      </p>
+    </div>
+  </div>
+</body>
+</html>

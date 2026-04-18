@@ -1,0 +1,1249 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>Rachann's Project — Mobile App</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #F7F6F3;
+  --bg2: #FFFFFF;
+  --bg3: #EFEDE9;
+  --bg4: #E5E2DC;
+  --surface: #FFFFFF;
+  --border: #E8E5DF;
+  --border2: #D6D2CA;
+  --text: #18181B;
+  --text2: #52525B;
+  --text3: #A1A1AA;
+  --accent: #D4501E;
+  --accent2: #F5A574;
+  --accent-dim: rgba(212,80,30,.1);
+  --green: #16A34A;
+  --green-dim: rgba(22,163,74,.1);
+  --yellow: #CA8A04;
+  --yellow-dim: rgba(202,138,4,.1);
+  --blue: #2563EB;
+  --blue-dim: rgba(37,99,235,.1);
+  --red: #DC2626;
+  --red-dim: rgba(220,38,38,.1);
+  --purple: #7C3AED;
+  --purple-dim: rgba(124,58,237,.1);
+  --radius: 14px;
+  --radius-sm: 8px;
+  --radius-xl: 20px;
+  --font: 'Plus Jakarta Sans', sans-serif;
+  --font-mono: 'Space Mono', monospace;
+  --nav-h: 68px;
+  --topbar-h: 60px;
+  --shadow: 0 2px 12px rgba(0,0,0,.06);
+  --shadow-lg: 0 8px 32px rgba(0,0,0,.12);
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%;overflow:hidden;font-family:var(--font);-webkit-font-smoothing:antialiased;background:#2a2a2e}
+button{font-family:inherit;cursor:pointer;border:none;outline:none;-webkit-tap-highlight-color:transparent}
+input,textarea,select{font-family:inherit;outline:none;border:none}
+::-webkit-scrollbar{width:3px}
+::-webkit-scrollbar-thumb{background:var(--border2);border-radius:99px}
+
+/* ===== DEMO SHELL ===== */
+.demo-shell {
+  width:100%;height:100vh;
+  display:flex;align-items:center;justify-content:center;
+  background:#1c1c20;gap:20px;flex-wrap:wrap;padding:16px;overflow-y:auto;
+}
+.demo-label {
+  font-family:var(--font-mono);font-size:11px;color:#666;
+  text-transform:uppercase;letter-spacing:.1em;margin-bottom:8px;text-align:center;
+}
+.phone-wrap{display:flex;flex-direction:column;align-items:center}
+
+/* ===== PHONE FRAME ===== */
+.phone {
+  width:375px;height:780px;
+  background:var(--bg);
+  border-radius:40px;
+  overflow:hidden;
+  position:relative;
+  border:2px solid #333;
+  box-shadow:0 0 0 6px #111, 0 30px 60px rgba(0,0,0,.6);
+  display:flex;flex-direction:column;
+}
+.phone-notch {
+  position:absolute;top:0;left:50%;transform:translateX(-50%);
+  width:120px;height:32px;background:#111;border-radius:0 0 20px 20px;
+  z-index:200;
+}
+.phone-screen {
+  flex:1;display:flex;flex-direction:column;
+  padding-top:36px;overflow:hidden;
+}
+
+/* ===== STATUS BAR ===== */
+.status-bar {
+  height:28px;display:flex;align-items:center;justify-content:space-between;
+  padding:0 24px;flex-shrink:0;
+}
+.sb-time{font-size:12px;font-weight:700;color:var(--text)}
+.sb-icons{display:flex;gap:5px;align-items:center;font-size:11px;color:var(--text)}
+
+/* ===== TOPBAR ===== */
+.topbar {
+  height:var(--topbar-h);display:flex;align-items:center;
+  padding:0 20px;gap:12px;flex-shrink:0;
+  background:var(--bg2);border-bottom:1px solid var(--border);
+}
+.topbar-back{
+  width:36px;height:36px;border-radius:10px;background:var(--bg3);
+  display:flex;align-items:center;justify-content:center;
+  font-size:16px;cursor:pointer;flex-shrink:0;
+}
+.topbar-title{flex:1;font-size:16px;font-weight:700;color:var(--text)}
+.topbar-sub{font-size:11px;color:var(--text3);margin-top:1px;font-family:var(--font-mono)}
+.topbar-action{
+  width:36px;height:36px;border-radius:10px;background:var(--bg3);
+  display:flex;align-items:center;justify-content:center;font-size:16px;cursor:pointer;
+  position:relative;
+}
+.notif-dot-sm{position:absolute;top:7px;right:7px;width:7px;height:7px;border-radius:50%;background:var(--accent);border:1.5px solid var(--bg2)}
+
+/* ===== SCROLLABLE CONTENT ===== */
+.screen-content{flex:1;overflow-y:auto;overflow-x:hidden}
+.screen-content.pad{padding:16px}
+.screen-content.no-pad{padding:0}
+
+/* ===== BOTTOM NAV ===== */
+.bottom-nav {
+  height:var(--nav-h);display:flex;align-items:center;
+  background:var(--bg2);border-top:1px solid var(--border);
+  padding:0 8px;padding-bottom:8px;flex-shrink:0;
+}
+.bn-item {
+  flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;
+  gap:3px;cursor:pointer;padding:6px 4px;border-radius:10px;
+  transition:background .15s;position:relative;
+}
+.bn-item:active{background:var(--bg3)}
+.bn-item.active .bn-icon{color:var(--accent)}
+.bn-item.active .bn-label{color:var(--accent);font-weight:700}
+.bn-icon{font-size:20px;color:var(--text3);line-height:1}
+.bn-label{font-size:9px;font-weight:600;color:var(--text3);letter-spacing:.02em;text-transform:uppercase}
+.bn-badge{
+  position:absolute;top:4px;right:calc(50% - 18px);
+  background:var(--accent);color:#fff;
+  font-size:9px;font-weight:700;font-family:var(--font-mono);
+  padding:1px 5px;border-radius:99px;min-width:16px;text-align:center;
+}
+
+/* ===== HERO CARD ===== */
+.hero-card {
+  margin:16px;border-radius:var(--radius-xl);
+  background:linear-gradient(135deg, #1a1a1f 0%, #2d2d35 100%);
+  padding:20px;color:#fff;position:relative;overflow:hidden;
+}
+.hero-card::after{
+  content:'';position:absolute;top:-30px;right:-30px;
+  width:120px;height:120px;border-radius:50%;
+  background:rgba(212,80,30,.2);
+}
+.hero-card::before{
+  content:'';position:absolute;bottom:-40px;right:40px;
+  width:80px;height:80px;border-radius:50%;
+  background:rgba(212,80,30,.1);
+}
+.hc-label{font-size:10px;font-family:var(--font-mono);letter-spacing:.1em;opacity:.5;text-transform:uppercase;margin-bottom:4px}
+.hc-name{font-size:20px;font-weight:800;line-height:1.1;position:relative;z-index:1}
+.hc-role{font-size:11px;opacity:.5;margin-top:3px;font-family:var(--font-mono)}
+.hc-stats{display:flex;gap:16px;margin-top:16px;padding-top:14px;border-top:1px solid rgba(255,255,255,.1);position:relative;z-index:1}
+.hc-stat-val{font-size:20px;font-weight:800}
+.hc-stat-label{font-size:10px;opacity:.5;font-family:var(--font-mono);text-transform:uppercase}
+
+/* ===== SECTION TITLE ===== */
+.sec-title{font-size:15px;font-weight:700;color:var(--text);margin-bottom:12px;padding:0 16px}
+.sec-title-row{display:flex;align-items:center;justify-content:space-between;padding:0 16px;margin-bottom:12px}
+.sec-title-row .title{font-size:15px;font-weight:700;color:var(--text)}
+.sec-title-row .link{font-size:12px;color:var(--accent);font-weight:600}
+
+/* ===== CARDS ===== */
+.card {
+  background:var(--bg2);border-radius:var(--radius);
+  box-shadow:var(--shadow);margin:0 16px;
+  border:1px solid var(--border);overflow:hidden;
+}
+.card+.card{margin-top:12px}
+.card-inner{padding:16px}
+
+/* ===== PROJECT CARD ===== */
+.proj-card {
+  background:var(--bg2);border-radius:var(--radius);
+  border:1px solid var(--border);padding:14px;
+  margin:0 16px 10px;box-shadow:var(--shadow);
+}
+.pc-hd{display:flex;align-items:flex-start;justify-content:space-between;gap:8px;margin-bottom:10px}
+.pc-title{font-size:14px;font-weight:700;color:var(--text);flex:1}
+.pc-sub{font-size:11px;color:var(--text3);font-family:var(--font-mono);margin-top:2px}
+.pc-progress{margin-bottom:10px}
+.pc-prog-label{display:flex;justify-content:space-between;font-size:11px;color:var(--text3);margin-bottom:5px}
+.prog-track{background:var(--bg3);border-radius:99px;height:5px;overflow:hidden}
+.prog-fill{height:100%;border-radius:99px;background:var(--accent)}
+.prog-fill.g{background:var(--green)}
+.pc-milestones{display:flex;gap:4px}
+.pc-ms-dot{flex:1;height:4px;border-radius:99px;background:var(--bg3)}
+.pc-ms-dot.done{background:var(--green)}
+.pc-ms-dot.active{background:var(--accent)}
+.pc-ms-dot.revision{background:var(--yellow)}
+
+/* ===== MILESTONE STEPS ===== */
+.ms-steps{padding:0 16px}
+.ms-step{
+  display:flex;gap:12px;padding-bottom:20px;
+  position:relative;
+}
+.ms-step::before{
+  content:'';position:absolute;left:17px;top:34px;bottom:0;
+  width:2px;background:var(--border);
+}
+.ms-step:last-child::before{display:none}
+.ms-step-dot{
+  width:34px;height:34px;border-radius:10px;flex-shrink:0;
+  display:flex;align-items:center;justify-content:center;
+  font-size:13px;font-weight:700;font-family:var(--font-mono);
+  position:relative;z-index:1;border:2px solid transparent;
+}
+.ms-step-dot.done{background:var(--green-dim);color:var(--green);border-color:rgba(22,163,74,.3)}
+.ms-step-dot.active{background:var(--accent-dim);color:var(--accent);border-color:rgba(212,80,30,.3)}
+.ms-step-dot.revision{background:var(--yellow-dim);color:var(--yellow);border-color:rgba(202,138,4,.3)}
+.ms-step-dot.review{background:var(--blue-dim);color:var(--blue);border-color:rgba(37,99,235,.3)}
+.ms-step-dot.todo{background:var(--bg3);color:var(--text3);border-color:var(--border)}
+.ms-step-content{flex:1;padding-top:5px}
+.ms-step-title{font-size:13px;font-weight:700;color:var(--text)}
+.ms-step-sub{font-size:11px;color:var(--text3);margin-top:2px;line-height:1.4}
+.ms-step-dead{font-size:10px;color:var(--text3);font-family:var(--font-mono);margin-top:4px}
+.ms-step-dead.ov{color:var(--red)}
+.ms-step-actions{display:flex;gap:6px;margin-top:8px}
+
+/* ===== BADGES ===== */
+.badge{
+  display:inline-flex;align-items:center;gap:3px;
+  padding:3px 7px;border-radius:99px;font-size:10px;font-weight:700;
+  font-family:var(--font-mono);text-transform:uppercase;letter-spacing:.03em;
+}
+.badge::before{content:'';width:5px;height:5px;border-radius:50%;background:currentColor;flex-shrink:0}
+.b-todo{background:var(--bg3);color:var(--text3)}
+.b-inprog{background:var(--blue-dim);color:var(--blue)}
+.b-review{background:var(--yellow-dim);color:var(--yellow)}
+.b-done{background:var(--green-dim);color:var(--green)}
+.b-revision{background:var(--accent-dim);color:var(--accent)}
+.b-pending{background:var(--yellow-dim);color:var(--yellow)}
+.b-verified{background:var(--green-dim);color:var(--green)}
+.b-addon{background:var(--purple-dim);color:var(--purple)}
+
+/* ===== BUTTONS ===== */
+.btn {
+  display:inline-flex;align-items:center;justify-content:center;gap:6px;
+  padding:11px 18px;border-radius:10px;font-size:13px;font-weight:700;
+  cursor:pointer;transition:all .15s;-webkit-tap-highlight-color:transparent;
+}
+.btn-primary{background:var(--accent);color:#fff}
+.btn-primary:active{background:#b84018}
+.btn-outline{background:transparent;color:var(--text2);border:1.5px solid var(--border2)}
+.btn-outline:active{background:var(--bg3)}
+.btn-green{background:var(--green-dim);color:var(--green);border:1.5px solid rgba(22,163,74,.2)}
+.btn-danger{background:var(--red-dim);color:var(--red);border:1.5px solid rgba(220,38,38,.2)}
+.btn-sm{padding:7px 13px;font-size:12px}
+.btn-full{width:100%;display:flex}
+
+/* ===== ALERT / BANNER ===== */
+.alert{
+  display:flex;gap:10px;padding:12px 14px;
+  border-radius:10px;font-size:12px;line-height:1.5;
+  margin:0 16px 12px;
+}
+.alert-warn{background:var(--yellow-dim);color:var(--yellow);border:1px solid rgba(202,138,4,.2)}
+.alert-danger{background:var(--red-dim);color:var(--red);border:1px solid rgba(220,38,38,.2)}
+.alert-info{background:var(--blue-dim);color:var(--blue);border:1px solid rgba(37,99,235,.2)}
+.alert-success{background:var(--green-dim);color:var(--green);border:1px solid rgba(22,163,74,.2)}
+.alert-ico{flex-shrink:0;font-size:14px;margin-top:1px}
+
+/* ===== CHAT ===== */
+.chat-bg{background:var(--bg3);padding:12px}
+.chat-day{text-align:center;font-size:10px;color:var(--text3);font-family:var(--font-mono);margin:8px 0}
+.cmsg{display:flex;gap:8px;margin-bottom:10px}
+.cmsg.mine{flex-direction:row-reverse}
+.cmsg.mine .cbubble{background:var(--accent);color:#fff;border-radius:16px 16px 4px 16px}
+.cmsg-av{
+  width:28px;height:28px;border-radius:8px;flex-shrink:0;
+  display:flex;align-items:center;justify-content:center;
+  font-size:10px;font-weight:700;font-family:var(--font-mono);
+}
+.av-client{background:var(--blue);color:#fff}
+.av-designer{background:var(--green);color:#fff}
+.av-admin{background:var(--accent);color:#fff}
+.cbubble{
+  background:var(--bg2);border:1px solid var(--border);
+  border-radius:4px 16px 16px 16px;
+  padding:9px 12px;font-size:12px;line-height:1.5;color:var(--text2);
+  max-width:220px;
+}
+.cmeta{font-size:9px;color:var(--text3);font-family:var(--font-mono);margin-top:3px}
+.cmsg.mine .cmeta{text-align:right}
+.sys-chip{
+  text-align:center;margin:6px 0;
+  font-size:10px;font-family:var(--font-mono);
+  background:var(--bg2);border:1px solid var(--border);
+  border-radius:99px;padding:4px 12px;display:inline-block;
+  margin:6px auto;display:block;width:fit-content;margin-left:auto;margin-right:auto;
+}
+.sys-chip.danger{background:var(--red-dim);border-color:rgba(220,38,38,.2);color:var(--red)}
+.sys-chip.warn{background:var(--yellow-dim);border-color:rgba(202,138,4,.2);color:var(--yellow)}
+.chat-input-row{
+  display:flex;gap:8px;padding:10px 14px;
+  background:var(--bg2);border-top:1px solid var(--border);
+}
+.chat-input{
+  flex:1;background:var(--bg3);border-radius:20px;padding:9px 14px;
+  font-size:13px;color:var(--text);border:1px solid var(--border);
+}
+.chat-send{
+  width:38px;height:38px;border-radius:50%;background:var(--accent);
+  color:#fff;display:flex;align-items:center;justify-content:center;font-size:16px;
+}
+
+/* ===== REVISION METER ===== */
+.rev-bar{
+  display:flex;align-items:center;gap:10px;
+  padding:12px 14px;background:var(--bg3);border-radius:10px;
+  border:1px solid var(--border);margin:0 16px 12px;
+}
+.rb-dots{display:flex;gap:5px}
+.rb-dot{width:12px;height:12px;border-radius:3px;background:var(--bg4)}
+.rb-dot.used{background:var(--accent)}
+.rb-dot.last{background:var(--red)}
+.rb-label{flex:1;font-size:12px;color:var(--text2)}
+.rb-count{font-size:12px;font-weight:700;font-family:var(--font-mono)}
+
+/* ===== FILE CARD ===== */
+.file-card{
+  background:var(--bg3);border:1px solid var(--border);
+  border-radius:12px;padding:16px;text-align:center;
+  position:relative;overflow:hidden;margin:0 16px 12px;
+}
+.fc-wm{
+  position:absolute;top:50%;left:50%;transform:translate(-50%,-50%) rotate(-25deg);
+  font-size:1.4rem;font-weight:800;color:rgba(212,80,30,.1);
+  white-space:nowrap;pointer-events:none;letter-spacing:.08em;
+}
+.fc-icon{font-size:2rem;opacity:.3;margin-bottom:6px}
+.fc-name{font-size:13px;font-weight:600;color:var(--text)}
+.fc-lock{font-size:11px;color:var(--yellow);margin-top:4px;font-family:var(--font-mono)}
+.fc-free{font-size:11px;color:var(--green);margin-top:4px;font-family:var(--font-mono)}
+
+/* ===== INVOICE ===== */
+.inv-card{border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;margin:0 16px 12px}
+.inv-hd{padding:12px 14px;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid var(--border)}
+.inv-hd.dark{background:#1a1a1f;color:#fff}
+.inv-hd.green{background:var(--green);color:#fff}
+.inv-hd.gray{background:var(--text3);color:#fff}
+.inv-body{padding:4px 0}
+.inv-row{display:flex;justify-content:space-between;padding:8px 14px;font-size:12px;border-bottom:1px solid var(--border)}
+.inv-row:last-child{border:none}
+.inv-k{color:var(--text3)}
+.inv-v{font-weight:600;color:var(--text)}
+.inv-total{background:var(--bg3);display:flex;justify-content:space-between;padding:12px 14px;font-weight:700;font-size:13px}
+.inv-amount{color:var(--accent);font-size:15px}
+
+/* ===== UPLOAD ZONE ===== */
+.upload-zone{
+  border:2px dashed var(--border2);border-radius:12px;
+  padding:24px;text-align:center;cursor:pointer;
+  transition:all .2s;margin:0 16px 12px;background:var(--bg3);
+}
+.upload-zone:active{border-color:var(--accent);background:var(--accent-dim)}
+.uz-icon{font-size:2rem;opacity:.3;margin-bottom:8px}
+.uz-text{font-size:12px;color:var(--text3)}
+.uz-text strong{color:var(--accent)}
+
+/* ===== FORM ===== */
+.form-group{margin:0 16px 14px}
+.form-label{display:block;font-size:11px;font-weight:700;color:var(--text3);font-family:var(--font-mono);text-transform:uppercase;letter-spacing:.07em;margin-bottom:6px}
+.form-control{
+  width:100%;background:var(--bg3);border:1.5px solid var(--border);
+  border-radius:10px;padding:12px 14px;font-size:14px;color:var(--text);
+  transition:all .15s;
+}
+.form-control:focus{border-color:var(--accent);background:var(--bg2);box-shadow:0 0 0 3px var(--accent-dim)}
+textarea.form-control{resize:none}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:0 16px 14px}
+.form-row .form-group{margin:0}
+
+/* ===== ESTIMATION BOX ===== */
+.est-box{
+  background:var(--bg3);border:1.5px solid var(--border);
+  border-radius:12px;padding:14px;margin:0 16px 14px;
+}
+.est-row{display:flex;justify-content:space-between;align-items:center;padding:5px 0;font-size:12px;border-bottom:1px solid var(--border)}
+.est-row:last-child{border:none}
+.est-k{color:var(--text3)}
+.est-v{font-weight:700;color:var(--text)}
+
+/* ===== RATING STARS ===== */
+.stars{display:flex;gap:4px;font-size:22px}
+.star{color:var(--bg4);cursor:pointer;transition:color .1s}
+.star.active{color:#FBBF24}
+
+/* ===== SECTION CARD ===== */
+.section-card{margin:0 16px 12px;background:var(--bg2);border-radius:var(--radius);border:1px solid var(--border);box-shadow:var(--shadow)}
+.sc-header{display:flex;align-items:center;justify-content:space-between;padding:14px 14px 12px}
+.sc-title{font-size:14px;font-weight:700;color:var(--text)}
+.sc-body{padding:0 14px 14px}
+
+/* ===== STAT ROW ===== */
+.stat-row{display:flex;gap:10px;padding:0 16px;margin-bottom:12px}
+.stat-box{
+  flex:1;background:var(--bg2);border:1px solid var(--border);
+  border-radius:12px;padding:12px 10px;text-align:center;
+  box-shadow:var(--shadow);
+}
+.stat-v{font-size:22px;font-weight:800;color:var(--text);line-height:1}
+.stat-l{font-size:9px;color:var(--text3);font-family:var(--font-mono);text-transform:uppercase;letter-spacing:.06em;margin-top:3px}
+
+/* ===== DIVIDER ===== */
+.div{height:1px;background:var(--border);margin:0 16px 14px}
+
+/* ===== CHIP ===== */
+.chip{display:inline-flex;align-items:center;gap:5px;padding:4px 10px;border-radius:99px;font-size:11px;font-weight:600;font-family:var(--font-mono)}
+
+/* ===== TOAST ===== */
+.toast-wrap{position:fixed;bottom:86px;left:50%;transform:translateX(-50%);z-index:999;pointer-events:none}
+#toast{
+  background:#1a1a1f;color:#fff;padding:10px 18px;
+  border-radius:20px;font-size:12px;font-weight:600;
+  opacity:0;transform:translateY(20px);
+  transition:all .25s;white-space:nowrap;font-family:var(--font-mono);
+}
+#toast.show{opacity:1;transform:translateY(0)}
+
+/* ===== SHEET ===== */
+.sheet-overlay{
+  position:absolute;inset:0;background:rgba(0,0,0,.4);
+  z-index:500;opacity:0;pointer-events:none;transition:opacity .25s;
+}
+.sheet-overlay.open{opacity:1;pointer-events:all}
+.sheet{
+  position:absolute;bottom:0;left:0;right:0;
+  background:var(--bg2);border-radius:24px 24px 0 0;
+  padding:0 0 20px;
+  transform:translateY(100%);transition:transform .3s cubic-bezier(.32,0,.67,0);
+  z-index:501;max-height:85%;overflow-y:auto;
+}
+.sheet-overlay.open .sheet{transform:translateY(0)}
+.sheet-handle{width:36px;height:4px;border-radius:99px;background:var(--bg4);margin:12px auto 16px}
+.sheet-title{font-size:16px;font-weight:800;padding:0 20px 14px;color:var(--text);border-bottom:1px solid var(--border)}
+.sheet-body{padding:16px 0 0}
+</style>
+</head>
+<body>
+
+<div class="demo-shell">
+
+<!-- ===================== KLIEN PHONE ===================== -->
+<div class="phone-wrap">
+  <div class="demo-label">📱 Klien — Portal Pesanan</div>
+  <div class="phone" id="phone-client">
+    <div class="phone-notch"></div>
+    <div class="phone-screen">
+      <div class="status-bar">
+        <span class="sb-time">09:41</span>
+        <span class="sb-icons">📶 WiFi 🔋</span>
+      </div>
+
+      <!-- TOPBAR CLIENT -->
+      <div class="topbar" id="tb-client">
+        <div style="flex:1">
+          <div class="topbar-title" id="client-topbar-title">Halo, Ahmad 👋</div>
+          <div class="topbar-sub" id="client-topbar-sub">Rachann's Project</div>
+        </div>
+        <div class="topbar-action" onclick="clientNavTo('notif')"><span>🔔</span><div class="notif-dot-sm"></div></div>
+      </div>
+
+      <!-- SCREEN WRAPPER -->
+      <div class="screen-content" id="client-screen">
+        <!-- screens populated by JS -->
+      </div>
+
+      <!-- BOTTOM NAV CLIENT -->
+      <div class="bottom-nav">
+        <div class="bn-item active" id="cbn-home" onclick="clientNavTo('home')">
+          <div class="bn-icon">🏠</div><div class="bn-label">Beranda</div>
+        </div>
+        <div class="bn-item" id="cbn-order" onclick="clientNavTo('order')">
+          <div class="bn-icon">✏️</div><div class="bn-label">Pesan</div>
+        </div>
+        <div class="bn-item" id="cbn-payment" onclick="clientNavTo('payment')">
+          <div class="bn-icon">💳</div><div class="bn-label">Bayar</div>
+          <div class="bn-badge">1</div>
+        </div>
+        <div class="bn-item" id="cbn-chat" onclick="clientNavTo('chat')">
+          <div class="bn-icon">💬</div><div class="bn-label">Chat</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ===================== DESAINER PHONE ===================== -->
+<div class="phone-wrap">
+  <div class="demo-label">📱 Desainer — Workspace</div>
+  <div class="phone" id="phone-designer">
+    <div class="phone-notch"></div>
+    <div class="phone-screen">
+      <div class="status-bar">
+        <span class="sb-time">09:41</span>
+        <span class="sb-icons">📶 WiFi 🔋</span>
+      </div>
+
+      <!-- TOPBAR DESIGNER -->
+      <div class="topbar" id="tb-designer">
+        <div style="flex:1">
+          <div class="topbar-title" id="designer-topbar-title">Workspace</div>
+          <div class="topbar-sub" id="designer-topbar-sub">Andi Saputra · Desainer</div>
+        </div>
+        <div class="topbar-action" onclick="designerNavTo('d-notif')"><span>🔔</span><div class="notif-dot-sm"></div></div>
+      </div>
+
+      <div class="screen-content" id="designer-screen">
+        <!-- populated by JS -->
+      </div>
+
+      <div class="bottom-nav">
+        <div class="bn-item active" id="dbn-home" onclick="designerNavTo('d-home')">
+          <div class="bn-icon">🎨</div><div class="bn-label">Workspace</div>
+        </div>
+        <div class="bn-item" id="dbn-milestone" onclick="designerNavTo('d-milestone')">
+          <div class="bn-icon">🔷</div><div class="bn-label">Milestone</div>
+          <div class="bn-badge">3</div>
+        </div>
+        <div class="bn-item" id="dbn-chat" onclick="designerNavTo('d-chat')">
+          <div class="bn-icon">💬</div><div class="bn-label">Chat</div>
+        </div>
+        <div class="bn-item" id="dbn-profile" onclick="designerNavTo('d-profile')">
+          <div class="bn-icon">👤</div><div class="bn-label">Profil</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+</div><!-- /demo-shell -->
+
+<!-- Shared toast -->
+<div class="toast-wrap"><div id="toast"></div></div>
+
+<script>
+// ===================== CLIENT SCREENS =====================
+const clientScreens = {
+
+'home': `
+<div class="screen-content pad" style="padding:0;padding-bottom:8px">
+  <div class="hero-card">
+    <div class="hc-label">Proyek Aktif</div>
+    <div class="hc-name">Branding Kit CV Nusantara</div>
+    <div class="hc-role">PRJ-001 · Dibuat 12 Jan 2025</div>
+    <div class="hc-stats">
+      <div><div class="hc-stat-val">60%</div><div class="hc-stat-label">Progress</div></div>
+      <div><div class="hc-stat-val">3/5</div><div class="hc-stat-label">Milestone</div></div>
+      <div><div class="hc-stat-val">8</div><div class="hc-stat-label">Hari Lagi</div></div>
+    </div>
+  </div>
+
+  <div class="alert alert-danger" style="margin-top:4px">
+    <span class="alert-ico">⚠️</span>
+    <div><strong>Kuota revisi habis</strong> pada Milestone "Desain Logo" (3/3). Tersedia invoice add-on. <span style="text-decoration:underline;font-weight:700;cursor:pointer" onclick="clientNavTo('payment')">Bayar sekarang →</span></div>
+  </div>
+
+  <div class="sec-title" style="margin-top:4px">Progress Milestone</div>
+
+  <!-- Progress steps -->
+  <div class="ms-steps">
+    <div class="ms-step">
+      <div class="ms-step-dot done">✓</div>
+      <div class="ms-step-content">
+        <div class="ms-step-title">Brief & Riset Brand</div>
+        <div class="ms-step-sub">Selesai & disetujui — 15 Jan 2025</div>
+        <div style="margin-top:6px"><span class="badge b-done">Done</span></div>
+      </div>
+    </div>
+    <div class="ms-step">
+      <div class="ms-step-dot revision">!</div>
+      <div class="ms-step-content">
+        <div class="ms-step-title">Desain Logo</div>
+        <div class="ms-step-sub">Kuota revisi habis (3/3). Menunggu pembayaran add-on.</div>
+        <div style="margin-top:6px;display:flex;gap:6px"><span class="badge b-revision">Revision</span><span class="badge" style="background:var(--red-dim);color:var(--red)">⚠️ Kuota Habis</span></div>
+        <div class="ms-step-actions"><button class="btn btn-outline btn-sm" onclick="clientNavTo('chat')">💬 Chat</button><button class="btn btn-outline btn-sm" onclick="clientNavTo('payment')">💳 Add-on</button></div>
+      </div>
+    </div>
+    <div class="ms-step">
+      <div class="ms-step-dot active">→</div>
+      <div class="ms-step-content">
+        <div class="ms-step-title">Visual Identity System</div>
+        <div class="ms-step-sub">Sedang dikerjakan desainer.</div>
+        <div style="margin-top:6px"><span class="badge b-inprog">In Progress</span></div>
+      </div>
+    </div>
+    <div class="ms-step">
+      <div class="ms-step-dot todo">4</div>
+      <div class="ms-step-content">
+        <div class="ms-step-title">Collateral Desain</div>
+        <div class="ms-step-sub">Belum dimulai · Deadline 27 Jan</div>
+        <div style="margin-top:6px"><span class="badge b-todo">To-Do</span></div>
+      </div>
+    </div>
+    <div class="ms-step">
+      <div class="ms-step-dot todo">5</div>
+      <div class="ms-step-content">
+        <div class="ms-step-title">Brand Guideline PDF</div>
+        <div class="ms-step-sub">Belum dimulai · Deadline 28 Jan</div>
+        <div style="margin-top:6px"><span class="badge b-todo">To-Do</span></div>
+      </div>
+    </div>
+  </div>
+</div>
+`,
+
+'review-milestone': `
+<div style="padding-bottom:8px">
+  <div style="padding:0 16px;margin:14px 0 10px">
+    <button class="btn btn-outline btn-sm" onclick="clientNavTo('home')">← Kembali</button>
+  </div>
+  <div class="sec-title">Milestone 3: Visual Identity</div>
+
+  <div class="alert alert-info">
+    <span class="alert-ico">👁</span>
+    <div>File desain sudah diunggah. Silakan tinjau dan berikan persetujuan atau minta revisi.</div>
+  </div>
+
+  <div class="rev-bar">
+    <div class="rb-dots"><div class="rb-dot"></div><div class="rb-dot"></div></div>
+    <div class="rb-label">Sisa revisi: <strong>2 dari 2</strong></div>
+    <div class="rb-count">2/2</div>
+  </div>
+
+  <div class="file-card">
+    <div class="fc-wm">RACHANN'S PROJECT</div>
+    <div class="fc-icon">🎨</div>
+    <div class="fc-name">visual-identity-v1.pdf</div>
+    <div class="fc-lock">🔒 Preview dengan watermark — unduh setelah pelunasan</div>
+  </div>
+
+  <div style="padding:0 16px 12px;font-size:12px;color:var(--text2);line-height:1.6">Desainer telah mengunggah Visual Identity System versi pertama. Tinjau file di atas dan putuskan apakah sudah sesuai atau perlu revisi.</div>
+
+  <div style="padding:0 16px;display:flex;flex-direction:column;gap:8px">
+    <button class="btn btn-green btn-full" onclick="clientNavTo('approve-confirm')">✓ Setujui Milestone</button>
+    <button class="btn btn-danger btn-full" onclick="clientNavTo('request-revision')">🔁 Minta Revisi</button>
+    <button class="btn btn-outline btn-full" onclick="clientNavTo('chat')">💬 Diskusi via Chat</button>
+  </div>
+</div>
+`,
+
+'approve-confirm': `
+<div style="padding:0 16px 20px">
+  <div style="margin:14px 0 16px"><button class="btn btn-outline btn-sm" onclick="clientNavTo('review-milestone')">← Kembali</button></div>
+  <div style="font-size:18px;font-weight:800;margin-bottom:6px">Konfirmasi Persetujuan</div>
+  <div style="font-size:13px;color:var(--text3);margin-bottom:20px">Milestone 3: Visual Identity System</div>
+
+  <div class="alert alert-warn">
+    <span class="alert-ico">⚠️</span>
+    <div>Setelah menyetujui, proses dilanjutkan ke milestone berikutnya. <strong>Persetujuan ini tidak dapat dibatalkan.</strong></div>
+  </div>
+
+  <div class="form-group" style="margin-left:0;margin-right:0">
+    <label class="form-label">Catatan (opsional)</label>
+    <textarea class="form-control" rows="3" placeholder="Tambahkan catatan jika ada..."></textarea>
+  </div>
+
+  <div style="background:var(--green-dim);border:1px solid rgba(22,163,74,.2);border-radius:12px;padding:14px;margin-bottom:16px;font-size:12px;color:var(--green)">
+    ✓ Dengan menyetujui, Anda menyatakan hasil desain <strong>sudah sesuai</strong> dan proses dapat berlanjut ke Milestone 4.
+  </div>
+
+  <button class="btn btn-green btn-full" onclick="showToast('✓ Milestone disetujui!');clientNavTo('home')">✓ Konfirmasi Setujui</button>
+</div>
+`,
+
+'request-revision': `
+<div style="padding:0 16px 20px">
+  <div style="margin:14px 0 16px"><button class="btn btn-outline btn-sm" onclick="clientNavTo('review-milestone')">← Kembali</button></div>
+  <div style="font-size:18px;font-weight:800;margin-bottom:6px">Minta Revisi</div>
+  <div style="font-size:13px;color:var(--text3);margin-bottom:16px">Milestone 3: Visual Identity System</div>
+
+  <div class="rev-bar">
+    <div class="rb-dots"><div class="rb-dot used"></div><div class="rb-dot"></div></div>
+    <div class="rb-label">Setelah ini tersisa <strong>1 revisi</strong></div>
+    <div class="rb-count" style="color:var(--yellow)">1/2</div>
+  </div>
+
+  <div class="alert alert-warn" style="margin-bottom:14px">
+    <span class="alert-ico">⚠️</span>
+    <div>Permintaan revisi ini akan mengurangi kuota. Jika kuota habis, revisi berikutnya dikenakan biaya tambahan.</div>
+  </div>
+
+  <div class="form-group" style="margin-left:0;margin-right:0">
+    <label class="form-label">Catatan Revisi *</label>
+    <textarea class="form-control" rows="5" placeholder="Jelaskan dengan detail apa yang perlu diubah. Semakin spesifik, semakin cepat revisi selesai..."></textarea>
+  </div>
+
+  <button class="btn btn-primary btn-full" onclick="showToast('Permintaan revisi dikirim!');clientNavTo('home')">Kirim Permintaan Revisi</button>
+</div>
+`,
+
+'order': `
+<div style="padding-bottom:20px">
+  <div style="padding:0 16px;margin:14px 0 4px">
+    <div style="font-size:20px;font-weight:800;color:var(--text)">Pesan Jasa Desain</div>
+    <div style="font-size:12px;color:var(--text3)">Isi formulir berikut dengan lengkap</div>
+  </div>
+
+  <div style="margin:16px 16px 0">
+    <label class="form-label">Kategori Layanan</label>
+    <select class="form-control" onchange="updateClientEst(this)">
+      <option value="">Pilih layanan...</option>
+      <option value="branding">🎨 Branding Kit — mulai Rp 2.500.000</option>
+      <option value="website">🖥 Website Design (UI/UX) — mulai Rp 3.000.000</option>
+      <option value="social">📱 Social Media Kit — mulai Rp 800.000</option>
+      <option value="graphic">✏️ Desain Grafis Umum — mulai Rp 500.000</option>
+    </select>
+  </div>
+
+  <div style="height:14px"></div>
+  <div style="margin:0 16px"><label class="form-label">Nama Proyek / Bisnis</label><input type="text" class="form-control" placeholder="cth: Branding CV Nusantara"></div>
+  <div style="height:14px"></div>
+  <div class="form-row" style="margin-left:16px;margin-right:16px">
+    <div><label class="form-label">Jenis Bisnis</label><select class="form-control"><option>UMKM / Toko</option><option>Startup</option><option>Korporat</option><option>Personal Brand</option></select></div>
+    <div><label class="form-label">Target Selesai</label><input type="date" class="form-control"></div>
+  </div>
+  <div style="margin:0 16px"><label class="form-label">Brief Desain</label><textarea class="form-control" rows="4" placeholder="Ceritakan visi desain Anda: brand personality, target audiens, referensi warna, dll."></textarea></div>
+  <div style="height:14px"></div>
+
+  <div id="client-est-box" style="display:none">
+    <div style="padding:0 16px;margin-bottom:8px;font-size:13px;font-weight:700;color:var(--text)">📋 Estimasi & Kesepakatan</div>
+    <div class="est-box" style="margin-left:16px;margin-right:16px">
+      <div class="est-row"><span class="est-k">Harga Estimasi</span><span class="est-v" id="ce-price">—</span></div>
+      <div class="est-row"><span class="est-k">Down Payment (50%)</span><span class="est-v" id="ce-dp">—</span></div>
+      <div class="est-row"><span class="est-k">Estimasi Selesai</span><span class="est-v" id="ce-time">—</span></div>
+      <div class="est-row"><span class="est-k">Batas Revisi / MS</span><span class="est-v" id="ce-rev">—</span></div>
+    </div>
+    <div style="margin:0 16px 14px">
+      <div style="background:var(--bg3);border:1px solid var(--border);border-radius:10px;padding:12px;margin-bottom:12px">
+        <div style="font-size:11px;font-weight:700;color:var(--text3);font-family:var(--font-mono);margin-bottom:6px">MILESTONE YANG DIKERJAKAN:</div>
+        <div id="ce-milestones" style="font-size:12px;color:var(--text2);line-height:2"></div>
+      </div>
+      <label style="display:flex;gap:8px;align-items:flex-start;font-size:12px;color:var(--text2)">
+        <input type="checkbox" style="margin-top:3px;accent-color:var(--accent);flex-shrink:0">
+        Saya menyetujui estimasi harga, timeline, dan <strong>batas revisi</strong>. Revisi melebihi kuota dikenakan biaya tambahan.
+      </label>
+    </div>
+    <div style="padding:0 16px"><button class="btn btn-primary btn-full" onclick="showToast('Pesanan berhasil diajukan!');clientNavTo('home')">Ajukan Pesanan →</button></div>
+  </div>
+</div>
+`,
+
+'payment': `
+<div style="padding-bottom:20px">
+  <div style="padding:16px 16px 0">
+    <div style="font-size:18px;font-weight:800;color:var(--text)">Pembayaran</div>
+    <div style="font-size:12px;color:var(--text3)">Invoice & riwayat</div>
+  </div>
+
+  <div class="alert alert-danger" style="margin-top:12px">
+    <span class="alert-ico">🔔</span>
+    <div><strong>1 invoice add-on revisi</strong> perlu dibayar untuk melanjutkan revisi.</div>
+  </div>
+
+  <!-- Invoice add-on -->
+  <div style="padding:0 16px 8px;font-size:12px;font-weight:700;color:var(--text)">📌 Invoice Aktif</div>
+  <div class="inv-card">
+    <div class="inv-hd dark">
+      <div><div style="font-size:10px;opacity:.5;font-family:var(--font-mono)">Add-on Revisi</div><div style="font-weight:800;font-family:var(--font-mono)">INV-2025-017</div></div>
+      <span class="badge b-pending">Belum Bayar</span>
+    </div>
+    <div class="inv-body">
+      <div class="inv-row"><span class="inv-k">Proyek</span><span class="inv-v">Branding Kit CV Nusantara</span></div>
+      <div class="inv-row"><span class="inv-k">Milestone</span><span class="inv-v">Desain Logo (MS-2)</span></div>
+      <div class="inv-row"><span class="inv-k">Deskripsi</span><span class="inv-v">1x slot revisi tambahan</span></div>
+      <div class="inv-row"><span class="inv-k">Jatuh Tempo</span><span class="inv-v" style="color:var(--red)">25 Jan 2025</span></div>
+    </div>
+    <div class="inv-total"><span>Total</span><span class="inv-amount">Rp 150.000</span></div>
+  </div>
+  <div style="padding:0 16px;margin-bottom:16px">
+    <button class="btn btn-primary btn-full" onclick="clientNavTo('upload-bukti')">📤 Upload Bukti Pembayaran</button>
+  </div>
+
+  <!-- Invoice DP (done) -->
+  <div style="padding:0 16px 8px;font-size:12px;font-weight:700;color:var(--text)">Riwayat Pembayaran</div>
+  <div class="inv-card">
+    <div class="inv-hd green">
+      <div><div style="font-size:10px;opacity:.7;font-family:var(--font-mono)">Down Payment (50%)</div><div style="font-weight:800;font-family:var(--font-mono)">INV-2025-015</div></div>
+      <span class="badge" style="background:rgba(255,255,255,.2);color:#fff">✓ Lunas</span>
+    </div>
+    <div class="inv-body">
+      <div class="inv-row"><span class="inv-k">Jumlah</span><span class="inv-v">Rp 1.750.000</span></div>
+      <div class="inv-row"><span class="inv-k">Dibayar</span><span class="inv-v">12 Jan 2025</span></div>
+    </div>
+  </div>
+
+  <!-- Pelunasan locked -->
+  <div class="inv-card" style="opacity:.6">
+    <div class="inv-hd gray">
+      <div><div style="font-size:10px;opacity:.7;font-family:var(--font-mono)">Pelunasan (50%)</div><div style="font-weight:800;font-family:var(--font-mono)">INV-2025-016</div></div>
+      <span class="badge" style="background:rgba(255,255,255,.15);color:#fff">🔒 Terkunci</span>
+    </div>
+    <div class="inv-body">
+      <div class="inv-row"><span class="inv-k">Jumlah</span><span class="inv-v">Rp 1.750.000</span></div>
+      <div class="inv-row"><span class="inv-k">Tersedia</span><span class="inv-v">Setelah semua MS selesai</span></div>
+    </div>
+  </div>
+</div>
+`,
+
+'upload-bukti': `
+<div style="padding:0 16px 20px">
+  <div style="margin:14px 0 16px"><button class="btn btn-outline btn-sm" onclick="clientNavTo('payment')">← Kembali</button></div>
+  <div style="font-size:18px;font-weight:800;margin-bottom:4px">Upload Bukti Pembayaran</div>
+  <div style="font-size:12px;color:var(--text3);margin-bottom:16px;font-family:var(--font-mono)">INV-2025-017 · Rp 150.000</div>
+
+  <div class="upload-zone" style="margin-left:0;margin-right:0;margin-bottom:14px">
+    <div class="uz-icon">📸</div>
+    <div class="uz-text"><strong>Tap untuk upload</strong><br>Screenshot bukti transfer (PNG/JPG)</div>
+  </div>
+
+  <div style="margin-bottom:14px">
+    <label class="form-label">Keterangan (opsional)</label>
+    <input type="text" class="form-control" placeholder="cth: Transfer via BCA mobile, ref: xxxx">
+  </div>
+
+  <button class="btn btn-primary btn-full" onclick="showToast('Bukti dikirim! Admin akan verifikasi segera.');clientNavTo('payment')">Kirim Bukti</button>
+</div>
+`,
+
+'chat': `
+<div style="display:flex;flex-direction:column;height:100%">
+  <div style="padding:10px 16px;border-bottom:1px solid var(--border);font-size:12px;color:var(--text3);background:var(--bg2)">💬 Chat Milestone 2 — Desain Logo &nbsp;·&nbsp; <span style="font-family:var(--font-mono)">Semua percakapan terdokumentasi</span></div>
+  <div class="chat-bg" style="flex:1;overflow-y:auto">
+    <div class="chat-day">19 Januari 2025</div>
+    <div class="cmsg mine"><div class="cmsg-av av-client">AH</div><div><div class="cbubble">Halo, tolong warna logonya diganti ke earthy tone yang lebih hangat, seperti terracotta.</div><div class="cmeta">Anda · 14:22</div></div></div>
+    <div class="cmsg"><div class="cmsg-av av-designer">AS</div><div><div class="cbubble">Siap Pak Ahmad, akan saya revisi. Untuk referensi warna spesifik?</div><div class="cmeta">Andi (Desainer) · 14:35</div></div></div>
+    <div class="cmsg mine"><div class="cmsg-av av-client">AH</div><div><div class="cbubble">Seperti #C17B5A atau yang serupa. Dan bentuk ikonnya mau lebih geometris.</div><div class="cmeta">Anda · 15:10</div></div></div>
+    <div class="sys-chip danger">⛔ Sistem: Kuota revisi mencapai batas (3/3)</div>
+    <div class="chat-day">20 Januari 2025</div>
+    <div class="cmsg mine"><div class="cmsg-av av-client">AH</div><div><div class="cbubble">Saya masih mau minta satu revisi lagi untuk penempatan tagline-nya.</div><div class="cmeta">Anda · 09:00</div></div></div>
+    <div class="cmsg"><div class="cmsg-av av-admin">AD</div><div><div class="cbubble">Selamat pagi Pak Ahmad. Kuota revisi sudah mencapai batas (3x). Kami dapat membuka slot tambahan dengan biaya Rp 150.000/revisi. Apakah berminat?</div><div class="cmeta">Admin · 09:15</div></div></div>
+    <div class="cmsg mine"><div class="cmsg-av av-client">AH</div><div><div class="cbubble">Oke, saya setuju add-on revisi tersebut.</div><div class="cmeta">Anda · 09:30</div></div></div>
+    <div class="sys-chip warn">📤 Invoice add-on diterbitkan · Rp 150.000</div>
+  </div>
+  <div class="chat-input-row">
+    <input class="chat-input" placeholder="Tulis pesan..." id="client-chat-input">
+    <button class="chat-send" onclick="clientSendChat()">→</button>
+  </div>
+</div>
+`,
+
+'notif': `
+<div style="padding-bottom:20px">
+  <div style="padding:14px 16px 12px;border-bottom:1px solid var(--border)">
+    <div style="font-size:18px;font-weight:800">Notifikasi</div>
+  </div>
+  <div style="padding:0 16px;margin-top:12px;display:flex;flex-direction:column;gap:10px">
+    <div style="display:flex;gap:12px;padding:12px;background:var(--accent-dim);border:1px solid rgba(212,80,30,.15);border-radius:12px;cursor:pointer" onclick="clientNavTo('payment')">
+      <div style="font-size:20px">⚠️</div>
+      <div><div style="font-size:13px;font-weight:600;color:var(--text)">Invoice Add-on Revisi</div><div style="font-size:11px;color:var(--text3);margin-top:2px">INV-2025-017 · Rp 150.000 · Jatuh tempo 25 Jan</div><div style="font-size:10px;color:var(--text3);font-family:var(--font-mono);margin-top:3px">5 menit lalu</div></div>
+    </div>
+    <div style="display:flex;gap:12px;padding:12px;background:var(--bg2);border:1px solid var(--border);border-radius:12px">
+      <div style="font-size:20px">🔔</div>
+      <div><div style="font-size:13px;font-weight:600;color:var(--text)">File desain diunggah</div><div style="font-size:11px;color:var(--text3);margin-top:2px">Andi mengunggah visual-identity-v1 di Milestone 3</div><div style="font-size:10px;color:var(--text3);font-family:var(--font-mono);margin-top:3px">2 jam lalu</div></div>
+    </div>
+    <div style="display:flex;gap:12px;padding:12px;background:var(--bg2);border:1px solid var(--border);border-radius:12px">
+      <div style="font-size:20px">✅</div>
+      <div><div style="font-size:13px;font-weight:600;color:var(--text)">Proyek dimulai!</div><div style="font-size:11px;color:var(--text3);margin-top:2px">Admin telah memverifikasi DP Anda. Proyek PRJ-001 resmi berjalan.</div><div style="font-size:10px;color:var(--text3);font-family:var(--font-mono);margin-top:3px">10 hari lalu</div></div>
+    </div>
+  </div>
+</div>
+`,
+
+};
+
+// ===================== DESIGNER SCREENS =====================
+const designerScreens = {
+
+'d-home': `
+<div style="padding-bottom:8px">
+  <div class="hero-card" style="background:linear-gradient(135deg,#0f2027,#203a43,#2c5364)">
+    <div class="hc-label">Halo, Desainer 👋</div>
+    <div class="hc-name">Andi Saputra</div>
+    <div class="hc-role">Graphic Designer · Rachann's Project</div>
+    <div class="hc-stats">
+      <div><div class="hc-stat-val">3</div><div class="hc-stat-label">Aktif</div></div>
+      <div><div class="hc-stat-val">1</div><div class="hc-stat-label">Revisi</div></div>
+      <div><div class="hc-stat-val">8</div><div class="hc-stat-label">Selesai</div></div>
+    </div>
+  </div>
+
+  <div class="alert alert-warn">
+    <span class="alert-ico">🔁</span>
+    <div><strong>Milestone "Desain Logo"</strong> — Revisi diminta klien. Menunggu unlock add-on dari Admin.</div>
+  </div>
+
+  <div class="sec-title-row">
+    <div class="title">Milestone Aktif</div>
+    <div class="link" onclick="designerNavTo('d-milestone')">Lihat Semua</div>
+  </div>
+
+  <!-- Milestone cards -->
+  <div class="proj-card" style="border-left:3px solid var(--accent)">
+    <div class="pc-hd"><div><div class="pc-title">Desain Logo</div><div class="pc-sub">PRJ-001 · CV Nusantara</div></div><span class="badge b-revision">Revision</span></div>
+    <div class="alert alert-warn" style="margin:0 0 10px">
+      <span class="alert-ico">⛔</span>
+      <div style="font-size:11px">Kuota revisi habis (3/3). Tunggu unlock add-on dari Admin sebelum melanjutkan.</div>
+    </div>
+    <div style="display:flex;gap:6px"><button class="btn btn-outline btn-sm" onclick="designerNavTo('d-chat')">💬 Lihat Chat</button></div>
+  </div>
+
+  <div class="proj-card" style="margin-top:0;border-left:3px solid var(--blue)">
+    <div class="pc-hd"><div><div class="pc-title">Visual Identity System</div><div class="pc-sub">PRJ-001 · CV Nusantara</div></div><span class="badge b-inprog">In Progress</span></div>
+    <div class="pc-progress">
+      <div class="pc-prog-label"><span>Progress pengerjaan</span><span style="color:var(--red);font-family:var(--font-mono)">Deadline besok!</span></div>
+      <div class="prog-track"><div class="prog-fill" style="width:65%"></div></div>
+    </div>
+    <div style="display:flex;gap:6px"><button class="btn btn-primary btn-sm" onclick="designerNavTo('d-upload')">↑ Upload File</button><button class="btn btn-outline btn-sm" onclick="designerNavTo('d-status')">Ubah Status</button></div>
+  </div>
+
+  <div class="proj-card" style="margin-top:0;border-left:3px solid var(--yellow)">
+    <div class="pc-hd"><div><div class="pc-title">Wireframe Website</div><div class="pc-sub">PRJ-002 · Toko Mawar</div></div><span class="badge b-review">Review</span></div>
+    <div class="alert alert-info" style="margin:0 0 10px">
+      <span class="alert-ico">👁</span>
+      <div style="font-size:11px">Menunggu persetujuan klien. File sudah diunggah. Revisi: 1/2</div>
+    </div>
+    <div style="display:flex;gap:6px"><button class="btn btn-outline btn-sm" onclick="designerNavTo('d-chat')">💬 Chat</button></div>
+  </div>
+</div>
+`,
+
+'d-milestone': `
+<div style="padding-bottom:20px">
+  <div style="padding:14px 16px 4px;font-size:18px;font-weight:800">Milestone Saya</div>
+
+  <div class="ms-steps" style="margin-top:12px">
+    <div class="ms-step">
+      <div class="ms-step-dot revision">!</div>
+      <div class="ms-step-content">
+        <div class="ms-step-title">Desain Logo</div>
+        <div class="ms-step-sub">PRJ-001 · CV Nusantara</div>
+        <div style="margin:6px 0"><span class="badge b-revision">Revision Requested</span></div>
+        <div style="background:var(--yellow-dim);border:1px solid rgba(202,138,4,.2);border-radius:8px;padding:8px 10px;font-size:11px;color:var(--yellow);margin-bottom:8px">⏳ Menunggu Admin unlock add-on revisi (3/3 habis)</div>
+        <div class="ms-step-actions"><button class="btn btn-outline btn-sm" onclick="designerNavTo('d-chat')">💬 Lihat Chat</button></div>
+      </div>
+    </div>
+
+    <div class="ms-step">
+      <div class="ms-step-dot active">→</div>
+      <div class="ms-step-content">
+        <div class="ms-step-title">Visual Identity System</div>
+        <div class="ms-step-sub">PRJ-001 · Deadline besok!</div>
+        <div style="margin:6px 0"><span class="badge b-inprog">In Progress</span></div>
+        <div style="font-size:11px;color:var(--text3);font-family:var(--font-mono);margin-bottom:8px">Revisi: 0/2 · Deadline: 25 Jan</div>
+        <div class="ms-step-actions">
+          <button class="btn btn-primary btn-sm" onclick="designerNavTo('d-upload')">↑ Upload</button>
+          <button class="btn btn-outline btn-sm" onclick="designerNavTo('d-status')">Status</button>
+          <button class="btn btn-outline btn-sm" onclick="designerNavTo('d-chat')">💬</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="ms-step">
+      <div class="ms-step-dot review">?</div>
+      <div class="ms-step-content">
+        <div class="ms-step-title">Wireframe Website</div>
+        <div class="ms-step-sub">PRJ-002 · Toko Mawar</div>
+        <div style="margin:6px 0"><span class="badge b-review">Review</span></div>
+        <div style="font-size:11px;color:var(--text3);font-family:var(--font-mono);margin-bottom:8px">Revisi: 1/2 · Menunggu approval klien</div>
+        <div class="ms-step-actions"><button class="btn btn-outline btn-sm" onclick="designerNavTo('d-chat')">💬 Chat</button></div>
+      </div>
+    </div>
+
+    <div class="ms-step">
+      <div class="ms-step-dot done">✓</div>
+      <div class="ms-step-content">
+        <div class="ms-step-title">Brief & Riset Brand</div>
+        <div class="ms-step-sub">PRJ-001 · Selesai 15 Jan</div>
+        <div style="margin-top:6px"><span class="badge b-done">Done</span></div>
+      </div>
+    </div>
+  </div>
+</div>
+`,
+
+'d-upload': `
+<div style="padding:0 16px 20px">
+  <div style="margin:14px 0 16px"><button class="btn btn-outline btn-sm" onclick="designerNavTo('d-home')">← Kembali</button></div>
+  <div style="font-size:18px;font-weight:800;margin-bottom:4px">Upload File Desain</div>
+  <div style="font-size:12px;color:var(--text3);margin-bottom:16px">Milestone 3: Visual Identity System</div>
+
+  <div class="alert alert-info" style="margin-left:0;margin-right:0;margin-bottom:14px">
+    <span class="alert-ico">ℹ️</span>
+    <div>File akan otomatis diberi <strong>watermark</strong> saat ditampilkan ke klien hingga pelunasan terverifikasi.</div>
+  </div>
+
+  <div class="upload-zone" style="margin-left:0;margin-right:0;margin-bottom:14px">
+    <div class="uz-icon">📎</div>
+    <div class="uz-text"><strong>Tap untuk pilih file</strong><br>PDF, PNG, AI, PSD, Figma · Max 50MB</div>
+  </div>
+
+  <div style="margin-bottom:14px">
+    <label class="form-label">Catatan untuk Klien</label>
+    <textarea class="form-control" rows="3" placeholder="Jelaskan apa yang berubah pada versi ini..."></textarea>
+  </div>
+
+  <div style="margin-bottom:14px">
+    <label class="form-label">Nomor Versi</label>
+    <input type="text" class="form-control" value="v1" placeholder="cth: v1, v2, v2-final">
+  </div>
+
+  <button class="btn btn-primary btn-full" onclick="showToast('File berhasil diunggah!');designerNavTo('d-home')">↑ Upload & Ubah Status ke Review</button>
+</div>
+`,
+
+'d-status': `
+<div style="padding:0 16px 20px">
+  <div style="margin:14px 0 16px"><button class="btn btn-outline btn-sm" onclick="designerNavTo('d-home')">← Kembali</button></div>
+  <div style="font-size:18px;font-weight:800;margin-bottom:4px">Ubah Status Milestone</div>
+  <div style="font-size:12px;color:var(--text3);margin-bottom:16px">Milestone 3: Visual Identity System · PRJ-001</div>
+
+  <div style="display:flex;flex-direction:column;gap:10px;margin-bottom:20px">
+    <div style="border:1.5px solid var(--border);border-radius:12px;padding:14px;display:flex;align-items:center;gap:12px;opacity:.5">
+      <div style="width:36px;height:36px;border-radius:8px;background:var(--bg3);display:flex;align-items:center;justify-content:center;font-size:16px">📋</div>
+      <div><div style="font-size:13px;font-weight:700">To-Do</div><div style="font-size:11px;color:var(--text3)">Milestone belum dimulai</div></div>
+    </div>
+    <div style="border:1.5px solid var(--accent);border-radius:12px;padding:14px;display:flex;align-items:center;gap:12px;background:var(--accent-dim)">
+      <div style="width:36px;height:36px;border-radius:8px;background:var(--accent);display:flex;align-items:center;justify-content:center;font-size:16px">⚡</div>
+      <div style="flex:1"><div style="font-size:13px;font-weight:700;color:var(--accent)">In Progress ← Sekarang</div><div style="font-size:11px;color:var(--text3)">Sedang dikerjakan</div></div>
+      <div style="font-size:16px">✓</div>
+    </div>
+    <div onclick="showToast('Status diubah ke Review!');designerNavTo('d-home')" style="border:1.5px solid var(--border);border-radius:12px;padding:14px;display:flex;align-items:center;gap:12px;cursor:pointer;active:background:var(--bg3)">
+      <div style="width:36px;height:36px;border-radius:8px;background:var(--yellow-dim);display:flex;align-items:center;justify-content:center;font-size:16px">👁</div>
+      <div><div style="font-size:13px;font-weight:700">Review</div><div style="font-size:11px;color:var(--text3)">Submit hasil untuk ditinjau klien</div></div>
+    </div>
+    <div style="border:1.5px solid var(--border);border-radius:12px;padding:14px;display:flex;align-items:center;gap:12px;opacity:.4">
+      <div style="width:36px;height:36px;border-radius:8px;background:var(--green-dim);display:flex;align-items:center;justify-content:center;font-size:16px">✅</div>
+      <div><div style="font-size:13px;font-weight:700">Done</div><div style="font-size:11px;color:var(--text3)">Hanya Admin yang dapat konfirmasi</div></div>
+    </div>
+  </div>
+</div>
+`,
+
+'d-chat': `
+<div style="display:flex;flex-direction:column;height:100%">
+  <div style="padding:10px 16px;border-bottom:1px solid var(--border);background:var(--bg2)">
+    <div style="font-size:13px;font-weight:700">💬 Desain Logo · PRJ-001</div>
+    <div style="font-size:10px;color:var(--text3);font-family:var(--font-mono)">CV Nusantara · 3 peserta</div>
+  </div>
+  <div class="chat-bg" style="flex:1;overflow-y:auto">
+    <div class="chat-day">19 Januari 2025</div>
+    <div class="cmsg"><div class="cmsg-av av-client">AH</div><div><div class="cbubble">Halo, tolong warna logonya diganti ke earthy tone yang lebih hangat, seperti terracotta.</div><div class="cmeta">Ahmad (Klien) · 14:22</div></div></div>
+    <div class="cmsg mine"><div class="cmsg-av av-designer">AS</div><div><div class="cbubble">Siap Pak Ahmad! Untuk referensi warna spesifik yang dimaksud?</div><div class="cmeta">Anda · 14:35</div></div></div>
+    <div class="cmsg"><div class="cmsg-av av-client">AH</div><div><div class="cbubble">Seperti #C17B5A. Dan ikon mau lebih geometris.</div><div class="cmeta">Ahmad (Klien) · 15:10</div></div></div>
+    <div class="sys-chip danger">⛔ Kuota revisi habis (3/3)</div>
+    <div class="chat-day">20 Januari 2025</div>
+    <div class="cmsg"><div class="cmsg-av av-client">AH</div><div><div class="cbubble">Saya masih mau revisi penempatan tagline.</div><div class="cmeta">Ahmad (Klien) · 09:00</div></div></div>
+    <div class="cmsg"><div class="cmsg-av av-admin">AD</div><div><div class="cbubble">Pak Ahmad, kuota revisi sudah habis (3x). Kami tawarkan add-on slot Rp 150.000/revisi.</div><div class="cmeta">Admin · 09:15</div></div></div>
+    <div class="cmsg"><div class="cmsg-av av-client">AH</div><div><div class="cbubble">Setuju add-on revisi.</div><div class="cmeta">Ahmad (Klien) · 09:30</div></div></div>
+    <div class="sys-chip warn">⏳ Menunggu pembayaran add-on dari klien</div>
+  </div>
+  <div class="chat-input-row">
+    <input class="chat-input" placeholder="Pesan..." id="designer-chat-input">
+    <button class="chat-send" onclick="designerSendChat()">→</button>
+  </div>
+</div>
+`,
+
+'d-profile': `
+<div style="padding-bottom:20px">
+  <!-- Profile header -->
+  <div style="background:linear-gradient(135deg,#0f2027,#203a43);padding:24px 16px 20px;margin-bottom:0">
+    <div style="display:flex;align-items:center;gap:14px;margin-bottom:14px">
+      <div style="width:56px;height:56px;border-radius:14px;background:var(--green);color:#fff;display:flex;align-items:center;justify-content:center;font-size:20px;font-weight:800;font-family:var(--font-mono)">AS</div>
+      <div>
+        <div style="font-size:18px;font-weight:800;color:#fff">Andi Saputra</div>
+        <div style="font-size:11px;color:rgba(255,255,255,.5);font-family:var(--font-mono)">andi@rachann.id</div>
+        <div style="margin-top:4px"><span class="chip" style="background:rgba(22,163,74,.2);color:#4ade80;font-size:10px">● Desainer Aktif</span></div>
+      </div>
+    </div>
+    <div style="display:flex;gap:12px">
+      <div style="flex:1;background:rgba(255,255,255,.08);border-radius:10px;padding:10px;text-align:center"><div style="font-size:20px;font-weight:800;color:#fff">8</div><div style="font-size:10px;color:rgba(255,255,255,.4);font-family:var(--font-mono)">SELESAI</div></div>
+      <div style="flex:1;background:rgba(255,255,255,.08);border-radius:10px;padding:10px;text-align:center"><div style="font-size:20px;font-weight:800;color:#fff">3</div><div style="font-size:10px;color:rgba(255,255,255,.4);font-family:var(--font-mono)">AKTIF</div></div>
+      <div style="flex:1;background:rgba(255,255,255,.08);border-radius:10px;padding:10px;text-align:center"><div style="font-size:20px;font-weight:800;color:#FBBF24">4.9</div><div style="font-size:10px;color:rgba(255,255,255,.4);font-family:var(--font-mono)">RATING</div></div>
+    </div>
+  </div>
+
+  <div style="margin:14px 16px 0;font-size:13px;font-weight:700;color:var(--text)">Rating Terbaru</div>
+  <div class="section-card" style="margin-top:8px">
+    <div class="sc-body" style="padding:14px">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px">
+        <div style="font-size:13px;font-weight:600">Social Media Kit</div>
+        <div class="stars"><span class="star active">★</span><span class="star active">★</span><span class="star active">★</span><span class="star active">★</span><span class="star active">★</span></div>
+      </div>
+      <div style="font-size:12px;color:var(--text3)">"Hasilnya melebihi ekspektasi! Desain sangat profesional dan sesuai brand." — Budi S.</div>
+    </div>
+  </div>
+
+  <div style="margin:14px 16px 0;font-size:13px;font-weight:700;color:var(--text)">Pengaturan Akun</div>
+  <div class="section-card" style="margin-top:8px">
+    <div style="padding:4px 0">
+      <div style="padding:13px 14px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;cursor:pointer"><span style="font-size:13px;color:var(--text)">Edit Profil</span><span style="color:var(--text3)">›</span></div>
+      <div style="padding:13px 14px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;cursor:pointer"><span style="font-size:13px;color:var(--text)">Ubah Password</span><span style="color:var(--text3)">›</span></div>
+      <div style="padding:13px 14px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;cursor:pointer"><span style="font-size:13px;color:var(--text)">Notifikasi Push</span><span style="background:var(--green);border-radius:99px;padding:2px 8px;font-size:10px;color:#fff;font-family:var(--font-mono)">ON</span></div>
+      <div style="padding:13px 14px;display:flex;align-items:center;justify-content:space-between;cursor:pointer"><span style="font-size:13px;color:var(--red)">Keluar</span><span style="color:var(--text3)">›</span></div>
+    </div>
+  </div>
+</div>
+`,
+
+'d-notif': `
+<div style="padding-bottom:20px">
+  <div style="padding:14px 16px 12px;border-bottom:1px solid var(--border)"><div style="font-size:18px;font-weight:800">Notifikasi</div></div>
+  <div style="padding:12px 16px;display:flex;flex-direction:column;gap:10px">
+    <div style="display:flex;gap:12px;padding:12px;background:var(--yellow-dim);border:1px solid rgba(202,138,4,.2);border-radius:12px">
+      <div style="font-size:20px">🔁</div>
+      <div><div style="font-size:13px;font-weight:600;color:var(--text)">Revisi Diminta</div><div style="font-size:11px;color:var(--text3);margin-top:2px">Klien Ahmad meminta revisi "Desain Logo" — tunggu unlock Admin</div><div style="font-size:10px;color:var(--text3);font-family:var(--font-mono);margin-top:3px">5m lalu</div></div>
+    </div>
+    <div style="display:flex;gap:12px;padding:12px;background:var(--bg2);border:1px solid var(--border);border-radius:12px">
+      <div style="font-size:20px">⏰</div>
+      <div><div style="font-size:13px;font-weight:600;color:var(--text)">Deadline Mendekati</div><div style="font-size:11px;color:var(--text3);margin-top:2px">Visual Identity System jatuh tempo besok, 25 Jan 2025</div><div style="font-size:10px;color:var(--text3);font-family:var(--font-mono);margin-top:3px">3 jam lalu</div></div>
+    </div>
+    <div style="display:flex;gap:12px;padding:12px;background:var(--bg2);border:1px solid var(--border);border-radius:12px">
+      <div style="font-size:20px">🎯</div>
+      <div><div style="font-size:13px;font-weight:600;color:var(--text)">Milestone Baru Ditugaskan</div><div style="font-size:11px;color:var(--text3);margin-top:2px">Anda ditugaskan ke Collateral Desain PRJ-001 oleh Admin</div><div style="font-size:10px;color:var(--text3);font-family:var(--font-mono);margin-top:3px">1 hari lalu</div></div>
+    </div>
+  </div>
+</div>
+`
+};
+
+// ===================== NAV STATE =====================
+let clientPage = 'home';
+let designerPage = 'd-home';
+
+function clientNavTo(page) {
+  clientPage = page;
+  const screen = document.getElementById('client-screen');
+  screen.innerHTML = clientScreens[page] || '';
+  screen.scrollTop = 0;
+
+  // Topbar titles
+  const titles = {
+    'home': ['Halo, Ahmad 👋', 'Rachann\'s Project'],
+    'review-milestone': ['Tinjau Milestone', 'MS-3 Visual Identity'],
+    'approve-confirm': ['Setujui Milestone', 'Konfirmasi persetujuan'],
+    'request-revision': ['Minta Revisi', 'Masukkan catatan revisi'],
+    'order': ['Pesan Jasa', 'Formulir pemesanan'],
+    'payment': ['Pembayaran', 'Invoice & riwayat'],
+    'upload-bukti': ['Upload Bukti', 'INV-2025-017'],
+    'chat': ['Chat', 'Milestone 2 — Desain Logo'],
+    'notif': ['Notifikasi', '2 notif belum dibaca'],
+  };
+  const t = titles[page] || ['—', ''];
+  document.getElementById('client-topbar-title').textContent = t[0];
+  document.getElementById('client-topbar-sub').textContent = t[1];
+
+  // Nav active
+  ['home','order','payment','chat'].forEach(id => {
+    const el = document.getElementById('cbn-' + id);
+    if (el) el.classList.toggle('active', page === id);
+  });
+}
+
+function designerNavTo(page) {
+  designerPage = page;
+  const screen = document.getElementById('designer-screen');
+  screen.innerHTML = designerScreens[page] || '';
+  screen.scrollTop = 0;
+
+  const titles = {
+    'd-home': ['Workspace', 'Andi Saputra · Desainer'],
+    'd-milestone': ['Milestone Saya', '3 aktif · 1 perlu tindakan'],
+    'd-upload': ['Upload File', 'MS-3 Visual Identity'],
+    'd-status': ['Ubah Status', 'MS-3 Visual Identity'],
+    'd-chat': ['Chat Milestone', 'Desain Logo · PRJ-001'],
+    'd-profile': ['Profil Saya', 'Andi Saputra'],
+    'd-notif': ['Notifikasi', '2 notif belum dibaca'],
+  };
+  const t = titles[page] || ['—', ''];
+  document.getElementById('designer-topbar-title').textContent = t[0];
+  document.getElementById('designer-topbar-sub').textContent = t[1];
+
+  ['home','milestone','chat','profile'].forEach(id => {
+    const el = document.getElementById('dbn-' + id);
+    if (el) el.classList.toggle('active', page === 'd-' + id);
+  });
+}
+
+// ===================== CHAT =====================
+function clientSendChat() {
+  const inp = document.getElementById('client-chat-input');
+  if (!inp || !inp.value.trim()) return;
+  const msgs = inp.closest('[style*="flex-direction:column"]').querySelector('.chat-bg');
+  const el = document.createElement('div');
+  el.className = 'cmsg mine';
+  el.innerHTML = `<div class="cmsg-av av-client">AH</div><div><div class="cbubble">${inp.value}</div><div class="cmeta">Anda · Baru saja</div></div>`;
+  msgs.appendChild(el);
+  inp.value = '';
+  msgs.scrollTop = msgs.scrollHeight;
+}
+
+function designerSendChat() {
+  const inp = document.getElementById('designer-chat-input');
+  if (!inp || !inp.value.trim()) return;
+  const msgs = inp.closest('[style*="flex-direction:column"]').querySelector('.chat-bg');
+  const el = document.createElement('div');
+  el.className = 'cmsg mine';
+  el.innerHTML = `<div class="cmsg-av av-designer">AS</div><div><div class="cbubble">${inp.value}</div><div class="cmeta">Anda · Baru saja</div></div>`;
+  msgs.appendChild(el);
+  inp.value = '';
+  msgs.scrollTop = msgs.scrollHeight;
+}
+
+// ===================== ESTIMATION =====================
+const estData = {
+  branding: { price:'Rp 3.000.000', dp:'Rp 1.500.000', time:'14–21 hari kerja', rev:'2x', ms:'1. Brief & Riset Brand<br>2. Desain Logo<br>3. Visual Identity System<br>4. Collateral Desain<br>5. Brand Guideline PDF' },
+  website:  { price:'Rp 4.500.000', dp:'Rp 2.250.000', time:'21–30 hari kerja', rev:'2x', ms:'1. Brief & Riset UX<br>2. Wireframe & Sitemap<br>3. Desain UI Desktop<br>4. Desain UI Mobile<br>5. Prototype Interaktif<br>6. Handoff Assets' },
+  social:   { price:'Rp 1.200.000', dp:'Rp 600.000',   time:'7–14 hari kerja',  rev:'2x', ms:'1. Brief & Moodboard<br>2. Template Feed<br>3. Template Story<br>4. Asset & Export Kit' },
+  graphic:  { price:'Rp 750.000',   dp:'Rp 375.000',   time:'5–10 hari kerja',  rev:'1x', ms:'1. Brief & Konsep<br>2. Eksekusi Desain<br>3. Revisi Final' },
+};
+
+function updateClientEst(sel) {
+  const d = estData[sel.value];
+  const box = document.getElementById('client-est-box');
+  if (!d || !box) return;
+  box.style.display = 'block';
+  document.getElementById('ce-price').textContent = d.price;
+  document.getElementById('ce-dp').textContent = d.dp;
+  document.getElementById('ce-time').textContent = d.time;
+  document.getElementById('ce-rev').textContent = d.rev;
+  document.getElementById('ce-milestones').innerHTML = d.ms;
+}
+
+// ===================== TOAST =====================
+let toastTimer;
+function showToast(msg) {
+  const el = document.getElementById('toast');
+  el.textContent = msg;
+  el.classList.add('show');
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => el.classList.remove('show'), 3000);
+}
+
+// ===================== INIT =====================
+clientNavTo('home');
+designerNavTo('d-home');
+</script>
+</body>
+</html>

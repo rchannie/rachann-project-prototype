@@ -1,0 +1,1144 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Rachann's Project — Admin Panel</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&family=Instrument+Sans:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #0e0e10;
+  --bg2: #16161a;
+  --bg3: #1e1e24;
+  --bg4: #26262e;
+  --border: #2e2e38;
+  --border2: #3a3a48;
+  --text: #f0eff4;
+  --text2: #a09fb8;
+  --text3: #5e5d72;
+  --accent: #e05c2e;
+  --accent2: #f5a26a;
+  --accent-dim: rgba(224,92,46,.12);
+  --green: #2ecc8e;
+  --green-dim: rgba(46,204,142,.1);
+  --yellow: #f0c040;
+  --yellow-dim: rgba(240,192,64,.1);
+  --blue: #4a9eff;
+  --blue-dim: rgba(74,158,255,.1);
+  --red: #e05252;
+  --red-dim: rgba(224,82,82,.1);
+  --purple: #9b6fff;
+  --purple-dim: rgba(155,111,255,.1);
+  --radius: 8px;
+  --radius-lg: 12px;
+  --sidebar-w: 228px;
+  --topbar-h: 52px;
+  --font-head: 'Syne', sans-serif;
+  --font-body: 'Instrument Sans', sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
+  --shadow: 0 2px 16px rgba(0,0,0,.4);
+  --shadow-lg: 0 8px 40px rgba(0,0,0,.6);
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{font-size:14px;color-scheme:dark}
+body{font-family:var(--font-body);background:var(--bg);color:var(--text);min-height:100vh;overflow:hidden;-webkit-font-smoothing:antialiased}
+button{font-family:inherit;cursor:pointer;border:none;outline:none}
+input,textarea,select{font-family:inherit;outline:none;border:none}
+::-webkit-scrollbar{width:4px;height:4px}
+::-webkit-scrollbar-track{background:transparent}
+::-webkit-scrollbar-thumb{background:var(--border2);border-radius:99px}
+
+/* ===== SHELL ===== */
+.shell{display:flex;height:100vh}
+
+/* ===== SIDEBAR ===== */
+.sidebar{
+  width:var(--sidebar-w);flex-shrink:0;
+  background:var(--bg2);
+  border-right:1px solid var(--border);
+  display:flex;flex-direction:column;
+  height:100vh;overflow:hidden;
+}
+.sb-logo{
+  padding:18px 18px 14px;
+  border-bottom:1px solid var(--border);
+}
+.sb-logo .brand{
+  font-family:var(--font-head);font-size:1.05rem;font-weight:800;
+  color:var(--text);letter-spacing:-.02em;line-height:1;
+}
+.sb-logo .brand em{color:var(--accent);font-style:normal}
+.sb-logo .sub{font-size:.68rem;color:var(--text3);margin-top:4px;font-family:var(--font-mono);letter-spacing:.06em;text-transform:uppercase}
+.sb-user{
+  display:flex;align-items:center;gap:10px;
+  padding:12px 16px;margin:10px 10px 0;
+  background:var(--bg3);border-radius:var(--radius);
+  border:1px solid var(--border);
+}
+.av{
+  width:30px;height:30px;border-radius:6px;
+  background:var(--accent);color:#fff;
+  font-family:var(--font-head);font-size:.75rem;font-weight:700;
+  display:flex;align-items:center;justify-content:center;flex-shrink:0;
+}
+.sb-uinfo .uname{font-size:.82rem;font-weight:600;color:var(--text)}
+.sb-uinfo .urole{font-size:.68rem;color:var(--text3);font-family:var(--font-mono)}
+.sb-nav{flex:1;padding:14px 10px;overflow-y:auto}
+.nav-sec{font-size:.6rem;text-transform:uppercase;letter-spacing:.12em;color:var(--text3);padding:12px 8px 6px;font-family:var(--font-mono)}
+.nav-item{
+  display:flex;align-items:center;gap:10px;
+  padding:8px 10px;border-radius:6px;
+  color:var(--text2);font-size:.85rem;font-weight:500;
+  cursor:pointer;transition:all .15s;margin-bottom:1px;
+  position:relative;
+}
+.nav-item:hover{background:var(--bg3);color:var(--text)}
+.nav-item.active{background:var(--accent-dim);color:var(--accent)}
+.nav-item.active::before{
+  content:'';position:absolute;left:0;top:20%;bottom:20%;
+  width:2px;border-radius:99px;background:var(--accent);
+}
+.nav-icon{font-size:.9rem;width:16px;text-align:center;flex-shrink:0}
+.nav-badge{
+  margin-left:auto;background:var(--accent);color:#fff;
+  font-size:.62rem;font-weight:700;padding:2px 6px;
+  border-radius:99px;font-family:var(--font-mono);min-width:18px;text-align:center;
+}
+.nav-badge.green{background:var(--green)}
+.nav-badge.yellow{background:var(--yellow);color:#000}
+.sb-footer{
+  padding:10px;border-top:1px solid var(--border);
+}
+.btn-logout{
+  width:100%;padding:8px;border-radius:6px;
+  background:transparent;color:var(--text3);font-size:.8rem;
+  text-align:left;display:flex;align-items:center;gap:8px;
+  transition:all .15s;
+}
+.btn-logout:hover{background:var(--red-dim);color:var(--red)}
+
+/* ===== MAIN ===== */
+.main{flex:1;display:flex;flex-direction:column;min-height:0;overflow:hidden}
+
+/* ===== TOPBAR ===== */
+.topbar{
+  height:var(--topbar-h);flex-shrink:0;
+  background:var(--bg2);border-bottom:1px solid var(--border);
+  display:flex;align-items:center;padding:0 22px;gap:14px;
+}
+.topbar-breadcrumb{flex:1;font-family:var(--font-mono);font-size:.75rem;color:var(--text3)}
+.topbar-breadcrumb span{color:var(--text2)}
+.topbar-actions{display:flex;align-items:center;gap:8px}
+.ib{
+  width:34px;height:34px;border-radius:6px;
+  background:var(--bg3);border:1px solid var(--border);
+  display:flex;align-items:center;justify-content:center;
+  font-size:.9rem;color:var(--text2);cursor:pointer;
+  transition:all .15s;position:relative;
+}
+.ib:hover{background:var(--bg4);color:var(--text);border-color:var(--border2)}
+.ib .dot{
+  position:absolute;top:6px;right:6px;
+  width:6px;height:6px;border-radius:50%;
+  background:var(--accent);border:1.5px solid var(--bg2);
+}
+
+/* ===== CONTENT AREA ===== */
+.content{flex:1;overflow-y:auto;padding:22px}
+.page{display:none;animation:fadeUp .2s ease}
+.page.active{display:block}
+@keyframes fadeUp{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+
+/* ===== CARDS ===== */
+.card{
+  background:var(--bg2);border:1px solid var(--border);
+  border-radius:var(--radius-lg);padding:18px;
+}
+.card+.card{margin-top:14px}
+
+/* ===== GRIDS ===== */
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.g3{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.g4{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+
+/* ===== STAT CARDS ===== */
+.stat{
+  background:var(--bg2);border:1px solid var(--border);
+  border-radius:var(--radius-lg);padding:16px 18px;
+  position:relative;overflow:hidden;
+}
+.stat::after{
+  content:'';position:absolute;top:0;left:0;right:0;height:2px;
+  background:var(--accent);
+}
+.stat.g{--accent:var(--green)}
+.stat.b{--accent:var(--blue)}
+.stat.y{--accent:var(--yellow)}
+.stat.p{--accent:var(--purple)}
+.stat-label{font-size:.7rem;color:var(--text3);font-family:var(--font-mono);text-transform:uppercase;letter-spacing:.07em;margin-bottom:6px}
+.stat-val{font-family:var(--font-head);font-size:1.9rem;font-weight:700;color:var(--text);line-height:1}
+.stat-sub{font-size:.72rem;color:var(--text3);margin-top:4px}
+.stat-ico{position:absolute;top:14px;right:14px;font-size:1.2rem;opacity:.2}
+
+/* ===== SECTION HEADER ===== */
+.sh{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px}
+.sh-title{font-family:var(--font-head);font-size:.95rem;font-weight:700;color:var(--text)}
+.sh-title small{font-size:.72rem;color:var(--text3);font-family:var(--font-mono);font-weight:400;margin-left:8px}
+
+/* ===== BUTTONS ===== */
+.btn{
+  display:inline-flex;align-items:center;gap:6px;
+  padding:8px 16px;border-radius:6px;font-size:.82rem;font-weight:600;
+  cursor:pointer;transition:all .15s;
+}
+.btn-primary{background:var(--accent);color:#fff}
+.btn-primary:hover{background:#c44e22}
+.btn-ghost{background:transparent;color:var(--text2);border:1px solid var(--border)}
+.btn-ghost:hover{background:var(--bg3);color:var(--text);border-color:var(--border2)}
+.btn-green{background:var(--green-dim);color:var(--green);border:1px solid rgba(46,204,142,.2)}
+.btn-green:hover{background:rgba(46,204,142,.2)}
+.btn-red{background:var(--red-dim);color:var(--red);border:1px solid rgba(224,82,82,.2)}
+.btn-sm{padding:5px 11px;font-size:.75rem}
+
+/* ===== BADGE ===== */
+.badge{
+  display:inline-flex;align-items:center;gap:4px;
+  padding:3px 8px;border-radius:99px;font-size:.68rem;font-weight:700;
+  font-family:var(--font-mono);text-transform:uppercase;letter-spacing:.04em;
+}
+.badge::before{content:'';width:5px;height:5px;border-radius:50%;background:currentColor;flex-shrink:0}
+.badge-todo{background:var(--bg4);color:var(--text3)}
+.badge-inprog{background:var(--blue-dim);color:var(--blue)}
+.badge-review{background:var(--yellow-dim);color:var(--yellow)}
+.badge-done{background:var(--green-dim);color:var(--green)}
+.badge-revision{background:var(--accent-dim);color:var(--accent)}
+.badge-pending{background:var(--yellow-dim);color:var(--yellow)}
+.badge-verified{background:var(--green-dim);color:var(--green)}
+.badge-rejected{background:var(--red-dim);color:var(--red)}
+.badge-active{background:var(--blue-dim);color:var(--blue)}
+.badge-addon{background:var(--purple-dim);color:var(--purple)}
+
+/* ===== TABLE ===== */
+.tbl-wrap{overflow-x:auto}
+table{width:100%;border-collapse:collapse}
+th{
+  font-size:.65rem;font-weight:600;text-transform:uppercase;
+  letter-spacing:.1em;color:var(--text3);font-family:var(--font-mono);
+  padding:9px 12px;text-align:left;
+  border-bottom:1px solid var(--border);white-space:nowrap;
+}
+td{
+  padding:11px 12px;font-size:.82rem;color:var(--text2);
+  border-bottom:1px solid var(--border);vertical-align:middle;
+}
+tr:last-child td{border-bottom:none}
+tr:hover td{background:var(--bg3)}
+.td-main{font-weight:600;color:var(--text);font-size:.85rem}
+.td-sub{font-size:.7rem;color:var(--text3);margin-top:2px;font-family:var(--font-mono)}
+.act{display:flex;gap:6px}
+
+/* ===== PROGRESS ===== */
+.prog-wrap{background:var(--bg4);border-radius:99px;height:4px;overflow:hidden;min-width:80px}
+.prog-bar{height:100%;border-radius:99px;background:var(--accent);transition:width .4s}
+.prog-bar.g{background:var(--green)}
+.prog-bar.b{background:var(--blue)}
+
+/* ===== MILESTONE CARD ===== */
+.ms-card{
+  background:var(--bg3);border:1px solid var(--border);
+  border-radius:var(--radius);padding:14px;
+  transition:all .15s;cursor:pointer;
+  border-left:3px solid transparent;
+}
+.ms-card:hover{border-color:var(--border2);background:var(--bg4)}
+.ms-card.ms-done{border-left-color:var(--green)}
+.ms-card.ms-inprog{border-left-color:var(--blue)}
+.ms-card.ms-revision{border-left-color:var(--accent)}
+.ms-card.ms-review{border-left-color:var(--yellow)}
+.ms-card.ms-todo{border-left-color:var(--border)}
+.ms-hd{display:flex;align-items:flex-start;justify-content:space-between;gap:8px;margin-bottom:8px}
+.ms-num{
+  width:22px;height:22px;border-radius:4px;
+  background:var(--bg4);color:var(--text3);
+  font-size:.7rem;font-weight:700;font-family:var(--font-mono);
+  display:flex;align-items:center;justify-content:center;flex-shrink:0;
+}
+.ms-title{font-size:.85rem;font-weight:600;color:var(--text);flex:1}
+.ms-target{font-size:.75rem;color:var(--text3);margin-bottom:10px;line-height:1.5}
+.ms-ft{display:flex;align-items:center;justify-content:space-between;gap:8px}
+.ms-dead{font-size:.7rem;color:var(--text3);font-family:var(--font-mono)}
+.ms-dead.ov{color:var(--red)}
+.ms-rev{font-size:.7rem;font-family:var(--font-mono)}
+.ms-rev.warn{color:var(--accent)}
+.ms-rev.full{color:var(--red);font-weight:700}
+
+/* ===== CHAT ===== */
+.chat-wrap{display:flex;flex-direction:column;height:420px;background:var(--bg);border-radius:var(--radius);overflow:hidden;border:1px solid var(--border)}
+.chat-hd{padding:12px 14px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;background:var(--bg2)}
+.chat-msgs{flex:1;overflow-y:auto;padding:14px;display:flex;flex-direction:column;gap:10px}
+.cmsg{display:flex;gap:8px;max-width:78%}
+.cmsg.mine{flex-direction:row-reverse;align-self:flex-end}
+.cav{
+  width:26px;height:26px;border-radius:5px;
+  font-size:.65rem;font-weight:700;font-family:var(--font-mono);
+  display:flex;align-items:center;justify-content:center;flex-shrink:0;
+}
+.cav.admin{background:var(--accent);color:#fff}
+.cav.client{background:var(--blue);color:#fff}
+.cav.designer{background:var(--green);color:#000}
+.cbubble{
+  background:var(--bg3);border:1px solid var(--border);
+  border-radius:10px 10px 10px 2px;
+  padding:8px 12px;font-size:.8rem;line-height:1.5;color:var(--text2);
+}
+.cmsg.mine .cbubble{
+  background:var(--accent-dim);border-color:rgba(224,92,46,.25);
+  border-radius:10px 10px 2px 10px;color:var(--accent2);
+}
+.cmeta{font-size:.63rem;color:var(--text3);margin-top:3px;font-family:var(--font-mono)}
+.cmsg.mine .cmeta{text-align:right}
+.sys-msg{
+  text-align:center;
+  background:var(--yellow-dim);border:1px solid rgba(240,192,64,.2);
+  border-radius:6px;padding:5px 12px;
+  font-size:.7rem;color:var(--yellow);font-family:var(--font-mono);
+  align-self:center;max-width:90%;
+}
+.sys-msg.danger{background:var(--red-dim);border-color:rgba(224,82,82,.2);color:var(--red)}
+.chat-input-wrap{
+  border-top:1px solid var(--border);padding:10px 12px;
+  display:flex;gap:8px;background:var(--bg2);
+}
+.chat-input{
+  flex:1;background:var(--bg3);border:1px solid var(--border);
+  border-radius:6px;padding:8px 12px;font-size:.82rem;color:var(--text);resize:none;
+}
+.chat-input:focus{border-color:var(--accent);background:var(--bg4)}
+
+/* ===== MODAL ===== */
+.modal-overlay{
+  position:fixed;inset:0;background:rgba(0,0,0,.7);
+  z-index:200;display:flex;align-items:center;justify-content:center;
+  opacity:0;pointer-events:none;transition:opacity .2s;backdrop-filter:blur(4px);
+}
+.modal-overlay.open{opacity:1;pointer-events:all}
+.modal{
+  background:var(--bg2);border:1px solid var(--border2);
+  border-radius:var(--radius-lg);width:520px;max-width:95vw;
+  max-height:90vh;overflow-y:auto;box-shadow:var(--shadow-lg);
+  transform:translateY(14px) scale(.97);transition:transform .2s;
+}
+.modal-overlay.open .modal{transform:none}
+.modal-hd{
+  padding:18px 20px 14px;border-bottom:1px solid var(--border);
+  display:flex;align-items:center;justify-content:space-between;
+}
+.modal-title{font-family:var(--font-head);font-size:.95rem;font-weight:700}
+.modal-close{
+  width:28px;height:28px;border-radius:5px;background:var(--bg3);
+  color:var(--text3);display:flex;align-items:center;justify-content:center;
+  cursor:pointer;font-size:.85rem;transition:all .15s;border:1px solid var(--border);
+}
+.modal-close:hover{background:var(--bg4);color:var(--text)}
+.modal-body{padding:18px 20px}
+.modal-footer{
+  padding:12px 20px;border-top:1px solid var(--border);
+  display:flex;justify-content:flex-end;gap:8px;
+}
+
+/* ===== FORM ===== */
+.fg{margin-bottom:14px}
+.fl{display:block;font-size:.7rem;font-weight:600;color:var(--text3);font-family:var(--font-mono);text-transform:uppercase;letter-spacing:.07em;margin-bottom:5px}
+.fc{
+  width:100%;background:var(--bg3);border:1px solid var(--border);
+  border-radius:6px;padding:9px 12px;font-size:.85rem;color:var(--text);
+  transition:all .15s;
+}
+.fc:focus{border-color:var(--accent);background:var(--bg4);box-shadow:0 0 0 3px var(--accent-dim)}
+textarea.fc{resize:vertical;min-height:80px}
+select.fc{cursor:pointer}
+.fr{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+
+/* ===== ALERT ===== */
+.alert{
+  display:flex;gap:10px;padding:11px 13px;
+  border-radius:6px;font-size:.8rem;line-height:1.5;
+  margin-bottom:13px;
+}
+.alert-warn{background:var(--yellow-dim);color:var(--yellow);border:1px solid rgba(240,192,64,.2)}
+.alert-danger{background:var(--red-dim);color:var(--red);border:1px solid rgba(224,82,82,.2)}
+.alert-info{background:var(--blue-dim);color:var(--blue);border:1px solid rgba(74,158,255,.2)}
+.alert-success{background:var(--green-dim);color:var(--green);border:1px solid rgba(46,204,142,.2)}
+.alert-ico{font-size:.9rem;flex-shrink:0;margin-top:1px}
+
+/* ===== TIMELINE ===== */
+.tl{position:relative}
+.tl::before{content:'';position:absolute;left:11px;top:0;bottom:0;width:1px;background:var(--border)}
+.tl-item{display:flex;gap:14px;margin-bottom:16px;position:relative}
+.tl-dot{
+  width:22px;height:22px;border-radius:5px;flex-shrink:0;
+  display:flex;align-items:center;justify-content:center;
+  font-size:.65rem;font-weight:700;z-index:1;position:relative;
+}
+.tl-dot.done{background:var(--green-dim);color:var(--green);border:1px solid rgba(46,204,142,.3)}
+.tl-dot.warn{background:var(--yellow-dim);color:var(--yellow);border:1px solid rgba(240,192,64,.3)}
+.tl-dot.info{background:var(--blue-dim);color:var(--blue);border:1px solid rgba(74,158,255,.3)}
+.tl-dot.danger{background:var(--red-dim);color:var(--red);border:1px solid rgba(224,82,82,.3)}
+.tl-cnt{}
+.tl-title{font-size:.82rem;font-weight:600;color:var(--text)}
+.tl-sub{font-size:.72rem;color:var(--text3);margin-top:2px}
+.tl-time{font-size:.65rem;color:var(--text3);font-family:var(--font-mono);margin-top:3px}
+
+/* ===== REVISION METER ===== */
+.rev-meter{display:flex;align-items:center;gap:10px;padding:10px 12px;background:var(--bg3);border-radius:6px;border:1px solid var(--border)}
+.rev-dots{display:flex;gap:4px}
+.rev-dot{width:10px;height:10px;border-radius:2px;background:var(--bg4)}
+.rev-dot.used{background:var(--accent)}
+.rev-dot.last{background:var(--red)}
+.rev-label{flex:1;font-size:.75rem;color:var(--text3)}
+.rev-count{font-size:.78rem;font-weight:700;font-family:var(--font-mono);color:var(--text2)}
+
+/* ===== FILE PREVIEW ===== */
+.file-prev{
+  position:relative;background:var(--bg3);border:1px solid var(--border);
+  border-radius:var(--radius);padding:28px;text-align:center;overflow:hidden;
+}
+.wm{
+  position:absolute;top:50%;left:50%;transform:translate(-50%,-50%) rotate(-30deg);
+  font-family:var(--font-head);font-size:1.6rem;font-weight:800;
+  color:rgba(224,92,46,.12);white-space:nowrap;pointer-events:none;letter-spacing:.1em;
+}
+.file-ico{font-size:2.2rem;opacity:.3;margin-bottom:8px}
+.file-nm{font-size:.8rem;color:var(--text2);font-weight:600}
+.file-lock{font-size:.7rem;color:var(--yellow);margin-top:5px;font-family:var(--font-mono)}
+
+/* ===== INVOICE ===== */
+.inv-card{border:1px solid var(--border);border-radius:var(--radius);overflow:hidden}
+.inv-hd{background:var(--bg3);padding:13px 16px;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid var(--border)}
+.inv-rows{}
+.inv-row{display:flex;justify-content:space-between;padding:8px 16px;font-size:.8rem;border-bottom:1px solid var(--border)}
+.inv-row:last-child{border:none}
+.inv-key{color:var(--text3)}
+.inv-val{font-weight:600;color:var(--text)}
+.inv-total{display:flex;justify-content:space-between;padding:11px 16px;background:var(--bg3);font-weight:700}
+.inv-amount{color:var(--accent);font-size:.95rem}
+
+/* ===== TABS ===== */
+.tabs{display:flex;gap:2px;background:var(--bg3);border-radius:8px;padding:3px;margin-bottom:16px;border:1px solid var(--border)}
+.tab-btn{
+  flex:1;padding:7px 10px;border-radius:5px;font-size:.77rem;font-weight:600;
+  color:var(--text3);background:transparent;cursor:pointer;transition:all .15s;
+  font-family:var(--font-mono);text-align:center;
+}
+.tab-btn.active{background:var(--bg2);color:var(--text);box-shadow:0 1px 4px rgba(0,0,0,.3)}
+
+/* ===== DIVIDER ===== */
+.div{height:1px;background:var(--border);margin:16px 0}
+
+/* ===== NOTIF PANEL ===== */
+.notif-panel{
+  position:absolute;top:42px;right:0;width:300px;
+  background:var(--bg2);border:1px solid var(--border2);
+  border-radius:var(--radius-lg);box-shadow:var(--shadow-lg);
+  z-index:300;overflow:hidden;display:none;
+}
+.notif-panel.open{display:block}
+.np-hd{padding:12px 14px;border-bottom:1px solid var(--border);display:flex;justify-content:space-between;align-items:center;font-size:.8rem;font-weight:700;font-family:var(--font-head)}
+.np-item{
+  padding:10px 14px;border-bottom:1px solid var(--border);
+  display:flex;gap:10px;cursor:pointer;transition:background .15s;
+}
+.np-item:hover{background:var(--bg3)}
+.np-item.unread{background:var(--accent-dim)}
+.np-item:last-child{border:none}
+.np-ico{font-size:1rem;flex-shrink:0}
+.np-text{font-size:.77rem;line-height:1.4;color:var(--text2)}
+.np-text strong{color:var(--text)}
+.np-time{font-size:.65rem;color:var(--text3);font-family:var(--font-mono);margin-top:3px}
+
+/* ===== AUDIT ENTRY ===== */
+.audit-entry{
+  display:flex;align-items:flex-start;gap:12px;
+  padding:10px 0;border-bottom:1px solid var(--border);
+  font-size:.78rem;
+}
+.audit-entry:last-child{border:none}
+.ae-time{font-family:var(--font-mono);font-size:.65rem;color:var(--text3);white-space:nowrap;min-width:80px}
+.ae-action{
+  font-family:var(--font-mono);font-size:.68rem;font-weight:600;
+  padding:2px 7px;border-radius:4px;white-space:nowrap;
+}
+.ae-desc{color:var(--text2);flex:1}
+.ae-user{font-size:.65rem;color:var(--text3);font-family:var(--font-mono)}
+
+/* ===== MISC ===== */
+.flex{display:flex}.flex-center{display:flex;align-items:center}
+.flex-between{display:flex;align-items:center;justify-content:space-between}
+.gap6{gap:6px}.gap8{gap:8px}.gap10{gap:10px}.gap12{gap:12px}
+.mt12{margin-top:12px}.mt16{margin-top:16px}.mt20{margin-top:20px}
+.text-mono{font-family:var(--font-mono)}
+.text-muted{color:var(--text3)}
+.text-sm{font-size:.78rem}.text-xs{font-size:.7rem}
+.fw6{font-weight:600}.fw7{font-weight:700}
+.w100{width:100%}
+
+/* ===== TOAST ===== */
+#toast{
+  position:fixed;bottom:22px;left:50%;transform:translateX(-50%) translateY(70px);
+  background:var(--bg2);border:1px solid var(--border2);color:var(--text);
+  padding:10px 20px;border-radius:8px;font-size:.82rem;font-weight:600;
+  z-index:999;transition:transform .28s,opacity .28s;opacity:0;
+  box-shadow:var(--shadow-lg);font-family:var(--font-mono);
+}
+
+/* ===== REPORT CHART ===== */
+.mini-bar-wrap{display:flex;flex-direction:column;gap:8px}
+.mini-bar-row{display:flex;align-items:center;gap:10px;font-size:.75rem}
+.mini-bar-label{width:90px;color:var(--text2);text-overflow:ellipsis;overflow:hidden;white-space:nowrap}
+.mini-bar-track{flex:1;background:var(--bg3);border-radius:99px;height:8px;overflow:hidden}
+.mini-bar-fill{height:100%;border-radius:99px;background:var(--accent);transition:width .6s}
+.mini-bar-val{width:50px;text-align:right;color:var(--text3);font-family:var(--font-mono);font-size:.7rem}
+</style>
+</head>
+<body>
+<div class="shell">
+
+<!-- ===== SIDEBAR ===== -->
+<aside class="sidebar">
+  <div class="sb-logo">
+    <div class="brand">Rachann's <em>Project</em></div>
+    <div class="sub">Admin Panel · v1.0</div>
+  </div>
+
+  <div class="sb-user">
+    <div class="av">AD</div>
+    <div class="sb-uinfo">
+      <div class="uname">Admin User</div>
+      <div class="urole">SUPER_ADMIN</div>
+    </div>
+  </div>
+
+  <nav class="sb-nav" id="sb-nav"></nav>
+
+  <div class="sb-footer">
+    <button class="btn-logout"><span>⎋</span> Keluar</button>
+  </div>
+</aside>
+
+<!-- ===== MAIN ===== -->
+<div class="main">
+  <header class="topbar">
+    <div class="topbar-breadcrumb" id="breadcrumb">admin / <span>dashboard</span></div>
+    <div class="topbar-actions">
+      <div class="ib" style="position:relative" id="notif-btn" onclick="toggleNotif()">
+        🔔<div class="dot"></div>
+        <div class="notif-panel" id="notif-panel">
+          <div class="np-hd"><span>Notifikasi</span><span style="font-size:.7rem;color:var(--accent);cursor:pointer;font-weight:400">Baca semua</span></div>
+          <div class="np-item unread"><div class="np-ico">⚠️</div><div><div class="np-text"><strong>Kuota revisi habis</strong> — Milestone "Desain Logo" PRJ-001</div><div class="np-time">5m lalu</div></div></div>
+          <div class="np-item unread"><div class="np-ico">💳</div><div><div class="np-text"><strong>Bukti DP masuk</strong> — #ORD-018 Toko Mawar</div><div class="np-time">22m lalu</div></div></div>
+          <div class="np-item"><div class="np-ico">✅</div><div><div class="np-text">Milestone "Wireframe" disetujui klien Bunga Rampai</div><div class="np-time">1j lalu</div></div></div>
+          <div class="np-item"><div class="np-ico">⏰</div><div><div class="np-text">Deadline "Visual Identity" jatuh tempo besok</div><div class="np-time">3j lalu</div></div></div>
+        </div>
+      </div>
+      <div class="ib">⚙️</div>
+      <div class="av" style="width:34px;height:34px;border-radius:6px;font-size:.78rem;">AD</div>
+    </div>
+  </header>
+
+  <div class="content">
+
+<!-- ====================================================
+     PAGE: DASHBOARD
+===================================================== -->
+<div class="page active" id="page-dashboard">
+  <div class="g4" style="margin-bottom:16px">
+    <div class="stat"><span class="stat-ico">📁</span><div class="stat-label">Proyek Aktif</div><div class="stat-val">12</div><div class="stat-sub">3 mendekati deadline</div></div>
+    <div class="stat g"><span class="stat-ico">✅</span><div class="stat-label">Selesai Bulan Ini</div><div class="stat-val">7</div><div class="stat-sub">↑ 2 dari bulan lalu</div></div>
+    <div class="stat y"><span class="stat-ico">⏳</span><div class="stat-label">Tunggu Verifikasi</div><div class="stat-val">4</div><div class="stat-sub">2 DP · 2 Pelunasan</div></div>
+    <div class="stat b"><span class="stat-ico">💰</span><div class="stat-label">Revenue Bulan Ini</div><div class="stat-val">18.4<span style="font-size:1rem">jt</span></div><div class="stat-sub">Target: Rp 25 jt</div></div>
+  </div>
+
+  <div class="g2">
+    <div>
+      <!-- Butuh Perhatian -->
+      <div class="card" style="margin-bottom:14px">
+        <div class="sh"><div class="sh-title">🔴 Butuh Perhatian Sekarang</div></div>
+        <div class="alert alert-danger">
+          <span class="alert-ico">⚠️</span>
+          <div><strong>Kuota revisi habis</strong> — Milestone "Desain Logo" PRJ-001 (3/3). Klien masih meminta revisi.<br><span style="margin-top:6px;display:inline-block"><button class="btn btn-primary btn-sm" onclick="navTo('milestone-detail')">Buka Milestone →</button></span></div>
+        </div>
+        <div class="alert alert-warn">
+          <span class="alert-ico">💳</span>
+          <div><strong>2 pembayaran menunggu verifikasi.</strong> <span style="text-decoration:underline;cursor:pointer;font-weight:600" onclick="navTo('payments')">Verifikasi sekarang</span></div>
+        </div>
+        <div class="alert alert-info">
+          <span class="alert-ico">⏰</span>
+          <div>Deadline milestone <strong>"Visual Identity"</strong> PRJ-001 jatuh tempo <strong>besok</strong>.</div>
+        </div>
+      </div>
+
+      <!-- Aktivitas -->
+      <div class="card">
+        <div class="sh"><div class="sh-title">Aktivitas Terbaru</div></div>
+        <div class="tl">
+          <div class="tl-item"><div class="tl-dot done">✓</div><div class="tl-cnt"><div class="tl-title">Klien setujui Wireframe</div><div class="tl-sub">PRJ-002 Toko Mawar — Sari W.</div><div class="tl-time">Hari ini, 10:24</div></div></div>
+          <div class="tl-item"><div class="tl-dot info">↑</div><div class="tl-cnt"><div class="tl-title">File desain diunggah desainer</div><div class="tl-sub">Milestone "Visual Identity" — Andi S.</div><div class="tl-time">Hari ini, 09:15</div></div></div>
+          <div class="tl-item"><div class="tl-dot warn">!</div><div class="tl-cnt"><div class="tl-title">Permintaan revisi ke-3</div><div class="tl-sub">Milestone "Logo" PRJ-001 — kuota habis</div><div class="tl-time">Kemarin, 16:48</div></div></div>
+          <div class="tl-item"><div class="tl-dot done">✓</div><div class="tl-cnt"><div class="tl-title">DP terverifikasi</div><div class="tl-sub">#ORD-015 Toko Bunga — Rp 1.200.000</div><div class="tl-time">Kemarin, 14:30</div></div></div>
+        </div>
+      </div>
+    </div>
+
+    <div>
+      <!-- Proyek overview -->
+      <div class="card" style="margin-bottom:14px">
+        <div class="sh"><div class="sh-title">Proyek Aktif</div><button class="btn btn-ghost btn-sm" onclick="navTo('projects')">Lihat Semua</button></div>
+        <div class="tbl-wrap">
+          <table>
+            <thead><tr><th>Proyek</th><th>Milestone</th><th>Status</th><th>Progress</th></tr></thead>
+            <tbody>
+              <tr onclick="navTo('project-detail')" style="cursor:pointer"><td><div class="td-main">Branding CV Nusantara</div><div class="td-sub">PRJ-001 · Ahmad F.</div></td><td><span class="text-mono text-xs">3/5</span></td><td><span class="badge badge-revision">Revision</span></td><td><div class="prog-wrap"><div class="prog-bar" style="width:60%"></div></div></td></tr>
+              <tr onclick="navTo('project-detail')" style="cursor:pointer"><td><div class="td-main">Website Toko Mawar</div><div class="td-sub">PRJ-002 · Sari W.</div></td><td><span class="text-mono text-xs">2/6</span></td><td><span class="badge badge-review">Review</span></td><td><div class="prog-wrap"><div class="prog-bar b" style="width:33%"></div></div></td></tr>
+              <tr onclick="navTo('project-detail')" style="cursor:pointer"><td><div class="td-main">Social Media Bunga Rampai</div><div class="td-sub">PRJ-003 · Budi S.</div></td><td><span class="text-mono text-xs">4/4</span></td><td><span class="badge badge-done">Done</span></td><td><div class="prog-wrap"><div class="prog-bar g" style="width:100%"></div></div></td></tr>
+              <tr onclick="navTo('project-detail')" style="cursor:pointer"><td><div class="td-main">Dashboard Startup Jaya</div><div class="td-sub">PRJ-004 · Rian K.</div></td><td><span class="text-mono text-xs">0/7</span></td><td><span class="badge badge-inprog">In Progress</span></td><td><div class="prog-wrap"><div class="prog-bar" style="width:4%"></div></div></td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Revenue chart -->
+      <div class="card">
+        <div class="sh"><div class="sh-title">Revenue per Layanan</div><span class="text-mono text-xs text-muted">Bulan ini</span></div>
+        <div class="mini-bar-wrap">
+          <div class="mini-bar-row"><div class="mini-bar-label">Branding Kit</div><div class="mini-bar-track"><div class="mini-bar-fill" style="width:74%"></div></div><div class="mini-bar-val">7.4jt</div></div>
+          <div class="mini-bar-row"><div class="mini-bar-label">Website UI/UX</div><div class="mini-bar-track"><div class="mini-bar-fill" style="width:54%;background:var(--blue)"></div></div><div class="mini-bar-val">5.4jt</div></div>
+          <div class="mini-bar-row"><div class="mini-bar-label">Social Media</div><div class="mini-bar-track"><div class="mini-bar-fill" style="width:36%;background:var(--green)"></div></div><div class="mini-bar-val">3.6jt</div></div>
+          <div class="mini-bar-row"><div class="mini-bar-label">Desain Grafis</div><div class="mini-bar-track"><div class="mini-bar-fill" style="width:20%;background:var(--purple)"></div></div><div class="mini-bar-val">2.0jt</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ====================================================
+     PAGE: PROJECTS
+===================================================== -->
+<div class="page" id="page-projects">
+  <div class="flex-between" style="margin-bottom:16px">
+    <div><div style="font-family:var(--font-head);font-size:1.2rem;font-weight:700">Manajemen Proyek</div><div class="text-muted text-xs text-mono" style="margin-top:3px">12 aktif · 7 selesai bulan ini</div></div>
+    <button class="btn btn-primary" onclick="openModal('m-new-project')">+ Proyek Baru</button>
+  </div>
+  <div class="tabs">
+    <button class="tab-btn active" onclick="filterTab(this)">Semua (19)</button>
+    <button class="tab-btn" onclick="filterTab(this)">Aktif (12)</button>
+    <button class="tab-btn" onclick="filterTab(this)">Review (3)</button>
+    <button class="tab-btn" onclick="filterTab(this)">Selesai (4)</button>
+  </div>
+  <div class="card">
+    <div class="tbl-wrap">
+      <table>
+        <thead><tr><th>#</th><th>Nama Proyek</th><th>Klien</th><th>Desainer</th><th>Milestone</th><th>Deadline</th><th>Status</th><th>Aksi</th></tr></thead>
+        <tbody>
+          <tr><td class="text-mono text-xs text-muted">PRJ-001</td><td><div class="td-main">Branding Kit CV Nusantara</div><div class="td-sub">Dibuat 12 Jan 2025</div></td><td>Ahmad Fauzi</td><td>Andi Saputra</td><td><span class="text-mono text-xs">3/5</span></td><td><span class="text-xs" style="color:var(--red);font-family:var(--font-mono)">28 Jan 2025</span></td><td><span class="badge badge-revision">Revision</span></td><td><div class="act"><button class="btn btn-ghost btn-sm" onclick="navTo('project-detail')">Detail</button><button class="btn btn-ghost btn-sm" onclick="openModal('m-assign')">👤</button></div></td></tr>
+          <tr><td class="text-mono text-xs text-muted">PRJ-002</td><td><div class="td-main">Website Toko Mawar</div><div class="td-sub">Dibuat 15 Jan 2025</div></td><td>Sari Wulandari</td><td>Rina Putri</td><td><span class="text-mono text-xs">2/6</span></td><td><span class="text-xs text-mono">10 Feb 2025</span></td><td><span class="badge badge-review">Review</span></td><td><div class="act"><button class="btn btn-ghost btn-sm" onclick="navTo('project-detail')">Detail</button><button class="btn btn-ghost btn-sm" onclick="openModal('m-assign')">👤</button></div></td></tr>
+          <tr><td class="text-mono text-xs text-muted">PRJ-003</td><td><div class="td-main">Social Media Bunga Rampai</div><div class="td-sub">Dibuat 5 Jan 2025</div></td><td>Budi Santoso</td><td>Andi Saputra</td><td><span class="text-mono text-xs">4/4</span></td><td><span class="text-xs text-mono">20 Jan 2025</span></td><td><span class="badge badge-done">Done</span></td><td><div class="act"><button class="btn btn-ghost btn-sm" onclick="navTo('project-detail')">Detail</button></div></td></tr>
+          <tr><td class="text-mono text-xs text-muted">PRJ-004</td><td><div class="td-main">Dashboard App Startup Jaya</div><div class="td-sub">Dibuat 18 Jan 2025</div></td><td>Rian Kusuma</td><td>—</td><td><span class="text-mono text-xs">0/7</span></td><td><span class="text-xs text-mono">15 Mar 2025</span></td><td><span class="badge badge-inprog">In Progress</span></td><td><div class="act"><button class="btn btn-ghost btn-sm" onclick="navTo('project-detail')">Detail</button><button class="btn btn-ghost btn-sm" onclick="openModal('m-assign')">👤</button></div></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<!-- ====================================================
+     PAGE: PROJECT DETAIL
+===================================================== -->
+<div class="page" id="page-project-detail">
+  <div style="margin-bottom:4px"><button class="btn btn-ghost btn-sm" onclick="navTo('projects')">← Semua Proyek</button></div>
+  <div class="card" style="margin-bottom:14px">
+    <div class="flex-between">
+      <div>
+        <div class="text-mono text-xs text-muted" style="margin-bottom:4px">PRJ-001 · Branding Kit</div>
+        <div style="font-family:var(--font-head);font-size:1.3rem;font-weight:700">Branding Kit CV Nusantara</div>
+        <div class="text-xs text-muted text-mono" style="margin-top:5px">Klien: <span style="color:var(--blue)">Ahmad Fauzi</span> &nbsp;·&nbsp; Desainer: <span style="color:var(--green)">Andi Saputra</span> &nbsp;·&nbsp; Deadline: <span style="color:var(--yellow)">28 Jan 2025</span></div>
+      </div>
+      <div style="text-align:right">
+        <span class="badge badge-inprog" style="font-size:.75rem;padding:5px 12px">In Progress</span>
+        <div class="text-xs text-muted text-mono" style="margin-top:8px">Progress: 60%</div>
+        <div class="prog-wrap" style="width:130px;margin-top:5px"><div class="prog-bar" style="width:60%"></div></div>
+      </div>
+    </div>
+    <div class="div"></div>
+    <div class="flex gap8 flex-wrap">
+      <button class="btn btn-ghost btn-sm" onclick="navTo('payments')">💳 Pembayaran</button>
+      <button class="btn btn-ghost btn-sm" onclick="openModal('m-assign')">👤 Tugaskan Desainer</button>
+      <button class="btn btn-ghost btn-sm" onclick="openModal('m-new-milestone')">+ Milestone</button>
+      <button class="btn btn-primary btn-sm" onclick="openModal('m-addon')">⚠️ Add-on Revisi</button>
+    </div>
+  </div>
+
+  <div class="g2">
+    <div>
+      <div class="sh"><div class="sh-title">Milestone <small>5 total</small></div></div>
+      <div style="display:flex;flex-direction:column;gap:8px">
+        <div class="ms-card ms-done" onclick="navTo('milestone-detail')">
+          <div class="ms-hd"><div class="ms-num">1</div><div class="ms-title">Brief & Riset Brand</div><span class="badge badge-done">Done</span></div>
+          <div class="ms-target">Eksplorasi identitas merek, kompetitor analisis, moodboard awal.</div>
+          <div class="ms-ft"><div class="ms-dead">📅 15 Jan 2025</div><div class="ms-rev">Revisi: 1/2</div></div>
+        </div>
+        <div class="ms-card ms-revision" onclick="navTo('milestone-detail')">
+          <div class="ms-hd"><div class="ms-num">2</div><div class="ms-title">Desain Logo</div><span class="badge badge-revision">Revision</span></div>
+          <div class="ms-target">3 konsep logo awal, pilihan tipografi, palet warna primer.</div>
+          <div class="ms-ft"><div class="ms-dead ov">📅 20 Jan 2025 (overdue)</div><div class="ms-rev full">⚠️ Revisi: 3/3 HABIS</div></div>
+        </div>
+        <div class="ms-card ms-inprog" onclick="navTo('milestone-detail')">
+          <div class="ms-hd"><div class="ms-num">3</div><div class="ms-title">Visual Identity System</div><span class="badge badge-inprog">In Progress</span></div>
+          <div class="ms-target">Panduan warna, tipografi sekunder, pattern, grid sistem.</div>
+          <div class="ms-ft"><div class="ms-dead">📅 25 Jan 2025</div><div class="ms-rev">Revisi: 0/2</div></div>
+        </div>
+        <div class="ms-card ms-todo">
+          <div class="ms-hd"><div class="ms-num" style="color:var(--text3)">4</div><div class="ms-title">Collateral Desain</div><span class="badge badge-todo">To-Do</span></div>
+          <div class="ms-target">Kartu nama, kop surat, amplop, template presentasi.</div>
+          <div class="ms-ft"><div class="ms-dead">📅 27 Jan 2025</div><div class="ms-rev">Revisi: 0/2</div></div>
+        </div>
+        <div class="ms-card ms-todo">
+          <div class="ms-hd"><div class="ms-num" style="color:var(--text3)">5</div><div class="ms-title">Brand Guideline PDF</div><span class="badge badge-todo">To-Do</span></div>
+          <div class="ms-target">Dokumen panduan merek lengkap dalam format PDF final.</div>
+          <div class="ms-ft"><div class="ms-dead">📅 28 Jan 2025</div><div class="ms-rev">Revisi: 0/1</div></div>
+        </div>
+      </div>
+    </div>
+
+    <div>
+      <div class="card" style="margin-bottom:14px">
+        <div class="sh-title" style="margin-bottom:12px">Informasi Pesanan</div>
+        <div style="display:flex;flex-direction:column;gap:9px">
+          <div class="flex-between"><span class="text-xs text-muted text-mono">Nomor Pesanan</span><span class="fw6 text-mono text-xs">#ORD-2024-015</span></div>
+          <div class="flex-between"><span class="text-xs text-muted text-mono">Total Kontrak</span><span class="fw6">Rp 3.500.000</span></div>
+          <div class="flex-between"><span class="text-xs text-muted text-mono">Down Payment (50%)</span><span class="fw6" style="color:var(--green)">✓ Terverifikasi</span></div>
+          <div class="flex-between"><span class="text-xs text-muted text-mono">Pelunasan (50%)</span><span class="fw6" style="color:var(--yellow)">Belum Dibayar</span></div>
+          <div class="flex-between"><span class="text-xs text-muted text-mono">Batas Revisi Default</span><span class="fw6 text-mono text-xs">2x / milestone</span></div>
+        </div>
+        <div class="div"></div>
+        <div class="alert alert-danger" style="margin-bottom:0">
+          <span class="alert-ico">⚠️</span>
+          <div><strong>Kuota revisi habis</strong> di Milestone 2 (3/3). Terbitkan invoice add-on sebelum desainer dapat melanjutkan.<br><button class="btn btn-primary btn-sm" style="margin-top:8px" onclick="openModal('m-addon')">Terbitkan Invoice Add-on</button></div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="sh-title" style="margin-bottom:10px">Brief Klien</div>
+        <div style="font-size:.78rem;color:var(--text2);line-height:1.7;background:var(--bg3);padding:12px;border-radius:6px;border:1px solid var(--border)">CV Nusantara adalah perusahaan distribusi kebutuhan pokok sejak 2010. Ingin identitas merek yang <em>modern namun membumi</em>, mencerminkan kepercayaan dan kestabilan. Warna: earthy tones + sentuhan emas. Target: mitra distributor B2B & ritel.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ====================================================
+     PAGE: MILESTONE DETAIL
+===================================================== -->
+<div class="page" id="page-milestone-detail">
+  <div style="margin-bottom:6px"><button class="btn btn-ghost btn-sm" onclick="navTo('project-detail')">← Kembali ke Proyek</button></div>
+  <div class="flex-between" style="margin-bottom:14px">
+    <div>
+      <div style="font-family:var(--font-head);font-size:1.1rem;font-weight:700">Milestone 2 — Desain Logo</div>
+      <div class="text-xs text-muted text-mono" style="margin-top:3px">PRJ-001 · Branding Kit CV Nusantara</div>
+    </div>
+    <span class="badge badge-revision" style="font-size:.75rem;padding:5px 12px">Revision Requested</span>
+  </div>
+
+  <div class="g2">
+    <div>
+      <!-- Revision meter -->
+      <div class="card" style="margin-bottom:14px">
+        <div class="sh-title" style="margin-bottom:12px">Status Revisi</div>
+        <div class="rev-meter">
+          <div class="rev-dots"><div class="rev-dot used"></div><div class="rev-dot used"></div><div class="rev-dot last"></div></div>
+          <div class="rev-label">Kuota <strong>habis</strong> — 3 dari 3 terpakai</div>
+          <div class="rev-count">3/3</div>
+        </div>
+        <div class="alert alert-danger" style="margin-top:12px;margin-bottom:0">
+          <span class="alert-ico">⛔</span>
+          <div>Klien masih meminta revisi melebihi kuota. Admin harus terbitkan <strong>invoice add-on revisi</strong> sebelum desainer dapat melanjutkan pekerjaan.</div>
+        </div>
+        <div class="flex gap8 mt12">
+          <button class="btn btn-primary" onclick="openModal('m-addon')">Terbitkan Add-on Invoice</button>
+          <button class="btn btn-ghost btn-sm">Buka Chat</button>
+        </div>
+      </div>
+
+      <!-- Status transition -->
+      <div class="card" style="margin-bottom:14px">
+        <div class="sh-title" style="margin-bottom:10px">Ubah Status Milestone</div>
+        <div class="flex gap6 flex-wrap">
+          <button class="btn btn-ghost btn-sm">To-Do</button>
+          <button class="btn btn-ghost btn-sm">In Progress</button>
+          <button class="btn btn-ghost btn-sm" style="border-color:rgba(240,192,64,.4);color:var(--yellow)">Review</button>
+          <button class="btn btn-green btn-sm">Done ✓</button>
+        </div>
+        <div class="text-xs text-muted text-mono" style="margin-top:8px">Hanya Admin yang dapat konfirmasi status "Done"</div>
+      </div>
+
+      <!-- File -->
+      <div class="card">
+        <div class="sh">
+          <div class="sh-title">File Desain <small>3 versi</small></div>
+        </div>
+        <div class="file-prev" style="margin-bottom:10px">
+          <div class="wm">RACHANN'S PROJECT</div>
+          <div class="file-ico">🎨</div>
+          <div class="file-nm">logo-concept-v3.pdf</div>
+          <div class="file-lock">🔒 Preview — unduh asli setelah pelunasan</div>
+        </div>
+        <div class="flex gap8">
+          <div style="flex:1;padding:9px 11px;background:var(--bg3);border-radius:6px;border:1px solid var(--border)">
+            <div class="text-xs fw6">logo-concept-v2.pdf</div>
+            <div class="text-mono" style="font-size:.63rem;color:var(--text3)">v2 · 18 Jan</div>
+          </div>
+          <div style="flex:1;padding:9px 11px;background:var(--bg3);border-radius:6px;border:1px solid var(--border)">
+            <div class="text-xs fw6">logo-concept-v1.pdf</div>
+            <div class="text-mono" style="font-size:.63rem;color:var(--text3)">v1 · 15 Jan</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Chat -->
+    <div class="card" style="padding:0;overflow:hidden">
+      <div class="chat-hd">
+        <span class="fw6" style="font-size:.85rem">💬 Chat Milestone</span>
+        <span class="text-xs text-muted text-mono">Semua percakapan terdokumentasi</span>
+      </div>
+      <div class="chat-wrap" style="height:460px;border:none;border-radius:0">
+        <div class="chat-msgs">
+          <div class="cmsg"><div class="cav client">AH</div><div><div class="cbubble">Halo, ini revisi ketiga ya. Tolong warna logonya diganti ke earthy tone yang lebih hangat, seperti terracotta.</div><div class="cmeta">Ahmad (Klien) · 19 Jan, 14:22</div></div></div>
+          <div class="cmsg mine"><div class="cav designer">AS</div><div><div class="cbubble">Siap Pak Ahmad, akan saya revisi. Untuk referensi warna spesifik?</div><div class="cmeta">Andi (Desainer) · 19 Jan, 14:35</div></div></div>
+          <div class="cmsg"><div class="cav client">AH</div><div><div class="cbubble">Seperti #C17B5A atau yang serupa. Dan bentuk ikonnya mau lebih geometris.</div><div class="cmeta">Ahmad (Klien) · 19 Jan, 15:10</div></div></div>
+          <div class="sys-msg danger">⛔ Sistem: Kuota revisi telah mencapai batas maksimum (3/3)</div>
+          <div class="cmsg"><div class="cav client">AH</div><div><div class="cbubble">Saya masih mau minta satu revisi lagi untuk penempatan tagline-nya.</div><div class="cmeta">Ahmad (Klien) · 20 Jan, 09:00</div></div></div>
+          <div class="cmsg mine"><div class="cav admin">AD</div><div><div class="cbubble">Selamat pagi Pak Ahmad. Kuota revisi milestone ini sudah mencapai batas yang disepakati (3x). Kami dapat membuka slot revisi tambahan dengan biaya add-on Rp 150.000/revisi. Apakah berminat?</div><div class="cmeta">Admin · 20 Jan, 09:15</div></div></div>
+          <div class="cmsg"><div class="cav client">AH</div><div><div class="cbubble">Oke, saya setuju dengan add-on revisi tersebut.</div><div class="cmeta">Ahmad (Klien) · 20 Jan, 09:30</div></div></div>
+          <div class="sys-msg">📤 Admin menerbitkan Invoice Add-on INV-2025-017 · Rp 150.000</div>
+        </div>
+        <div class="chat-input-wrap">
+          <textarea class="chat-input" rows="2" placeholder="Tulis pesan sebagai Admin..." id="chat-inp"></textarea>
+          <button class="btn btn-primary" onclick="sendChat()">Kirim</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ====================================================
+     PAGE: PAYMENTS
+===================================================== -->
+<div class="page" id="page-payments">
+  <div class="flex-between" style="margin-bottom:16px">
+    <div><div style="font-family:var(--font-head);font-size:1.2rem;font-weight:700">Manajemen Pembayaran</div><div class="text-muted text-xs text-mono" style="margin-top:3px">4 menunggu verifikasi</div></div>
+  </div>
+  <div class="tabs">
+    <button class="tab-btn active" onclick="filterTab(this)">Semua</button>
+    <button class="tab-btn" onclick="filterTab(this)">Tunggu Verifikasi (4)</button>
+    <button class="tab-btn" onclick="filterTab(this)">Terverifikasi</button>
+    <button class="tab-btn" onclick="filterTab(this)">Add-on Revisi</button>
+  </div>
+  <div class="card">
+    <div class="tbl-wrap">
+      <table>
+        <thead><tr><th>Invoice</th><th>Klien / Proyek</th><th>Tipe</th><th>Jumlah</th><th>Bukti</th><th>Status</th><th>Aksi</th></tr></thead>
+        <tbody>
+          <tr><td class="text-mono text-xs">INV-2025-018</td><td><div class="td-main">Toko Mawar</div><div class="td-sub">PRJ-002 Website</div></td><td><span class="badge badge-inprog">Down Payment</span></td><td class="fw6">Rp 1.750.000</td><td><button class="btn btn-ghost btn-sm">👁 Lihat</button></td><td><span class="badge badge-pending">Menunggu</span></td><td><div class="act"><button class="btn btn-green btn-sm" onclick="openModal('m-verify')">✓ Verifikasi</button><button class="btn btn-red btn-sm">✗</button></div></td></tr>
+          <tr><td class="text-mono text-xs">INV-2025-019</td><td><div class="td-main">Startup Jaya</div><div class="td-sub">PRJ-004 Dashboard</div></td><td><span class="badge badge-pending">Pelunasan</span></td><td class="fw6">Rp 2.500.000</td><td><button class="btn btn-ghost btn-sm">👁 Lihat</button></td><td><span class="badge badge-pending">Menunggu</span></td><td><div class="act"><button class="btn btn-green btn-sm" onclick="openModal('m-verify')">✓ Verifikasi</button><button class="btn btn-red btn-sm">✗</button></div></td></tr>
+          <tr><td class="text-mono text-xs">INV-2025-017</td><td><div class="td-main">CV Nusantara</div><div class="td-sub">PRJ-001 Add-on</div></td><td><span class="badge badge-addon">Add-on Revisi</span></td><td class="fw6">Rp 150.000</td><td><button class="btn btn-ghost btn-sm">👁 Lihat</button></td><td><span class="badge badge-pending">Menunggu</span></td><td><div class="act"><button class="btn btn-green btn-sm" onclick="openModal('m-verify')">✓ Verifikasi</button><button class="btn btn-red btn-sm">✗</button></div></td></tr>
+          <tr><td class="text-mono text-xs">INV-2025-015</td><td><div class="td-main">Bunga Rampai</div><div class="td-sub">PRJ-003 Pelunasan</div></td><td><span class="badge badge-pending">Pelunasan</span></td><td class="fw6">Rp 1.200.000</td><td><button class="btn btn-ghost btn-sm">👁 Lihat</button></td><td><span class="badge badge-verified">Terverifikasi</span></td><td><div class="act"><button class="btn btn-ghost btn-sm">Invoice</button></div></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<!-- ====================================================
+     PAGE: USERS
+===================================================== -->
+<div class="page" id="page-users">
+  <div class="flex-between" style="margin-bottom:16px">
+    <div><div style="font-family:var(--font-head);font-size:1.2rem;font-weight:700">Manajemen Pengguna</div></div>
+    <button class="btn btn-primary" onclick="openModal('m-new-user')">+ Tambah Pengguna</button>
+  </div>
+  <div class="tabs">
+    <button class="tab-btn active" onclick="filterTab(this)">Semua</button>
+    <button class="tab-btn" onclick="filterTab(this)">Admin</button>
+    <button class="tab-btn" onclick="filterTab(this)">Desainer (4)</button>
+    <button class="tab-btn" onclick="filterTab(this)">Klien (12)</button>
+  </div>
+  <div class="card">
+    <div class="tbl-wrap">
+      <table>
+        <thead><tr><th>Pengguna</th><th>Role</th><th>Status</th><th>Proyek Aktif</th><th>Bergabung</th><th>Aksi</th></tr></thead>
+        <tbody>
+          <tr><td><div class="flex-center gap8"><div class="av" style="width:28px;height:28px;border-radius:5px;font-size:.7rem">AD</div><div><div class="td-main">Admin User</div><div class="td-sub">admin@rachann.id</div></div></div></td><td><span class="badge badge-revision">Admin</span></td><td><span class="badge badge-done">Aktif</span></td><td>—</td><td class="text-mono text-xs">1 Jan 2024</td><td><button class="btn btn-ghost btn-sm">Edit</button></td></tr>
+          <tr><td><div class="flex-center gap8"><div class="av" style="width:28px;height:28px;border-radius:5px;font-size:.7rem;background:var(--green);color:#000">AS</div><div><div class="td-main">Andi Saputra</div><div class="td-sub">andi@rachann.id</div></div></div></td><td><span class="badge badge-done">Desainer</span></td><td><span class="badge badge-done">Aktif</span></td><td>3</td><td class="text-mono text-xs">15 Mar 2024</td><td><button class="btn btn-ghost btn-sm">Edit</button></td></tr>
+          <tr><td><div class="flex-center gap8"><div class="av" style="width:28px;height:28px;border-radius:5px;font-size:.7rem;background:var(--purple)">RP</div><div><div class="td-main">Rina Putri</div><div class="td-sub">rina@rachann.id</div></div></div></td><td><span class="badge badge-done">Desainer</span></td><td><span class="badge badge-done">Aktif</span></td><td>2</td><td class="text-mono text-xs">20 Apr 2024</td><td><button class="btn btn-ghost btn-sm">Edit</button></td></tr>
+          <tr><td><div class="flex-center gap8"><div class="av" style="width:28px;height:28px;border-radius:5px;font-size:.7rem;background:var(--blue)">AH</div><div><div class="td-main">Ahmad Fauzi</div><div class="td-sub">ahmad@cv-nusantara.id</div></div></div></td><td><span class="badge badge-inprog">Klien</span></td><td><span class="badge badge-done">Aktif</span></td><td>1</td><td class="text-mono text-xs">10 Jan 2025</td><td><button class="btn btn-ghost btn-sm">Edit</button></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<!-- ====================================================
+     PAGE: AUDIT TRAIL
+===================================================== -->
+<div class="page" id="page-audit">
+  <div style="margin-bottom:16px"><div style="font-family:var(--font-head);font-size:1.2rem;font-weight:700">Audit Trail</div><div class="text-muted text-xs text-mono" style="margin-top:3px">Semua aksi sistem tercatat otomatis</div></div>
+  <div class="card">
+    <div class="audit-entry"><div class="ae-time">20 Jan 09:30</div><div class="ae-action" style="background:var(--accent-dim);color:var(--accent)">CHAT_SENT</div><div class="ae-desc">Admin menawarkan add-on revisi kepada klien Ahmad — Milestone #12</div><div class="ae-user">Admin</div></div>
+    <div class="audit-entry"><div class="ae-time">20 Jan 09:15</div><div class="ae-action" style="background:var(--red-dim);color:var(--red)">QUOTA_FULL</div><div class="ae-desc">revision_count = max_revisions (3/3) — Milestone #12 "Desain Logo"</div><div class="ae-user">System</div></div>
+    <div class="audit-entry"><div class="ae-time">19 Jan 15:10</div><div class="ae-action" style="background:var(--yellow-dim);color:var(--yellow)">REV_REQ</div><div class="ae-desc">revision_count → 3. Catatan: warna hangat, geometris, tagline — Klien Ahmad</div><div class="ae-user">Klien</div></div>
+    <div class="audit-entry"><div class="ae-time">19 Jan 14:22</div><div class="ae-action" style="background:var(--yellow-dim);color:var(--yellow)">REV_REQ</div><div class="ae-desc">revision_count → 2 — Milestone #12 "Desain Logo"</div><div class="ae-user">Klien</div></div>
+    <div class="audit-entry"><div class="ae-time">18 Jan 11:00</div><div class="ae-action" style="background:var(--blue-dim);color:var(--blue)">FILE_UPLOAD</div><div class="ae-desc">logo-concept-v2.pdf diunggah — Milestone #12, versi 2</div><div class="ae-user">Andi S.</div></div>
+    <div class="audit-entry"><div class="ae-time">17 Jan 16:30</div><div class="ae-action" style="background:var(--blue-dim);color:var(--blue)">STATUS_CHG</div><div class="ae-desc">Milestone #12: In Progress → Review</div><div class="ae-user">Andi S.</div></div>
+    <div class="audit-entry"><div class="ae-time">16 Jan 10:00</div><div class="ae-action" style="background:var(--green-dim);color:var(--green)">PAY_VERIFIED</div><div class="ae-desc">DP Rp 1.750.000 terverifikasi → Order #015 Active, Project dibuat</div><div class="ae-user">Admin</div></div>
+    <div class="audit-entry"><div class="ae-time">12 Jan 08:45</div><div class="ae-action" style="background:var(--green-dim);color:var(--green)">ORDER_CREATED</div><div class="ae-desc">Pesanan #ORD-015 dibuat oleh Ahmad Fauzi — Branding Kit</div><div class="ae-user">Klien</div></div>
+  </div>
+</div>
+
+<!-- ====================================================
+     PAGE: LAPORAN
+===================================================== -->
+<div class="page" id="page-laporan">
+  <div style="margin-bottom:16px"><div style="font-family:var(--font-head);font-size:1.2rem;font-weight:700">Laporan & Analitik</div></div>
+  <div class="g4" style="margin-bottom:14px">
+    <div class="stat p"><span class="stat-ico">📊</span><div class="stat-label">Total Proyek</div><div class="stat-val">31</div><div class="stat-sub">Sepanjang 2024–2025</div></div>
+    <div class="stat g"><span class="stat-ico">⭐</span><div class="stat-label">Rating Rata-rata</div><div class="stat-val">4.8</div><div class="stat-sub">dari 5.0 — 19 ulasan</div></div>
+    <div class="stat"><span class="stat-ico">🔁</span><div class="stat-label">Add-on Revisi</div><div class="stat-val">14</div><div class="stat-sub">Rp 2.1jt pendapatan ekstra</div></div>
+    <div class="stat y"><span class="stat-ico">⏱</span><div class="stat-label">Rata-rata Selesai</div><div class="stat-val">18</div><div class="stat-sub">hari kerja per proyek</div></div>
+  </div>
+  <div class="g2">
+    <div class="card">
+      <div class="sh-title" style="margin-bottom:14px">Performa Desainer</div>
+      <div class="mini-bar-wrap">
+        <div class="mini-bar-row"><div class="mini-bar-label">Andi Saputra</div><div class="mini-bar-track"><div class="mini-bar-fill" style="width:90%;background:var(--green)"></div></div><div class="mini-bar-val">12 proyek</div></div>
+        <div class="mini-bar-row"><div class="mini-bar-label">Rina Putri</div><div class="mini-bar-track"><div class="mini-bar-fill" style="width:65%;background:var(--blue)"></div></div><div class="mini-bar-val">8 proyek</div></div>
+        <div class="mini-bar-row"><div class="mini-bar-label">Dimas Aditya</div><div class="mini-bar-track"><div class="mini-bar-fill" style="width:45%;background:var(--purple)"></div></div><div class="mini-bar-val">6 proyek</div></div>
+        <div class="mini-bar-row"><div class="mini-bar-label">Sinta Dewi</div><div class="mini-bar-track"><div class="mini-bar-fill" style="width:25%;background:var(--yellow)"></div></div><div class="mini-bar-val">3 proyek</div></div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="sh-title" style="margin-bottom:14px">Proyek Overdue</div>
+      <div class="tbl-wrap">
+        <table>
+          <thead><tr><th>Proyek</th><th>Milestone</th><th>Terlambat</th></tr></thead>
+          <tbody>
+            <tr><td><div class="td-main">Branding CV Nusantara</div></td><td>Desain Logo</td><td style="color:var(--red);font-family:var(--font-mono);font-size:.75rem">+3 hari</td></tr>
+            <tr><td><div class="td-main">Website Toko Mawar</div></td><td>UI Desktop</td><td style="color:var(--yellow);font-family:var(--font-mono);font-size:.75rem">+1 hari</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+
+  </div><!-- /content -->
+</div><!-- /main -->
+</div><!-- /shell -->
+
+<!-- ==================== MODALS ==================== -->
+
+<!-- Modal: New Project -->
+<div class="modal-overlay" id="m-new-project" onclick="closeOut(event,'m-new-project')">
+  <div class="modal">
+    <div class="modal-hd"><div class="modal-title">Buat Proyek Baru</div><div class="modal-close" onclick="closeModal('m-new-project')">✕</div></div>
+    <div class="modal-body">
+      <div class="fg"><label class="fl">Nama Proyek</label><input type="text" class="fc" placeholder="cth: Branding Kit CV Nusantara"></div>
+      <div class="fr"><div class="fg"><label class="fl">Klien</label><select class="fc"><option>Pilih klien...</option><option>Ahmad Fauzi – CV Nusantara</option><option>Sari W. – Toko Mawar</option></select></div><div class="fg"><label class="fl">Kategori Layanan</label><select class="fc"><option>Branding Kit</option><option>Website UI/UX</option><option>Social Media</option></select></div></div>
+      <div class="fr"><div class="fg"><label class="fl">Tanggal Mulai</label><input type="date" class="fc"></div><div class="fg"><label class="fl">Deadline</label><input type="date" class="fc"></div></div>
+      <div class="fg"><label class="fl">Template Milestone</label><select class="fc"><option>Template Branding Kit (5 milestone)</option><option>Template Website (6 milestone)</option><option>Custom (tanpa template)</option></select></div>
+    </div>
+    <div class="modal-footer"><button class="btn btn-ghost" onclick="closeModal('m-new-project')">Batal</button><button class="btn btn-primary" onclick="closeModal('m-new-project');toast('Proyek berhasil dibuat!')">Buat Proyek</button></div>
+  </div>
+</div>
+
+<!-- Modal: Addon -->
+<div class="modal-overlay" id="m-addon" onclick="closeOut(event,'m-addon')">
+  <div class="modal">
+    <div class="modal-hd"><div class="modal-title">⚠️ Invoice Add-on Revisi</div><div class="modal-close" onclick="closeModal('m-addon')">✕</div></div>
+    <div class="modal-body">
+      <div class="alert alert-danger"><span class="alert-ico">⛔</span><div>Milestone <strong>"Desain Logo"</strong> PRJ-001 telah mencapai batas revisi (3/3).</div></div>
+      <div class="inv-card" style="margin-bottom:14px">
+        <div class="inv-hd"><div><div class="text-mono text-xs text-muted">Invoice Add-on</div><div class="fw7 text-mono">INV-2025-017</div></div></div>
+        <div class="inv-rows">
+          <div class="inv-row"><span class="inv-key">Proyek</span><span class="inv-val">Branding Kit CV Nusantara</span></div>
+          <div class="inv-row"><span class="inv-key">Milestone</span><span class="inv-val">Desain Logo (Milestone 2)</span></div>
+          <div class="inv-row"><span class="inv-key">Klien</span><span class="inv-val">Ahmad Fauzi</span></div>
+        </div>
+      </div>
+      <div class="fr">
+        <div class="fg"><label class="fl">Jumlah Slot Revisi</label><select class="fc"><option>1 slot</option><option>2 slot</option><option>3 slot</option></select></div>
+        <div class="fg"><label class="fl">Harga per Slot</label><input type="text" class="fc" value="Rp 150.000"></div>
+      </div>
+      <div style="background:var(--bg3);border:1px solid var(--border);border-radius:6px;padding:11px 14px;display:flex;justify-content:space-between;font-size:.85rem"><span>Total Invoice</span><strong style="color:var(--accent)">Rp 150.000</strong></div>
+    </div>
+    <div class="modal-footer"><button class="btn btn-ghost" onclick="closeModal('m-addon')">Batal</button><button class="btn btn-primary" onclick="closeModal('m-addon');toast('Invoice add-on berhasil diterbitkan!')">Terbitkan Invoice</button></div>
+  </div>
+</div>
+
+<!-- Modal: Verify Payment -->
+<div class="modal-overlay" id="m-verify" onclick="closeOut(event,'m-verify')">
+  <div class="modal">
+    <div class="modal-hd"><div class="modal-title">Verifikasi Pembayaran</div><div class="modal-close" onclick="closeModal('m-verify')">✕</div></div>
+    <div class="modal-body">
+      <div style="background:var(--bg3);border:1px solid var(--border);border-radius:var(--radius);padding:20px;text-align:center;margin-bottom:14px">
+        <div style="font-size:2.5rem;margin-bottom:8px">🧾</div>
+        <div class="fw6">Bukti Transfer BCA</div>
+        <div class="text-mono text-xs text-muted" style="margin-top:3px">INV-2025-018 · Toko Mawar · Rp 1.750.000</div>
+        <div class="text-mono text-xs text-muted">Diunggah 20 Jan 2025, 11:30</div>
+      </div>
+      <div class="fg"><label class="fl">Catatan Verifikasi</label><input type="text" class="fc" placeholder="cth: Dana masuk ke rek BCA xxxx-xxxx"></div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-ghost" onclick="closeModal('m-verify')">Batal</button>
+      <button class="btn btn-red btn-sm" onclick="closeModal('m-verify');toast('Pembayaran ditolak')">✗ Tolak</button>
+      <button class="btn btn-green" onclick="closeModal('m-verify');toast('✓ Pembayaran terverifikasi! Proyek diaktifkan.')">✓ Verifikasi</button>
+    </div>
+  </div>
+</div>
+
+<!-- Modal: Assign Designer -->
+<div class="modal-overlay" id="m-assign" onclick="closeOut(event,'m-assign')">
+  <div class="modal">
+    <div class="modal-hd"><div class="modal-title">Tugaskan Desainer</div><div class="modal-close" onclick="closeModal('m-assign')">✕</div></div>
+    <div class="modal-body">
+      <div class="fg"><label class="fl">Milestone</label><select class="fc"><option>Visual Identity System (MS-3)</option><option>Collateral Desain (MS-4)</option></select></div>
+      <div class="fg">
+        <label class="fl">Pilih Desainer</label>
+        <div style="display:flex;flex-direction:column;gap:6px">
+          <label style="display:flex;align-items:center;gap:10px;padding:9px 11px;border-radius:6px;background:var(--bg3);border:1px solid var(--border);cursor:pointer"><input type="checkbox" checked style="accent-color:var(--accent)"><div class="av" style="width:26px;height:26px;border-radius:4px;font-size:.65rem;background:var(--green);color:#000">AS</div><div><div class="text-sm fw6">Andi Saputra</div><div class="text-mono text-xs text-muted">3 proyek · Lead</div></div></label>
+          <label style="display:flex;align-items:center;gap:10px;padding:9px 11px;border-radius:6px;background:var(--bg3);border:1px solid var(--border);cursor:pointer"><input type="checkbox" style="accent-color:var(--accent)"><div class="av" style="width:26px;height:26px;border-radius:4px;font-size:.65rem;background:var(--purple)">RP</div><div><div class="text-sm fw6">Rina Putri</div><div class="text-mono text-xs text-muted">2 proyek · Kolaborator</div></div></label>
+        </div>
+      </div>
+    </div>
+    <div class="modal-footer"><button class="btn btn-ghost" onclick="closeModal('m-assign')">Batal</button><button class="btn btn-primary" onclick="closeModal('m-assign');toast('Desainer berhasil ditugaskan!')">Simpan</button></div>
+  </div>
+</div>
+
+<!-- Modal: New Milestone -->
+<div class="modal-overlay" id="m-new-milestone" onclick="closeOut(event,'m-new-milestone')">
+  <div class="modal">
+    <div class="modal-hd"><div class="modal-title">Tambah Milestone</div><div class="modal-close" onclick="closeModal('m-new-milestone')">✕</div></div>
+    <div class="modal-body">
+      <div class="fg"><label class="fl">Nama Milestone</label><input type="text" class="fc" placeholder="cth: Desain Logo"></div>
+      <div class="fg"><label class="fl">Target Pencapaian</label><textarea class="fc" rows="3" placeholder="Apa yang harus dicapai?"></textarea></div>
+      <div class="fr"><div class="fg"><label class="fl">Deadline</label><input type="date" class="fc"></div><div class="fg"><label class="fl">Batas Revisi</label><select class="fc"><option>1x</option><option selected>2x</option><option>3x</option></select></div></div>
+    </div>
+    <div class="modal-footer"><button class="btn btn-ghost" onclick="closeModal('m-new-milestone')">Batal</button><button class="btn btn-primary" onclick="closeModal('m-new-milestone');toast('Milestone ditambahkan!')">Tambah</button></div>
+  </div>
+</div>
+
+<!-- Modal: New User -->
+<div class="modal-overlay" id="m-new-user" onclick="closeOut(event,'m-new-user')">
+  <div class="modal">
+    <div class="modal-hd"><div class="modal-title">Tambah Pengguna</div><div class="modal-close" onclick="closeModal('m-new-user')">✕</div></div>
+    <div class="modal-body">
+      <div class="fr"><div class="fg"><label class="fl">Nama Lengkap</label><input type="text" class="fc"></div><div class="fg"><label class="fl">Role</label><select class="fc"><option>Admin</option><option>Desainer</option><option>Klien</option></select></div></div>
+      <div class="fg"><label class="fl">Email</label><input type="email" class="fc"></div>
+      <div class="fg"><label class="fl">Password Awal</label><input type="password" class="fc" placeholder="Min. 8 karakter"></div>
+    </div>
+    <div class="modal-footer"><button class="btn btn-ghost" onclick="closeModal('m-new-user')">Batal</button><button class="btn btn-primary" onclick="closeModal('m-new-user');toast('Akun berhasil dibuat!')">Buat Akun</button></div>
+  </div>
+</div>
+
+<div id="toast"></div>
+
+<script>
+const NAV = [
+  { sec: 'OVERVIEW' },
+  { id:'dashboard', label:'Dashboard', icon:'◈', bc:'dashboard' },
+  { sec: 'MANAJEMEN' },
+  { id:'projects', label:'Proyek', icon:'◧', badge:'12', bc:'proyek' },
+  { id:'payments', label:'Pembayaran', icon:'◆', badge:'4', badgeClass:'yellow', bc:'pembayaran' },
+  { id:'users', label:'Pengguna', icon:'◉', bc:'pengguna' },
+  { sec: 'SISTEM' },
+  { id:'audit', label:'Audit Trail', icon:'◎', bc:'audit trail' },
+  { id:'laporan', label:'Laporan', icon:'◐', bc:'laporan' },
+];
+
+function buildNav(active) {
+  const nav = document.getElementById('sb-nav');
+  nav.innerHTML = '';
+  NAV.forEach(item => {
+    if (item.sec) {
+      const el = document.createElement('div');
+      el.className = 'nav-sec';
+      el.textContent = item.sec;
+      nav.appendChild(el);
+    } else {
+      const el = document.createElement('div');
+      el.className = 'nav-item' + (item.id === active ? ' active' : '');
+      el.onclick = () => navTo(item.id);
+      el.innerHTML = `<span class="nav-icon">${item.icon}</span>${item.label}${item.badge ? `<span class="nav-badge ${item.badgeClass||''}">${item.badge}</span>` : ''}`;
+      nav.appendChild(el);
+    }
+  });
+}
+
+function navTo(id) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  const pg = document.getElementById('page-' + id);
+  if (pg) pg.classList.add('active');
+  buildNav(id);
+  const item = NAV.find(n => n.id === id);
+  document.getElementById('breadcrumb').innerHTML = `admin / <span>${item ? item.bc : id}</span>`;
+  window.scrollTo ? window.scrollTo(0,0) : null;
+  const content = document.querySelector('.content');
+  if (content) content.scrollTop = 0;
+}
+
+function openModal(id) { document.getElementById(id).classList.add('open'); }
+function closeModal(id) { document.getElementById(id).classList.remove('open'); }
+function closeOut(e, id) { if (e.target.id === id) closeModal(id); }
+
+function toggleNotif() {
+  const p = document.getElementById('notif-panel');
+  p.classList.toggle('open');
+  document.getElementById('notif-btn').querySelector('.dot').style.display = p.classList.contains('open') ? 'none' : '';
+}
+document.addEventListener('click', e => {
+  const nb = document.getElementById('notif-btn');
+  if (!nb.contains(e.target)) document.getElementById('notif-panel').classList.remove('open');
+});
+
+function filterTab(el) {
+  el.closest('.tabs').querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  el.classList.add('active');
+}
+
+function sendChat() {
+  const inp = document.getElementById('chat-inp');
+  const msg = inp.value.trim();
+  if (!msg) return;
+  const msgs = document.querySelector('.chat-msgs');
+  const el = document.createElement('div');
+  el.className = 'cmsg mine';
+  el.innerHTML = `<div class="cav admin">AD</div><div><div class="cbubble">${msg}</div><div class="cmeta">Admin · Baru saja</div></div>`;
+  msgs.appendChild(el);
+  inp.value = '';
+  msgs.scrollTop = msgs.scrollHeight;
+}
+
+let toastTimer;
+function toast(msg) {
+  const el = document.getElementById('toast');
+  el.textContent = msg;
+  el.style.transform = 'translateX(-50%) translateY(0)';
+  el.style.opacity = '1';
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => {
+    el.style.transform = 'translateX(-50%) translateY(70px)';
+    el.style.opacity = '0';
+  }, 3000);
+}
+
+buildNav('dashboard');
+</script>
+</body>
+</html>
