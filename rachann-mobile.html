@@ -762,7 +762,7 @@ const clientScreens = {
   </div>
 
   <!-- Invoice add-on -->
-  <div style="padding:0 16px 8px;font-size:12px;font-weight:700;color:var(--text)">📌 Invoice Aktif</div>
+  <div style="padding:0 16px 8px;font-size:12px;font-weight:700;color:var(--text)"><i class="fas fa-thumbtack"></i> Invoice Aktif</div>
   <div class="inv-card">
     <div class="inv-hd dark">
       <div><div style="font-size:10px;opacity:.5;font-family:var(--font-mono)">Add-on Revisi</div><div style="font-weight:800;font-family:var(--font-mono)">INV-2025-017</div></div>
@@ -890,7 +890,7 @@ const designerScreens = {
   </div>
 
   <div class="alert alert-warn">
-    <span class="alert-ico">🔁</span>
+    <span class="alert-ico"><i class="fas fa-redo"></i></span>
     <div><strong>Milestone "Desain Logo"</strong> — Revisi diminta klien. Menunggu unlock add-on dari Admin.</div>
   </div>
 
@@ -915,13 +915,13 @@ const designerScreens = {
       <div class="pc-prog-label"><span>Progress pengerjaan</span><span style="color:var(--red);font-family:var(--font-mono)">Deadline besok!</span></div>
       <div class="prog-track"><div class="prog-fill" style="width:65%"></div></div>
     </div>
-    <div style="display:flex;gap:6px"><button class="btn btn-primary btn-sm" onclick="designerNavTo('d-upload')">↑ Upload File</button><button class="btn btn-outline btn-sm" onclick="designerNavTo('d-status')">Ubah Status</button></div>
+    <div style="display:flex;gap:6px"><button class="btn btn-primary btn-sm" onclick="designerNavTo('d-upload')"><i class="fas fa-arrow-up"></i> Upload File</button><button class="btn btn-outline btn-sm" onclick="designerNavTo('d-status')">Ubah Status</button></div>
   </div>
 
   <div class="proj-card" style="margin-top:0;border-left:3px solid var(--yellow)">
     <div class="pc-hd"><div><div class="pc-title">Wireframe Website</div><div class="pc-sub">PRJ-002 · Toko Mawar</div></div><span class="badge b-review">Review</span></div>
     <div class="alert alert-info" style="margin:0 0 10px">
-      <span class="alert-ico">👁</span>
+      <span class="alert-ico"><i class="fas fa-eye"></i></span>
       <div style="font-size:11px">Menunggu persetujuan klien. File sudah diunggah. Revisi: 1/2</div>
     </div>
     <div style="display:flex;gap:6px"><button class="btn btn-outline btn-sm" onclick="designerNavTo('d-chat')"><i class="fas fa-comments"></i> Chat</button></div>
@@ -953,7 +953,7 @@ const designerScreens = {
         <div style="margin:6px 0"><span class="badge b-inprog">In Progress</span></div>
         <div style="font-size:11px;color:var(--text3);font-family:var(--font-mono);margin-bottom:8px">Revisi: 0/2 · Deadline: 25 Jan</div>
         <div class="ms-step-actions">
-          <button class="btn btn-primary btn-sm" onclick="designerNavTo('d-upload')">↑ Upload</button>
+          <button class="btn btn-primary btn-sm" onclick="designerNavTo('d-upload')"><i class="fas fa-arrow-up"></i> Upload</button>
           <button class="btn btn-outline btn-sm" onclick="designerNavTo('d-status')">Status</button>
           <button class="btn btn-outline btn-sm" onclick="designerNavTo('d-chat')"><i class="fas fa-comments"></i></button>
         </div>
@@ -1009,7 +1009,7 @@ const designerScreens = {
     <input type="text" class="form-control" value="v1" placeholder="cth: v1, v2, v2-final">
   </div>
 
-  <button class="btn btn-primary btn-full" onclick="showToast('File berhasil diunggah!');designerNavTo('d-home')">↑ Upload & Ubah Status ke Review</button>
+  <button class="btn btn-primary btn-full" onclick="showToast('File berhasil diunggah!');designerNavTo('d-home')"><i class="fas fa-arrow-up"></i> Upload & Ubah Status ke Review</button>
 </div>
 `,
 
@@ -1025,8 +1025,8 @@ const designerScreens = {
       <div><div style="font-size:13px;font-weight:700">To-Do</div><div style="font-size:11px;color:var(--text3)">Milestone belum dimulai</div></div>
     </div>
     <div style="border:1.5px solid var(--accent);border-radius:12px;padding:14px;display:flex;align-items:center;gap:12px;background:var(--accent-dim)">
-      <div style="width:36px;height:36px;border-radius:8px;background:var(--accent);display:flex;align-items:center;justify-content:center;font-size:16px">⚡</div>
-      <div style="flex:1"><div style="font-size:13px;font-weight:700;color:var(--accent)">In Progress ← Sekarang</div><div style="font-size:11px;color:var(--text3)">Sedang dikerjakan</div></div>
+      <div style="width:36px;height:36px;border-radius:8px;background:var(--accent);display:flex;align-items:center;justify-content:center;font-size:16px"><i class="fas fa-bolt"></i></div>
+      <div style="flex:1"><div style="font-size:13px;font-weight:700;color:var(--accent)">In Progress <i class="fas fa-arrow-left"></i> Sekarang</div><div style="font-size:11px;color:var(--text3)">Sedang dikerjakan</div></div>
       <div style="font-size:16px"><i class="fas fa-check"></i></div>
     </div>
     <div onclick="showToast('Status diubah ke Review!');designerNavTo('d-home')" style="border:1.5px solid var(--border);border-radius:12px;padding:14px;display:flex;align-items:center;gap:12px;cursor:pointer;active:background:var(--bg3)">
@@ -1141,7 +1141,7 @@ function clientNavTo(page) {
 
   // Topbar titles
   const titles = {
-    'home': ['Halo, Ahmad 👋', 'Rachann\'s Project'],
+    'home': ['Halo, Ahmad <i class="fas fa-hand"></i>', 'Rachann\'s Project'],
     'review-milestone': ['Tinjau Milestone', 'MS-3 Visual Identity'],
     'approve-confirm': ['Setujui Milestone', 'Konfirmasi persetujuan'],
     'request-revision': ['Minta Revisi', 'Masukkan catatan revisi'],
