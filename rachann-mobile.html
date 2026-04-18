@@ -6,6 +6,7 @@
 <title>Rachann's Project — Mobile App</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 <style>
 :root {
   --bg: #F7F6F3;
@@ -450,22 +451,22 @@ textarea.form-control{resize:none}
 
 <!-- ===================== KLIEN PHONE ===================== -->
 <div class="phone-wrap">
-  <div class="demo-label">📱 Klien — Portal Pesanan</div>
+  <div class="demo-label"><i class="fas fa-mobile-alt"></i> Klien — Portal Pesanan</div>
   <div class="phone" id="phone-client">
     <div class="phone-notch"></div>
     <div class="phone-screen">
       <div class="status-bar">
         <span class="sb-time">09:41</span>
-        <span class="sb-icons">📶 WiFi 🔋</span>
+        <span class="sb-icons"><i class="fas fa-wifi"></i> WiFi <i class="fas fa-battery-full"></i></span>
       </div>
 
       <!-- TOPBAR CLIENT -->
       <div class="topbar" id="tb-client">
         <div style="flex:1">
-          <div class="topbar-title" id="client-topbar-title">Halo, Ahmad 👋</div>
+          <div class="topbar-title" id="client-topbar-title">Halo, Ahmad <i class="fas fa-hand"></i></div>
           <div class="topbar-sub" id="client-topbar-sub">Rachann's Project</div>
         </div>
-        <div class="topbar-action" onclick="clientNavTo('notif')"><span>🔔</span><div class="notif-dot-sm"></div></div>
+        <div class="topbar-action" onclick="clientNavTo('notif')"><i class="fas fa-bell"></i><div class="notif-dot-sm"></div></div>
       </div>
 
       <!-- SCREEN WRAPPER -->
@@ -476,17 +477,17 @@ textarea.form-control{resize:none}
       <!-- BOTTOM NAV CLIENT -->
       <div class="bottom-nav">
         <div class="bn-item active" id="cbn-home" onclick="clientNavTo('home')">
-          <div class="bn-icon">🏠</div><div class="bn-label">Beranda</div>
+          <div class="bn-icon"><i class="fas fa-home"></i></div><div class="bn-label">Beranda</div>
         </div>
         <div class="bn-item" id="cbn-order" onclick="clientNavTo('order')">
-          <div class="bn-icon">✏️</div><div class="bn-label">Pesan</div>
+          <div class="bn-icon"><i class="fas fa-pen"></i></div><div class="bn-label">Pesan</div>
         </div>
         <div class="bn-item" id="cbn-payment" onclick="clientNavTo('payment')">
-          <div class="bn-icon">💳</div><div class="bn-label">Bayar</div>
+          <div class="bn-icon"><i class="fas fa-credit-card"></i></div><div class="bn-label">Bayar</div>
           <div class="bn-badge">1</div>
         </div>
         <div class="bn-item" id="cbn-chat" onclick="clientNavTo('chat')">
-          <div class="bn-icon">💬</div><div class="bn-label">Chat</div>
+          <div class="bn-icon"><i class="fas fa-comments"></i></div><div class="bn-label">Chat</div>
         </div>
       </div>
     </div>
@@ -495,13 +496,13 @@ textarea.form-control{resize:none}
 
 <!-- ===================== DESAINER PHONE ===================== -->
 <div class="phone-wrap">
-  <div class="demo-label">📱 Desainer — Workspace</div>
+  <div class="demo-label"><i class="fas fa-mobile-alt"></i> Desainer — Workspace</div>
   <div class="phone" id="phone-designer">
     <div class="phone-notch"></div>
     <div class="phone-screen">
       <div class="status-bar">
         <span class="sb-time">09:41</span>
-        <span class="sb-icons">📶 WiFi 🔋</span>
+        <span class="sb-icons"><i class="fas fa-wifi"></i> WiFi <i class="fas fa-battery-full"></i></span>
       </div>
 
       <!-- TOPBAR DESIGNER -->
@@ -510,7 +511,7 @@ textarea.form-control{resize:none}
           <div class="topbar-title" id="designer-topbar-title">Workspace</div>
           <div class="topbar-sub" id="designer-topbar-sub">Andi Saputra · Desainer</div>
         </div>
-        <div class="topbar-action" onclick="designerNavTo('d-notif')"><span>🔔</span><div class="notif-dot-sm"></div></div>
+        <div class="topbar-action" onclick="designerNavTo('d-notif')"><i class="fas fa-bell"></i><div class="notif-dot-sm"></div></div>
       </div>
 
       <div class="screen-content" id="designer-screen">
@@ -519,17 +520,17 @@ textarea.form-control{resize:none}
 
       <div class="bottom-nav">
         <div class="bn-item active" id="dbn-home" onclick="designerNavTo('d-home')">
-          <div class="bn-icon">🎨</div><div class="bn-label">Workspace</div>
+          <div class="bn-icon"><i class="fas fa-image"></i></div><div class="bn-label">Workspace</div>
         </div>
         <div class="bn-item" id="dbn-milestone" onclick="designerNavTo('d-milestone')">
-          <div class="bn-icon">🔷</div><div class="bn-label">Milestone</div>
+          <div class="bn-icon"><i class="fas fa-tasks"></i></div><div class="bn-label">Milestone</div>
           <div class="bn-badge">3</div>
         </div>
         <div class="bn-item" id="dbn-chat" onclick="designerNavTo('d-chat')">
-          <div class="bn-icon">💬</div><div class="bn-label">Chat</div>
+          <div class="bn-icon"><i class="fas fa-comments"></i></div><div class="bn-label">Chat</div>
         </div>
         <div class="bn-item" id="dbn-profile" onclick="designerNavTo('d-profile')">
-          <div class="bn-icon">👤</div><div class="bn-label">Profil</div>
+          <div class="bn-icon"><i class="fas fa-user"></i></div><div class="bn-label">Profil</div>
         </div>
       </div>
     </div>
@@ -559,8 +560,8 @@ const clientScreens = {
   </div>
 
   <div class="alert alert-danger" style="margin-top:4px">
-    <span class="alert-ico">⚠️</span>
-    <div><strong>Kuota revisi habis</strong> pada Milestone "Desain Logo" (3/3). Tersedia invoice add-on. <span style="text-decoration:underline;font-weight:700;cursor:pointer" onclick="clientNavTo('payment')">Bayar sekarang →</span></div>
+    <span class="alert-ico"><i class="fas fa-exclamation-triangle"></i></span>
+    <div><strong>Kuota revisi habis</strong> pada Milestone "Desain Logo" (3/3). Tersedia invoice add-on. <span style="text-decoration:underline;font-weight:700;cursor:pointer" onclick="clientNavTo('payment')">Bayar sekarang <i class="fas fa-arrow-right"></i></span></div>
   </div>
 
   <div class="sec-title" style="margin-top:4px">Progress Milestone</div>
@@ -568,7 +569,7 @@ const clientScreens = {
   <!-- Progress steps -->
   <div class="ms-steps">
     <div class="ms-step">
-      <div class="ms-step-dot done">✓</div>
+      <div class="ms-step-dot done"><i class="fas fa-check"></i></div>
       <div class="ms-step-content">
         <div class="ms-step-title">Brief & Riset Brand</div>
         <div class="ms-step-sub">Selesai & disetujui — 15 Jan 2025</div>
@@ -580,8 +581,8 @@ const clientScreens = {
       <div class="ms-step-content">
         <div class="ms-step-title">Desain Logo</div>
         <div class="ms-step-sub">Kuota revisi habis (3/3). Menunggu pembayaran add-on.</div>
-        <div style="margin-top:6px;display:flex;gap:6px"><span class="badge b-revision">Revision</span><span class="badge" style="background:var(--red-dim);color:var(--red)">⚠️ Kuota Habis</span></div>
-        <div class="ms-step-actions"><button class="btn btn-outline btn-sm" onclick="clientNavTo('chat')">💬 Chat</button><button class="btn btn-outline btn-sm" onclick="clientNavTo('payment')">💳 Add-on</button></div>
+        <div style="margin-top:6px;display:flex;gap:6px"><span class="badge b-revision">Revision</span><span class="badge" style="background:var(--red-dim);color:var(--red)"><i class="fas fa-exclamation-triangle"></i> Kuota Habis</span></div>
+        <div class="ms-step-actions"><button class="btn btn-outline btn-sm" onclick="clientNavTo('chat')"><i class="fas fa-comments"></i> Chat</button><button class="btn btn-outline btn-sm" onclick="clientNavTo('payment')"><i class="fas fa-credit-card"></i> Add-on</button></div>
       </div>
     </div>
     <div class="ms-step">
@@ -620,7 +621,7 @@ const clientScreens = {
   <div class="sec-title">Milestone 3: Visual Identity</div>
 
   <div class="alert alert-info">
-    <span class="alert-ico">👁</span>
+    <span class="alert-ico"><i class="fas fa-eye"></i></span>
     <div>File desain sudah diunggah. Silakan tinjau dan berikan persetujuan atau minta revisi.</div>
   </div>
 
@@ -632,17 +633,17 @@ const clientScreens = {
 
   <div class="file-card">
     <div class="fc-wm">RACHANN'S PROJECT</div>
-    <div class="fc-icon">🎨</div>
+    <div class="fc-icon"><i class="fas fa-image"></i></div>
     <div class="fc-name">visual-identity-v1.pdf</div>
-    <div class="fc-lock">🔒 Preview dengan watermark — unduh setelah pelunasan</div>
+    <div class="fc-lock"><i class="fas fa-lock"></i> Preview dengan watermark — unduh setelah pelunasan</div>
   </div>
 
   <div style="padding:0 16px 12px;font-size:12px;color:var(--text2);line-height:1.6">Desainer telah mengunggah Visual Identity System versi pertama. Tinjau file di atas dan putuskan apakah sudah sesuai atau perlu revisi.</div>
 
   <div style="padding:0 16px;display:flex;flex-direction:column;gap:8px">
-    <button class="btn btn-green btn-full" onclick="clientNavTo('approve-confirm')">✓ Setujui Milestone</button>
-    <button class="btn btn-danger btn-full" onclick="clientNavTo('request-revision')">🔁 Minta Revisi</button>
-    <button class="btn btn-outline btn-full" onclick="clientNavTo('chat')">💬 Diskusi via Chat</button>
+    <button class="btn btn-green btn-full" onclick="clientNavTo('approve-confirm')"><i class="fas fa-check"></i> Setujui Milestone</button>
+    <button class="btn btn-danger btn-full" onclick="clientNavTo('request-revision')"><i class="fas fa-redo"></i> Minta Revisi</button>
+    <button class="btn btn-outline btn-full" onclick="clientNavTo('chat')"><i class="fas fa-comments"></i> Diskusi via Chat</button>
   </div>
 </div>
 `,
@@ -654,7 +655,7 @@ const clientScreens = {
   <div style="font-size:13px;color:var(--text3);margin-bottom:20px">Milestone 3: Visual Identity System</div>
 
   <div class="alert alert-warn">
-    <span class="alert-ico">⚠️</span>
+    <span class="alert-ico"><i class="fas fa-exclamation-triangle"></i></span>
     <div>Setelah menyetujui, proses dilanjutkan ke milestone berikutnya. <strong>Persetujuan ini tidak dapat dibatalkan.</strong></div>
   </div>
 
@@ -664,10 +665,10 @@ const clientScreens = {
   </div>
 
   <div style="background:var(--green-dim);border:1px solid rgba(22,163,74,.2);border-radius:12px;padding:14px;margin-bottom:16px;font-size:12px;color:var(--green)">
-    ✓ Dengan menyetujui, Anda menyatakan hasil desain <strong>sudah sesuai</strong> dan proses dapat berlanjut ke Milestone 4.
+    <i class="fas fa-check"></i> Dengan menyetujui, Anda menyatakan hasil desain <strong>sudah sesuai</strong> dan proses dapat berlanjut ke Milestone 4.
   </div>
 
-  <button class="btn btn-green btn-full" onclick="showToast('✓ Milestone disetujui!');clientNavTo('home')">✓ Konfirmasi Setujui</button>
+  <button class="btn btn-green btn-full" onclick="showToast('✓ Milestone disetujui!');clientNavTo('home')"><i class="fas fa-check"></i> Konfirmasi Setujui</button>
 </div>
 `,
 
@@ -684,7 +685,7 @@ const clientScreens = {
   </div>
 
   <div class="alert alert-warn" style="margin-bottom:14px">
-    <span class="alert-ico">⚠️</span>
+    <span class="alert-ico"><i class="fas fa-exclamation-triangle"></i></span>
     <div>Permintaan revisi ini akan mengurangi kuota. Jika kuota habis, revisi berikutnya dikenakan biaya tambahan.</div>
   </div>
 
@@ -708,10 +709,10 @@ const clientScreens = {
     <label class="form-label">Kategori Layanan</label>
     <select class="form-control" onchange="updateClientEst(this)">
       <option value="">Pilih layanan...</option>
-      <option value="branding">🎨 Branding Kit — mulai Rp 2.500.000</option>
-      <option value="website">🖥 Website Design (UI/UX) — mulai Rp 3.000.000</option>
-      <option value="social">📱 Social Media Kit — mulai Rp 800.000</option>
-      <option value="graphic">✏️ Desain Grafis Umum — mulai Rp 500.000</option>
+      <option value="branding"><i class="fas fa-image"></i> Branding Kit — mulai Rp 2.500.000</option>
+      <option value="website"><i class="fas fa-desktop"></i> Website Design (UI/UX) — mulai Rp 3.000.000</option>
+      <option value="social"><i class="fas fa-mobile-alt"></i> Social Media Kit — mulai Rp 800.000</option>
+      <option value="graphic"><i class="fas fa-pen"></i> Desain Grafis Umum — mulai Rp 500.000</option>
     </select>
   </div>
 
@@ -726,7 +727,7 @@ const clientScreens = {
   <div style="height:14px"></div>
 
   <div id="client-est-box" style="display:none">
-    <div style="padding:0 16px;margin-bottom:8px;font-size:13px;font-weight:700;color:var(--text)">📋 Estimasi & Kesepakatan</div>
+    <div style="padding:0 16px;margin-bottom:8px;font-size:13px;font-weight:700;color:var(--text)"><i class="fas fa-list"></i> Estimasi & Kesepakatan</div>
     <div class="est-box" style="margin-left:16px;margin-right:16px">
       <div class="est-row"><span class="est-k">Harga Estimasi</span><span class="est-v" id="ce-price">—</span></div>
       <div class="est-row"><span class="est-k">Down Payment (50%)</span><span class="est-v" id="ce-dp">—</span></div>
@@ -756,7 +757,7 @@ const clientScreens = {
   </div>
 
   <div class="alert alert-danger" style="margin-top:12px">
-    <span class="alert-ico">🔔</span>
+    <span class="alert-ico"><i class="fas fa-bell"></i></span>
     <div><strong>1 invoice add-on revisi</strong> perlu dibayar untuk melanjutkan revisi.</div>
   </div>
 
@@ -784,7 +785,7 @@ const clientScreens = {
   <div class="inv-card">
     <div class="inv-hd green">
       <div><div style="font-size:10px;opacity:.7;font-family:var(--font-mono)">Down Payment (50%)</div><div style="font-weight:800;font-family:var(--font-mono)">INV-2025-015</div></div>
-      <span class="badge" style="background:rgba(255,255,255,.2);color:#fff">✓ Lunas</span>
+      <span class="badge" style="background:rgba(255,255,255,.2);color:#fff"><i class="fas fa-check"></i> Lunas</span>
     </div>
     <div class="inv-body">
       <div class="inv-row"><span class="inv-k">Jumlah</span><span class="inv-v">Rp 1.750.000</span></div>
@@ -796,7 +797,7 @@ const clientScreens = {
   <div class="inv-card" style="opacity:.6">
     <div class="inv-hd gray">
       <div><div style="font-size:10px;opacity:.7;font-family:var(--font-mono)">Pelunasan (50%)</div><div style="font-weight:800;font-family:var(--font-mono)">INV-2025-016</div></div>
-      <span class="badge" style="background:rgba(255,255,255,.15);color:#fff">🔒 Terkunci</span>
+      <span class="badge" style="background:rgba(255,255,255,.15);color:#fff"><i class="fas fa-lock"></i> Terkunci</span>
     </div>
     <div class="inv-body">
       <div class="inv-row"><span class="inv-k">Jumlah</span><span class="inv-v">Rp 1.750.000</span></div>
@@ -828,7 +829,7 @@ const clientScreens = {
 
 'chat': `
 <div style="display:flex;flex-direction:column;height:100%">
-  <div style="padding:10px 16px;border-bottom:1px solid var(--border);font-size:12px;color:var(--text3);background:var(--bg2)">💬 Chat Milestone 2 — Desain Logo &nbsp;·&nbsp; <span style="font-family:var(--font-mono)">Semua percakapan terdokumentasi</span></div>
+  <div style="padding:10px 16px;border-bottom:1px solid var(--border);font-size:12px;color:var(--text3);background:var(--bg2)"><i class="fas fa-comments"></i> Chat Milestone 2 — Desain Logo &nbsp;·&nbsp; <span style="font-family:var(--font-mono)">Semua percakapan terdokumentasi</span></div>
   <div class="chat-bg" style="flex:1;overflow-y:auto">
     <div class="chat-day">19 Januari 2025</div>
     <div class="cmsg mine"><div class="cmsg-av av-client">AH</div><div><div class="cbubble">Halo, tolong warna logonya diganti ke earthy tone yang lebih hangat, seperti terracotta.</div><div class="cmeta">Anda · 14:22</div></div></div>
@@ -843,7 +844,7 @@ const clientScreens = {
   </div>
   <div class="chat-input-row">
     <input class="chat-input" placeholder="Tulis pesan..." id="client-chat-input">
-    <button class="chat-send" onclick="clientSendChat()">→</button>
+    <button class="chat-send" onclick="clientSendChat()"><i class="fas fa-arrow-right"></i></button>
   </div>
 </div>
 `,
@@ -855,11 +856,11 @@ const clientScreens = {
   </div>
   <div style="padding:0 16px;margin-top:12px;display:flex;flex-direction:column;gap:10px">
     <div style="display:flex;gap:12px;padding:12px;background:var(--accent-dim);border:1px solid rgba(212,80,30,.15);border-radius:12px;cursor:pointer" onclick="clientNavTo('payment')">
-      <div style="font-size:20px">⚠️</div>
+      <div style="font-size:20px"><i class="fas fa-exclamation-triangle"></i></div>
       <div><div style="font-size:13px;font-weight:600;color:var(--text)">Invoice Add-on Revisi</div><div style="font-size:11px;color:var(--text3);margin-top:2px">INV-2025-017 · Rp 150.000 · Jatuh tempo 25 Jan</div><div style="font-size:10px;color:var(--text3);font-family:var(--font-mono);margin-top:3px">5 menit lalu</div></div>
     </div>
     <div style="display:flex;gap:12px;padding:12px;background:var(--bg2);border:1px solid var(--border);border-radius:12px">
-      <div style="font-size:20px">🔔</div>
+      <div style="font-size:20px"><i class="fas fa-bell"></i></div>
       <div><div style="font-size:13px;font-weight:600;color:var(--text)">File desain diunggah</div><div style="font-size:11px;color:var(--text3);margin-top:2px">Andi mengunggah visual-identity-v1 di Milestone 3</div><div style="font-size:10px;color:var(--text3);font-family:var(--font-mono);margin-top:3px">2 jam lalu</div></div>
     </div>
     <div style="display:flex;gap:12px;padding:12px;background:var(--bg2);border:1px solid var(--border);border-radius:12px">
@@ -878,7 +879,7 @@ const designerScreens = {
 'd-home': `
 <div style="padding-bottom:8px">
   <div class="hero-card" style="background:linear-gradient(135deg,#0f2027,#203a43,#2c5364)">
-    <div class="hc-label">Halo, Desainer 👋</div>
+    <div class="hc-label">Halo, Desainer <i class="fas fa-hand"></i></div>
     <div class="hc-name">Andi Saputra</div>
     <div class="hc-role">Graphic Designer · Rachann's Project</div>
     <div class="hc-stats">
@@ -905,7 +906,7 @@ const designerScreens = {
       <span class="alert-ico">⛔</span>
       <div style="font-size:11px">Kuota revisi habis (3/3). Tunggu unlock add-on dari Admin sebelum melanjutkan.</div>
     </div>
-    <div style="display:flex;gap:6px"><button class="btn btn-outline btn-sm" onclick="designerNavTo('d-chat')">💬 Lihat Chat</button></div>
+    <div style="display:flex;gap:6px"><button class="btn btn-outline btn-sm" onclick="designerNavTo('d-chat')"><i class="fas fa-comments"></i> Lihat Chat</button></div>
   </div>
 
   <div class="proj-card" style="margin-top:0;border-left:3px solid var(--blue)">
@@ -923,7 +924,7 @@ const designerScreens = {
       <span class="alert-ico">👁</span>
       <div style="font-size:11px">Menunggu persetujuan klien. File sudah diunggah. Revisi: 1/2</div>
     </div>
-    <div style="display:flex;gap:6px"><button class="btn btn-outline btn-sm" onclick="designerNavTo('d-chat')">💬 Chat</button></div>
+    <div style="display:flex;gap:6px"><button class="btn btn-outline btn-sm" onclick="designerNavTo('d-chat')"><i class="fas fa-comments"></i> Chat</button></div>
   </div>
 </div>
 `,
@@ -940,7 +941,7 @@ const designerScreens = {
         <div class="ms-step-sub">PRJ-001 · CV Nusantara</div>
         <div style="margin:6px 0"><span class="badge b-revision">Revision Requested</span></div>
         <div style="background:var(--yellow-dim);border:1px solid rgba(202,138,4,.2);border-radius:8px;padding:8px 10px;font-size:11px;color:var(--yellow);margin-bottom:8px">⏳ Menunggu Admin unlock add-on revisi (3/3 habis)</div>
-        <div class="ms-step-actions"><button class="btn btn-outline btn-sm" onclick="designerNavTo('d-chat')">💬 Lihat Chat</button></div>
+        <div class="ms-step-actions"><button class="btn btn-outline btn-sm" onclick="designerNavTo('d-chat')"><i class="fas fa-comments"></i> Lihat Chat</button></div>
       </div>
     </div>
 
@@ -954,7 +955,7 @@ const designerScreens = {
         <div class="ms-step-actions">
           <button class="btn btn-primary btn-sm" onclick="designerNavTo('d-upload')">↑ Upload</button>
           <button class="btn btn-outline btn-sm" onclick="designerNavTo('d-status')">Status</button>
-          <button class="btn btn-outline btn-sm" onclick="designerNavTo('d-chat')">💬</button>
+          <button class="btn btn-outline btn-sm" onclick="designerNavTo('d-chat')"><i class="fas fa-comments"></i></button>
         </div>
       </div>
     </div>
@@ -966,12 +967,12 @@ const designerScreens = {
         <div class="ms-step-sub">PRJ-002 · Toko Mawar</div>
         <div style="margin:6px 0"><span class="badge b-review">Review</span></div>
         <div style="font-size:11px;color:var(--text3);font-family:var(--font-mono);margin-bottom:8px">Revisi: 1/2 · Menunggu approval klien</div>
-        <div class="ms-step-actions"><button class="btn btn-outline btn-sm" onclick="designerNavTo('d-chat')">💬 Chat</button></div>
+        <div class="ms-step-actions"><button class="btn btn-outline btn-sm" onclick="designerNavTo('d-chat')"><i class="fas fa-comments"></i> Chat</button></div>
       </div>
     </div>
 
     <div class="ms-step">
-      <div class="ms-step-dot done">✓</div>
+      <div class="ms-step-dot done"><i class="fas fa-check"></i></div>
       <div class="ms-step-content">
         <div class="ms-step-title">Brief & Riset Brand</div>
         <div class="ms-step-sub">PRJ-001 · Selesai 15 Jan</div>
@@ -989,12 +990,12 @@ const designerScreens = {
   <div style="font-size:12px;color:var(--text3);margin-bottom:16px">Milestone 3: Visual Identity System</div>
 
   <div class="alert alert-info" style="margin-left:0;margin-right:0;margin-bottom:14px">
-    <span class="alert-ico">ℹ️</span>
+    <span class="alert-ico"><i class="fas fa-circle-info"></i></span>
     <div>File akan otomatis diberi <strong>watermark</strong> saat ditampilkan ke klien hingga pelunasan terverifikasi.</div>
   </div>
 
   <div class="upload-zone" style="margin-left:0;margin-right:0;margin-bottom:14px">
-    <div class="uz-icon">📎</div>
+    <div class="uz-icon"><i class="fas fa-paperclip"></i></div>
     <div class="uz-text"><strong>Tap untuk pilih file</strong><br>PDF, PNG, AI, PSD, Figma · Max 50MB</div>
   </div>
 
@@ -1020,16 +1021,16 @@ const designerScreens = {
 
   <div style="display:flex;flex-direction:column;gap:10px;margin-bottom:20px">
     <div style="border:1.5px solid var(--border);border-radius:12px;padding:14px;display:flex;align-items:center;gap:12px;opacity:.5">
-      <div style="width:36px;height:36px;border-radius:8px;background:var(--bg3);display:flex;align-items:center;justify-content:center;font-size:16px">📋</div>
+      <div style="width:36px;height:36px;border-radius:8px;background:var(--bg3);display:flex;align-items:center;justify-content:center;font-size:16px"><i class="fas fa-list"></i></div>
       <div><div style="font-size:13px;font-weight:700">To-Do</div><div style="font-size:11px;color:var(--text3)">Milestone belum dimulai</div></div>
     </div>
     <div style="border:1.5px solid var(--accent);border-radius:12px;padding:14px;display:flex;align-items:center;gap:12px;background:var(--accent-dim)">
       <div style="width:36px;height:36px;border-radius:8px;background:var(--accent);display:flex;align-items:center;justify-content:center;font-size:16px">⚡</div>
       <div style="flex:1"><div style="font-size:13px;font-weight:700;color:var(--accent)">In Progress ← Sekarang</div><div style="font-size:11px;color:var(--text3)">Sedang dikerjakan</div></div>
-      <div style="font-size:16px">✓</div>
+      <div style="font-size:16px"><i class="fas fa-check"></i></div>
     </div>
     <div onclick="showToast('Status diubah ke Review!');designerNavTo('d-home')" style="border:1.5px solid var(--border);border-radius:12px;padding:14px;display:flex;align-items:center;gap:12px;cursor:pointer;active:background:var(--bg3)">
-      <div style="width:36px;height:36px;border-radius:8px;background:var(--yellow-dim);display:flex;align-items:center;justify-content:center;font-size:16px">👁</div>
+      <div style="width:36px;height:36px;border-radius:8px;background:var(--yellow-dim);display:flex;align-items:center;justify-content:center;font-size:16px"><i class="fas fa-eye"></i></div>
       <div><div style="font-size:13px;font-weight:700">Review</div><div style="font-size:11px;color:var(--text3)">Submit hasil untuk ditinjau klien</div></div>
     </div>
     <div style="border:1.5px solid var(--border);border-radius:12px;padding:14px;display:flex;align-items:center;gap:12px;opacity:.4">
@@ -1043,7 +1044,7 @@ const designerScreens = {
 'd-chat': `
 <div style="display:flex;flex-direction:column;height:100%">
   <div style="padding:10px 16px;border-bottom:1px solid var(--border);background:var(--bg2)">
-    <div style="font-size:13px;font-weight:700">💬 Desain Logo · PRJ-001</div>
+    <div style="font-size:13px;font-weight:700"><i class="fas fa-comments"></i> Desain Logo · PRJ-001</div>
     <div style="font-size:10px;color:var(--text3);font-family:var(--font-mono)">CV Nusantara · 3 peserta</div>
   </div>
   <div class="chat-bg" style="flex:1;overflow-y:auto">
@@ -1060,7 +1061,7 @@ const designerScreens = {
   </div>
   <div class="chat-input-row">
     <input class="chat-input" placeholder="Pesan..." id="designer-chat-input">
-    <button class="chat-send" onclick="designerSendChat()">→</button>
+    <button class="chat-send" onclick="designerSendChat()"><i class="fas fa-arrow-right"></i></button>
   </div>
 </div>
 `,
@@ -1112,7 +1113,7 @@ const designerScreens = {
   <div style="padding:14px 16px 12px;border-bottom:1px solid var(--border)"><div style="font-size:18px;font-weight:800">Notifikasi</div></div>
   <div style="padding:12px 16px;display:flex;flex-direction:column;gap:10px">
     <div style="display:flex;gap:12px;padding:12px;background:var(--yellow-dim);border:1px solid rgba(202,138,4,.2);border-radius:12px">
-      <div style="font-size:20px">🔁</div>
+      <div style="font-size:20px"><i class="fas fa-redo"></i></div>
       <div><div style="font-size:13px;font-weight:600;color:var(--text)">Revisi Diminta</div><div style="font-size:11px;color:var(--text3);margin-top:2px">Klien Ahmad meminta revisi "Desain Logo" — tunggu unlock Admin</div><div style="font-size:10px;color:var(--text3);font-family:var(--font-mono);margin-top:3px">5m lalu</div></div>
     </div>
     <div style="display:flex;gap:12px;padding:12px;background:var(--bg2);border:1px solid var(--border);border-radius:12px">

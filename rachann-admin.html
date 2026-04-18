@@ -6,6 +6,7 @@
 <title>Rachann's Project — Admin Panel</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&family=Instrument+Sans:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 <style>
 :root {
   --bg: #0e0e10;
@@ -747,27 +748,27 @@ select.fc{cursor:pointer}
   <nav class="sb-nav" id="sb-nav"></nav>
 
   <div class="sb-footer">
-    <button class="btn-logout"><span>⎋</span> Keluar</button>
+    <button class="btn-logout"><i class="fas fa-sign-out-alt"></i> Keluar</button>
   </div>
 </aside>
 
 <!-- ===== MAIN ===== -->
 <div class="main">
   <header class="topbar">
-    <button class="sidebar-toggle" id="sidebar-toggle" onclick="toggleSidebar()">☰</button>
+    <button class="sidebar-toggle" id="sidebar-toggle" onclick="toggleSidebar()"><i class="fas fa-bars"></i></button>
     <div class="topbar-breadcrumb" id="breadcrumb">admin / <span>dashboard</span></div>
     <div class="topbar-actions">
       <div class="ib" style="position:relative" id="notif-btn" onclick="toggleNotif()">
-        🔔<div class="dot"></div>
+        <i class="fas fa-bell"></i><div class="dot"></div>
         <div class="notif-panel" id="notif-panel">
           <div class="np-hd"><span>Notifikasi</span><span style="font-size:.7rem;color:var(--accent);cursor:pointer;font-weight:400">Baca semua</span></div>
-          <div class="np-item unread"><div class="np-ico">⚠️</div><div><div class="np-text"><strong>Kuota revisi habis</strong> — Milestone "Desain Logo" PRJ-001</div><div class="np-time">5m lalu</div></div></div>
-          <div class="np-item unread"><div class="np-ico">💳</div><div><div class="np-text"><strong>Bukti DP masuk</strong> — #ORD-018 Toko Mawar</div><div class="np-time">22m lalu</div></div></div>
-          <div class="np-item"><div class="np-ico">✅</div><div><div class="np-text">Milestone "Wireframe" disetujui klien Bunga Rampai</div><div class="np-time">1j lalu</div></div></div>
-          <div class="np-item"><div class="np-ico">⏰</div><div><div class="np-text">Deadline "Visual Identity" jatuh tempo besok</div><div class="np-time">3j lalu</div></div></div>
+          <div class="np-item unread"><div class="np-ico"><i class="fas fa-exclamation-triangle"></i></div><div><div class="np-text"><strong>Kuota revisi habis</strong> — Milestone "Desain Logo" PRJ-001</div><div class="np-time">5m lalu</div></div></div>
+          <div class="np-item unread"><div class="np-ico"><i class="fas fa-credit-card"></i></div><div><div class="np-text"><strong>Bukti DP masuk</strong> — #ORD-018 Toko Mawar</div><div class="np-time">22m lalu</div></div></div>
+          <div class="np-item"><div class="np-ico"><i class="fas fa-check-circle"></i></div><div><div class="np-text">Milestone "Wireframe" disetujui klien Bunga Rampai</div><div class="np-time">1j lalu</div></div></div>
+          <div class="np-item"><div class="np-ico"><i class="fas fa-clock"></i></div><div><div class="np-text">Deadline "Visual Identity" jatuh tempo besok</div><div class="np-time">3j lalu</div></div></div>
         </div>
       </div>
-      <div class="ib">⚙️</div>
+      <div class="ib"><i class="fas fa-cog"></i></div>
       <div class="av" style="width:34px;height:34px;border-radius:6px;font-size:.78rem;">AD</div>
     </div>
   </header>
@@ -779,27 +780,27 @@ select.fc{cursor:pointer}
 ===================================================== -->
 <div class="page active" id="page-dashboard">
   <div class="g4" style="margin-bottom:16px">
-    <div class="stat"><span class="stat-ico">📁</span><div class="stat-label">Proyek Aktif</div><div class="stat-val">12</div><div class="stat-sub">3 mendekati deadline</div></div>
-    <div class="stat g"><span class="stat-ico">✅</span><div class="stat-label">Selesai Bulan Ini</div><div class="stat-val">7</div><div class="stat-sub">↑ 2 dari bulan lalu</div></div>
-    <div class="stat y"><span class="stat-ico">⏳</span><div class="stat-label">Tunggu Verifikasi</div><div class="stat-val">4</div><div class="stat-sub">2 DP · 2 Pelunasan</div></div>
-    <div class="stat b"><span class="stat-ico">💰</span><div class="stat-label">Revenue Bulan Ini</div><div class="stat-val">18.4<span style="font-size:1rem">jt</span></div><div class="stat-sub">Target: Rp 25 jt</div></div>
+    <div class="stat"><span class="stat-ico"><i class="fas fa-folder"></i></span><div class="stat-label">Proyek Aktif</div><div class="stat-val">12</div><div class="stat-sub">3 mendekati deadline</div></div>
+    <div class="stat g"><span class="stat-ico"><i class="fas fa-check-square"></i></span><div class="stat-label">Selesai Bulan Ini</div><div class="stat-val">7</div><div class="stat-sub"><i class="fas fa-arrow-up"></i> 2 dari bulan lalu</div></div>
+    <div class="stat y"><span class="stat-ico"><i class="fas fa-hourglass-half"></i></span><div class="stat-label">Tunggu Verifikasi</div><div class="stat-val">4</div><div class="stat-sub">2 DP · 2 Pelunasan</div></div>
+    <div class="stat b"><span class="stat-ico"><i class="fas fa-wallet"></i></span><div class="stat-label">Revenue Bulan Ini</div><div class="stat-val">18.4<span style="font-size:1rem">jt</span></div><div class="stat-sub">Target: Rp 25 jt</div></div>
   </div>
 
   <div class="g2">
     <div>
       <!-- Butuh Perhatian -->
       <div class="card" style="margin-bottom:14px">
-        <div class="sh"><div class="sh-title">🔴 Butuh Perhatian Sekarang</div></div>
+        <div class="sh"><div class="sh-title"><i class="fas fa-exclamation-circle" style="color:var(--red)"></i> Butuh Perhatian Sekarang</div></div>
         <div class="alert alert-danger">
-          <span class="alert-ico">⚠️</span>
+          <span class="alert-ico"><i class="fas fa-exclamation-triangle"></i></span>
           <div><strong>Kuota revisi habis</strong> — Milestone "Desain Logo" PRJ-001 (3/3). Klien masih meminta revisi.<br><span style="margin-top:6px;display:inline-block"><button class="btn btn-primary btn-sm" onclick="navTo('milestone-detail')">Buka Milestone →</button></span></div>
         </div>
         <div class="alert alert-warn">
-          <span class="alert-ico">💳</span>
+          <span class="alert-ico"><i class="fas fa-credit-card"></i></span>
           <div><strong>2 pembayaran menunggu verifikasi.</strong> <span style="text-decoration:underline;cursor:pointer;font-weight:600" onclick="navTo('payments')">Verifikasi sekarang</span></div>
         </div>
         <div class="alert alert-info">
-          <span class="alert-ico">⏰</span>
+          <span class="alert-ico"><i class="fas fa-clock"></i></span>
           <div>Deadline milestone <strong>"Visual Identity"</strong> PRJ-001 jatuh tempo <strong>besok</strong>.</div>
         </div>
       </div>
@@ -808,10 +809,10 @@ select.fc{cursor:pointer}
       <div class="card">
         <div class="sh"><div class="sh-title">Aktivitas Terbaru</div></div>
         <div class="tl">
-          <div class="tl-item"><div class="tl-dot done">✓</div><div class="tl-cnt"><div class="tl-title">Klien setujui Wireframe</div><div class="tl-sub">PRJ-002 Toko Mawar — Sari W.</div><div class="tl-time">Hari ini, 10:24</div></div></div>
-          <div class="tl-item"><div class="tl-dot info">↑</div><div class="tl-cnt"><div class="tl-title">File desain diunggah desainer</div><div class="tl-sub">Milestone "Visual Identity" — Andi S.</div><div class="tl-time">Hari ini, 09:15</div></div></div>
-          <div class="tl-item"><div class="tl-dot warn">!</div><div class="tl-cnt"><div class="tl-title">Permintaan revisi ke-3</div><div class="tl-sub">Milestone "Logo" PRJ-001 — kuota habis</div><div class="tl-time">Kemarin, 16:48</div></div></div>
-          <div class="tl-item"><div class="tl-dot done">✓</div><div class="tl-cnt"><div class="tl-title">DP terverifikasi</div><div class="tl-sub">#ORD-015 Toko Bunga — Rp 1.200.000</div><div class="tl-time">Kemarin, 14:30</div></div></div>
+          <div class="tl-item"><div class="tl-dot done"><i class="fas fa-check"></i></div><div class="tl-cnt"><div class="tl-title">Klien setujui Wireframe</div><div class="tl-sub">PRJ-002 Toko Mawar — Sari W.</div><div class="tl-time">Hari ini, 10:24</div></div></div>
+          <div class="tl-item"><div class="tl-dot info"><i class="fas fa-arrow-up"></i></div><div class="tl-cnt"><div class="tl-title">File desain diunggah desainer</div><div class="tl-sub">Milestone "Visual Identity" — Andi S.</div><div class="tl-time">Hari ini, 09:15</div></div></div>
+          <div class="tl-item"><div class="tl-dot warn"><i class="fas fa-exclamation"></i></div><div class="tl-cnt"><div class="tl-title">Permintaan revisi ke-3</div><div class="tl-sub">Milestone "Logo" PRJ-001 — kuota habis</div><div class="tl-time">Kemarin, 16:48</div></div></div>
+          <div class="tl-item"><div class="tl-dot done"><i class="fas fa-check"></i></div><div class="tl-cnt"><div class="tl-title">DP terverifikasi</div><div class="tl-sub">#ORD-015 Toko Bunga — Rp 1.200.000</div><div class="tl-time">Kemarin, 14:30</div></div></div>
         </div>
       </div>
     </div>
@@ -866,10 +867,10 @@ select.fc{cursor:pointer}
       <table>
         <thead><tr><th>#</th><th>Nama Proyek</th><th>Klien</th><th>Desainer</th><th>Milestone</th><th>Deadline</th><th>Status</th><th>Aksi</th></tr></thead>
         <tbody>
-          <tr><td class="text-mono text-xs text-muted">PRJ-001</td><td><div class="td-main">Branding Kit CV Nusantara</div><div class="td-sub">Dibuat 12 Jan 2025</div></td><td>Ahmad Fauzi</td><td>Andi Saputra</td><td><span class="text-mono text-xs">3/5</span></td><td><span class="text-xs" style="color:var(--red);font-family:var(--font-mono)">28 Jan 2025</span></td><td><span class="badge badge-revision">Revision</span></td><td><div class="act"><button class="btn btn-ghost btn-sm" onclick="navTo('project-detail')">Detail</button><button class="btn btn-ghost btn-sm" onclick="openModal('m-assign')">👤</button></div></td></tr>
-          <tr><td class="text-mono text-xs text-muted">PRJ-002</td><td><div class="td-main">Website Toko Mawar</div><div class="td-sub">Dibuat 15 Jan 2025</div></td><td>Sari Wulandari</td><td>Rina Putri</td><td><span class="text-mono text-xs">2/6</span></td><td><span class="text-xs text-mono">10 Feb 2025</span></td><td><span class="badge badge-review">Review</span></td><td><div class="act"><button class="btn btn-ghost btn-sm" onclick="navTo('project-detail')">Detail</button><button class="btn btn-ghost btn-sm" onclick="openModal('m-assign')">👤</button></div></td></tr>
+          <tr><td class="text-mono text-xs text-muted">PRJ-001</td><td><div class="td-main">Branding Kit CV Nusantara</div><div class="td-sub">Dibuat 12 Jan 2025</div></td><td>Ahmad Fauzi</td><td>Andi Saputra</td><td><span class="text-mono text-xs">3/5</span></td><td><span class="text-xs" style="color:var(--red);font-family:var(--font-mono)">28 Jan 2025</span></td><td><span class="badge badge-revision">Revision</span></td><td><div class="act"><button class="btn btn-ghost btn-sm" onclick="navTo('project-detail')">Detail</button><button class="btn btn-ghost btn-sm" onclick="openModal('m-assign')"><i class="fas fa-user-plus"></i></button></div></td></tr>
+          <tr><td class="text-mono text-xs text-muted">PRJ-002</td><td><div class="td-main">Website Toko Mawar</div><div class="td-sub">Dibuat 15 Jan 2025</div></td><td>Sari Wulandari</td><td>Rina Putri</td><td><span class="text-mono text-xs">2/6</span></td><td><span class="text-xs text-mono">10 Feb 2025</span></td><td><span class="badge badge-review">Review</span></td><td><div class="act"><button class="btn btn-ghost btn-sm" onclick="navTo('project-detail')">Detail</button><button class="btn btn-ghost btn-sm" onclick="openModal('m-assign')"><i class="fas fa-user-plus"></i></button></div></td></tr>
           <tr><td class="text-mono text-xs text-muted">PRJ-003</td><td><div class="td-main">Social Media Bunga Rampai</div><div class="td-sub">Dibuat 5 Jan 2025</div></td><td>Budi Santoso</td><td>Andi Saputra</td><td><span class="text-mono text-xs">4/4</span></td><td><span class="text-xs text-mono">20 Jan 2025</span></td><td><span class="badge badge-done">Done</span></td><td><div class="act"><button class="btn btn-ghost btn-sm" onclick="navTo('project-detail')">Detail</button></div></td></tr>
-          <tr><td class="text-mono text-xs text-muted">PRJ-004</td><td><div class="td-main">Dashboard App Startup Jaya</div><div class="td-sub">Dibuat 18 Jan 2025</div></td><td>Rian Kusuma</td><td>—</td><td><span class="text-mono text-xs">0/7</span></td><td><span class="text-xs text-mono">15 Mar 2025</span></td><td><span class="badge badge-inprog">In Progress</span></td><td><div class="act"><button class="btn btn-ghost btn-sm" onclick="navTo('project-detail')">Detail</button><button class="btn btn-ghost btn-sm" onclick="openModal('m-assign')">👤</button></div></td></tr>
+          <tr><td class="text-mono text-xs text-muted">PRJ-004</td><td><div class="td-main">Dashboard App Startup Jaya</div><div class="td-sub">Dibuat 18 Jan 2025</div></td><td>Rian Kusuma</td><td>—</td><td><span class="text-mono text-xs">0/7</span></td><td><span class="text-xs text-mono">15 Mar 2025</span></td><td><span class="badge badge-inprog">In Progress</span></td><td><div class="act"><button class="btn btn-ghost btn-sm" onclick="navTo('project-detail')">Detail</button><button class="btn btn-ghost btn-sm" onclick="openModal('m-assign')"><i class="fas fa-user-plus"></i></button></div></td></tr>
         </tbody>
       </table>
     </div>
@@ -896,10 +897,10 @@ select.fc{cursor:pointer}
     </div>
     <div class="div"></div>
     <div class="flex gap8 flex-wrap">
-      <button class="btn btn-ghost btn-sm" onclick="navTo('payments')">💳 Pembayaran</button>
-      <button class="btn btn-ghost btn-sm" onclick="openModal('m-assign')">👤 Tugaskan Desainer</button>
+      <button class="btn btn-ghost btn-sm" onclick="navTo('payments')"><i class="fas fa-credit-card"></i> Pembayaran</button>
+      <button class="btn btn-ghost btn-sm" onclick="openModal('m-assign')"><i class="fas fa-user-plus"></i> Tugaskan Desainer</button>
       <button class="btn btn-ghost btn-sm" onclick="openModal('m-new-milestone')">+ Milestone</button>
-      <button class="btn btn-primary btn-sm" onclick="openModal('m-addon')">⚠️ Add-on Revisi</button>
+      <button class="btn btn-primary btn-sm" onclick="openModal('m-addon')"><i class="fas fa-exclamation-triangle"></i> Add-on Revisi</button>
     </div>
   </div>
 
@@ -915,7 +916,7 @@ select.fc{cursor:pointer}
         <div class="ms-card ms-revision" onclick="navTo('milestone-detail')">
           <div class="ms-hd"><div class="ms-num">2</div><div class="ms-title">Desain Logo</div><span class="badge badge-revision">Revision</span></div>
           <div class="ms-target">3 konsep logo awal, pilihan tipografi, palet warna primer.</div>
-          <div class="ms-ft"><div class="ms-dead ov">📅 20 Jan 2025 (overdue)</div><div class="ms-rev full">⚠️ Revisi: 3/3 HABIS</div></div>
+          <div class="ms-ft"><div class="ms-dead ov"><i class="fas fa-calendar"></i> 20 Jan 2025 (overdue)</div><div class="ms-rev full"><i class="fas fa-exclamation-triangle"></i> Revisi: 3/3 HABIS</div></div>
         </div>
         <div class="ms-card ms-inprog" onclick="navTo('milestone-detail')">
           <div class="ms-hd"><div class="ms-num">3</div><div class="ms-title">Visual Identity System</div><span class="badge badge-inprog">In Progress</span></div>
@@ -941,13 +942,13 @@ select.fc{cursor:pointer}
         <div style="display:flex;flex-direction:column;gap:9px">
           <div class="flex-between"><span class="text-xs text-muted text-mono">Nomor Pesanan</span><span class="fw6 text-mono text-xs">#ORD-2024-015</span></div>
           <div class="flex-between"><span class="text-xs text-muted text-mono">Total Kontrak</span><span class="fw6">Rp 3.500.000</span></div>
-          <div class="flex-between"><span class="text-xs text-muted text-mono">Down Payment (50%)</span><span class="fw6" style="color:var(--green)">✓ Terverifikasi</span></div>
+          <div class="flex-between"><span class="text-xs text-muted text-mono">Down Payment (50%)</span><span class="fw6" style="color:var(--green)"><i class="fas fa-check"></i> Terverifikasi</span></div>
           <div class="flex-between"><span class="text-xs text-muted text-mono">Pelunasan (50%)</span><span class="fw6" style="color:var(--yellow)">Belum Dibayar</span></div>
           <div class="flex-between"><span class="text-xs text-muted text-mono">Batas Revisi Default</span><span class="fw6 text-mono text-xs">2x / milestone</span></div>
         </div>
         <div class="div"></div>
         <div class="alert alert-danger" style="margin-bottom:0">
-          <span class="alert-ico">⚠️</span>
+          <span class="alert-ico"><i class="fas fa-exclamation-triangle"></i></span>
           <div><strong>Kuota revisi habis</strong> di Milestone 2 (3/3). Terbitkan invoice add-on sebelum desainer dapat melanjutkan.<br><button class="btn btn-primary btn-sm" style="margin-top:8px" onclick="openModal('m-addon')">Terbitkan Invoice Add-on</button></div>
         </div>
       </div>
@@ -983,7 +984,7 @@ select.fc{cursor:pointer}
           <div class="rev-count">3/3</div>
         </div>
         <div class="alert alert-danger" style="margin-top:12px;margin-bottom:0">
-          <span class="alert-ico">⛔</span>
+          <span class="alert-ico"><i class="fas fa-ban"></i></span>
           <div>Klien masih meminta revisi melebihi kuota. Admin harus terbitkan <strong>invoice add-on revisi</strong> sebelum desainer dapat melanjutkan pekerjaan.</div>
         </div>
         <div class="flex gap8 mt12">
@@ -999,7 +1000,7 @@ select.fc{cursor:pointer}
           <button class="btn btn-ghost btn-sm">To-Do</button>
           <button class="btn btn-ghost btn-sm">In Progress</button>
           <button class="btn btn-ghost btn-sm" style="border-color:rgba(240,192,64,.4);color:var(--yellow)">Review</button>
-          <button class="btn btn-green btn-sm">Done ✓</button>
+          <button class="btn btn-green btn-sm">Done <i class="fas fa-check"></i></button>
         </div>
         <div class="text-xs text-muted text-mono" style="margin-top:8px">Hanya Admin yang dapat konfirmasi status "Done"</div>
       </div>
@@ -1011,9 +1012,9 @@ select.fc{cursor:pointer}
         </div>
         <div class="file-prev" style="margin-bottom:10px">
           <div class="wm">RACHANN'S PROJECT</div>
-          <div class="file-ico">🎨</div>
+          <div class="file-ico"><i class="fas fa-image"></i></div>
           <div class="file-nm">logo-concept-v3.pdf</div>
-          <div class="file-lock">🔒 Preview — unduh asli setelah pelunasan</div>
+          <div class="file-lock"><i class="fas fa-lock"></i> Preview — unduh asli setelah pelunasan</div>
         </div>
         <div class="flex gap8">
           <div style="flex:1;padding:9px 11px;background:var(--bg3);border-radius:6px;border:1px solid var(--border)">
@@ -1031,7 +1032,7 @@ select.fc{cursor:pointer}
     <!-- Chat -->
     <div class="card" style="padding:0;overflow:hidden">
       <div class="chat-hd">
-        <span class="fw6" style="font-size:.85rem">💬 Chat Milestone</span>
+        <span class="fw6" style="font-size:.85rem"><i class="fas fa-comments"></i> Chat Milestone</span>
         <span class="text-xs text-muted text-mono">Semua percakapan terdokumentasi</span>
       </div>
       <div class="chat-wrap" style="height:460px;border:none;border-radius:0">
@@ -1039,11 +1040,11 @@ select.fc{cursor:pointer}
           <div class="cmsg"><div class="cav client">AH</div><div><div class="cbubble">Halo, ini revisi ketiga ya. Tolong warna logonya diganti ke earthy tone yang lebih hangat, seperti terracotta.</div><div class="cmeta">Ahmad (Klien) · 19 Jan, 14:22</div></div></div>
           <div class="cmsg mine"><div class="cav designer">AS</div><div><div class="cbubble">Siap Pak Ahmad, akan saya revisi. Untuk referensi warna spesifik?</div><div class="cmeta">Andi (Desainer) · 19 Jan, 14:35</div></div></div>
           <div class="cmsg"><div class="cav client">AH</div><div><div class="cbubble">Seperti #C17B5A atau yang serupa. Dan bentuk ikonnya mau lebih geometris.</div><div class="cmeta">Ahmad (Klien) · 19 Jan, 15:10</div></div></div>
-          <div class="sys-msg danger">⛔ Sistem: Kuota revisi telah mencapai batas maksimum (3/3)</div>
+          <div class="sys-msg danger"><i class="fas fa-ban"></i> Sistem: Kuota revisi telah mencapai batas maksimum (3/3)</div>
           <div class="cmsg"><div class="cav client">AH</div><div><div class="cbubble">Saya masih mau minta satu revisi lagi untuk penempatan tagline-nya.</div><div class="cmeta">Ahmad (Klien) · 20 Jan, 09:00</div></div></div>
           <div class="cmsg mine"><div class="cav admin">AD</div><div><div class="cbubble">Selamat pagi Pak Ahmad. Kuota revisi milestone ini sudah mencapai batas yang disepakati (3x). Kami dapat membuka slot revisi tambahan dengan biaya add-on Rp 150.000/revisi. Apakah berminat?</div><div class="cmeta">Admin · 20 Jan, 09:15</div></div></div>
           <div class="cmsg"><div class="cav client">AH</div><div><div class="cbubble">Oke, saya setuju dengan add-on revisi tersebut.</div><div class="cmeta">Ahmad (Klien) · 20 Jan, 09:30</div></div></div>
-          <div class="sys-msg">📤 Admin menerbitkan Invoice Add-on INV-2025-017 · Rp 150.000</div>
+          <div class="sys-msg"><i class="fas fa-upload"></i> Admin menerbitkan Invoice Add-on INV-2025-017 · Rp 150.000</div>
         </div>
         <div class="chat-input-wrap">
           <textarea class="chat-input" rows="2" placeholder="Tulis pesan sebagai Admin..." id="chat-inp"></textarea>
@@ -1072,10 +1073,10 @@ select.fc{cursor:pointer}
       <table>
         <thead><tr><th>Invoice</th><th>Klien / Proyek</th><th>Tipe</th><th>Jumlah</th><th>Bukti</th><th>Status</th><th>Aksi</th></tr></thead>
         <tbody>
-          <tr><td class="text-mono text-xs">INV-2025-018</td><td><div class="td-main">Toko Mawar</div><div class="td-sub">PRJ-002 Website</div></td><td><span class="badge badge-inprog">Down Payment</span></td><td class="fw6">Rp 1.750.000</td><td><button class="btn btn-ghost btn-sm">👁 Lihat</button></td><td><span class="badge badge-pending">Menunggu</span></td><td><div class="act"><button class="btn btn-green btn-sm" onclick="openModal('m-verify')">✓ Verifikasi</button><button class="btn btn-red btn-sm">✗</button></div></td></tr>
-          <tr><td class="text-mono text-xs">INV-2025-019</td><td><div class="td-main">Startup Jaya</div><div class="td-sub">PRJ-004 Dashboard</div></td><td><span class="badge badge-pending">Pelunasan</span></td><td class="fw6">Rp 2.500.000</td><td><button class="btn btn-ghost btn-sm">👁 Lihat</button></td><td><span class="badge badge-pending">Menunggu</span></td><td><div class="act"><button class="btn btn-green btn-sm" onclick="openModal('m-verify')">✓ Verifikasi</button><button class="btn btn-red btn-sm">✗</button></div></td></tr>
-          <tr><td class="text-mono text-xs">INV-2025-017</td><td><div class="td-main">CV Nusantara</div><div class="td-sub">PRJ-001 Add-on</div></td><td><span class="badge badge-addon">Add-on Revisi</span></td><td class="fw6">Rp 150.000</td><td><button class="btn btn-ghost btn-sm">👁 Lihat</button></td><td><span class="badge badge-pending">Menunggu</span></td><td><div class="act"><button class="btn btn-green btn-sm" onclick="openModal('m-verify')">✓ Verifikasi</button><button class="btn btn-red btn-sm">✗</button></div></td></tr>
-          <tr><td class="text-mono text-xs">INV-2025-015</td><td><div class="td-main">Bunga Rampai</div><div class="td-sub">PRJ-003 Pelunasan</div></td><td><span class="badge badge-pending">Pelunasan</span></td><td class="fw6">Rp 1.200.000</td><td><button class="btn btn-ghost btn-sm">👁 Lihat</button></td><td><span class="badge badge-verified">Terverifikasi</span></td><td><div class="act"><button class="btn btn-ghost btn-sm">Invoice</button></div></td></tr>
+          <tr><td class="text-mono text-xs">INV-2025-018</td><td><div class="td-main">Toko Mawar</div><div class="td-sub">PRJ-002 Website</div></td><td><span class="badge badge-inprog">Down Payment</span></td><td class="fw6">Rp 1.750.000</td><td><button class="btn btn-ghost btn-sm"><i class="fas fa-eye"></i> Lihat</button></td><td><span class="badge badge-pending">Menunggu</span></td><td><div class="act"><button class="btn btn-green btn-sm" onclick="openModal('m-verify')"><i class="fas fa-check"></i> Verifikasi</button><button class="btn btn-red btn-sm"><i class="fas fa-times"></i></button></div></td></tr>
+          <tr><td class="text-mono text-xs">INV-2025-019</td><td><div class="td-main">Startup Jaya</div><div class="td-sub">PRJ-004 Dashboard</div></td><td><span class="badge badge-pending">Pelunasan</span></td><td class="fw6">Rp 2.500.000</td><td><button class="btn btn-ghost btn-sm"><i class="fas fa-eye"></i> Lihat</button></td><td><span class="badge badge-pending">Menunggu</span></td><td><div class="act"><button class="btn btn-green btn-sm" onclick="openModal('m-verify')"><i class="fas fa-check"></i> Verifikasi</button><button class="btn btn-red btn-sm"><i class="fas fa-times"></i></button></div></td></tr>
+          <tr><td class="text-mono text-xs">INV-2025-017</td><td><div class="td-main">CV Nusantara</div><div class="td-sub">PRJ-001 Add-on</div></td><td><span class="badge badge-addon">Add-on Revisi</span></td><td class="fw6">Rp 150.000</td><td><button class="btn btn-ghost btn-sm"><i class="fas fa-eye"></i> Lihat</button></td><td><span class="badge badge-pending">Menunggu</span></td><td><div class="act"><button class="btn btn-green btn-sm" onclick="openModal('m-verify')"><i class="fas fa-check"></i> Verifikasi</button><button class="btn btn-red btn-sm"><i class="fas fa-times"></i></button></div></td></tr>
+          <tr><td class="text-mono text-xs">INV-2025-015</td><td><div class="td-main">Bunga Rampai</div><div class="td-sub">PRJ-003 Pelunasan</div></td><td><span class="badge badge-pending">Pelunasan</span></td><td class="fw6">Rp 1.200.000</td><td><button class="btn btn-ghost btn-sm"><i class="fas fa-eye"></i> Lihat</button></td><td><span class="badge badge-verified">Terverifikasi</span></td><td><div class="act"><button class="btn btn-ghost btn-sm">Invoice</button></div></td></tr>
         </tbody>
       </table>
     </div>
@@ -1136,7 +1137,7 @@ select.fc{cursor:pointer}
   <div class="g4" style="margin-bottom:14px">
     <div class="stat p"><span class="stat-ico">📊</span><div class="stat-label">Total Proyek</div><div class="stat-val">31</div><div class="stat-sub">Sepanjang 2024–2025</div></div>
     <div class="stat g"><span class="stat-ico">⭐</span><div class="stat-label">Rating Rata-rata</div><div class="stat-val">4.8</div><div class="stat-sub">dari 5.0 — 19 ulasan</div></div>
-    <div class="stat"><span class="stat-ico">🔁</span><div class="stat-label">Add-on Revisi</div><div class="stat-val">14</div><div class="stat-sub">Rp 2.1jt pendapatan ekstra</div></div>
+    <div class="stat"><span class="stat-ico"><i class="fas fa-redo"></i></span><div class="stat-label">Add-on Revisi</div><div class="stat-val">14</div><div class="stat-sub">Rp 2.1jt pendapatan ekstra</div></div>
     <div class="stat y"><span class="stat-ico">⏱</span><div class="stat-label">Rata-rata Selesai</div><div class="stat-val">18</div><div class="stat-sub">hari kerja per proyek</div></div>
   </div>
   <div class="g2">
@@ -1174,7 +1175,7 @@ select.fc{cursor:pointer}
 <!-- Modal: New Project -->
 <div class="modal-overlay" id="m-new-project" onclick="closeOut(event,'m-new-project')">
   <div class="modal">
-    <div class="modal-hd"><div class="modal-title">Buat Proyek Baru</div><div class="modal-close" onclick="closeModal('m-new-project')">✕</div></div>
+    <div class="modal-hd"><div class="modal-title">Buat Proyek Baru</div><div class="modal-close" onclick="closeModal('m-new-project')"><i class="fas fa-times"></i></div></div>
     <div class="modal-body">
       <div class="fg"><label class="fl">Nama Proyek</label><input type="text" class="fc" placeholder="cth: Branding Kit CV Nusantara"></div>
       <div class="fr"><div class="fg"><label class="fl">Klien</label><select class="fc"><option>Pilih klien...</option><option>Ahmad Fauzi – CV Nusantara</option><option>Sari W. – Toko Mawar</option></select></div><div class="fg"><label class="fl">Kategori Layanan</label><select class="fc"><option>Branding Kit</option><option>Website UI/UX</option><option>Social Media</option></select></div></div>
@@ -1188,9 +1189,9 @@ select.fc{cursor:pointer}
 <!-- Modal: Addon -->
 <div class="modal-overlay" id="m-addon" onclick="closeOut(event,'m-addon')">
   <div class="modal">
-    <div class="modal-hd"><div class="modal-title">⚠️ Invoice Add-on Revisi</div><div class="modal-close" onclick="closeModal('m-addon')">✕</div></div>
+    <div class="modal-hd"><div class="modal-title"><i class="fas fa-exclamation-triangle"></i> Invoice Add-on Revisi</div><div class="modal-close" onclick="closeModal('m-addon')"><i class="fas fa-times"></i></div></div>
     <div class="modal-body">
-      <div class="alert alert-danger"><span class="alert-ico">⛔</span><div>Milestone <strong>"Desain Logo"</strong> PRJ-001 telah mencapai batas revisi (3/3).</div></div>
+      <div class="alert alert-danger"><span class="alert-ico"><i class="fas fa-ban"></i></span><div>Milestone <strong>"Desain Logo"</strong> PRJ-001 telah mencapai batas revisi (3/3).</div></div>
       <div class="inv-card" style="margin-bottom:14px">
         <div class="inv-hd"><div><div class="text-mono text-xs text-muted">Invoice Add-on</div><div class="fw7 text-mono">INV-2025-017</div></div></div>
         <div class="inv-rows">
@@ -1212,7 +1213,7 @@ select.fc{cursor:pointer}
 <!-- Modal: Verify Payment -->
 <div class="modal-overlay" id="m-verify" onclick="closeOut(event,'m-verify')">
   <div class="modal">
-    <div class="modal-hd"><div class="modal-title">Verifikasi Pembayaran</div><div class="modal-close" onclick="closeModal('m-verify')">✕</div></div>
+    <div class="modal-hd"><div class="modal-title">Verifikasi Pembayaran</div><div class="modal-close" onclick="closeModal('m-verify')"><i class="fas fa-times"></i></div></div>
     <div class="modal-body">
       <div style="background:var(--bg3);border:1px solid var(--border);border-radius:var(--radius);padding:20px;text-align:center;margin-bottom:14px">
         <div style="font-size:2.5rem;margin-bottom:8px">🧾</div>
@@ -1224,8 +1225,8 @@ select.fc{cursor:pointer}
     </div>
     <div class="modal-footer">
       <button class="btn btn-ghost" onclick="closeModal('m-verify')">Batal</button>
-      <button class="btn btn-red btn-sm" onclick="closeModal('m-verify');toast('Pembayaran ditolak')">✗ Tolak</button>
-      <button class="btn btn-green" onclick="closeModal('m-verify');toast('✓ Pembayaran terverifikasi! Proyek diaktifkan.')">✓ Verifikasi</button>
+      <button class="btn btn-red btn-sm" onclick="closeModal('m-verify');toast('Pembayaran ditolak')"><i class="fas fa-times"></i> Tolak</button>
+      <button class="btn btn-green" onclick="closeModal('m-verify');toast('✓ Pembayaran terverifikasi! Proyek diaktifkan.')"><i class="fas fa-check"></i> Verifikasi</button>
     </div>
   </div>
 </div>
@@ -1233,7 +1234,7 @@ select.fc{cursor:pointer}
 <!-- Modal: Assign Designer -->
 <div class="modal-overlay" id="m-assign" onclick="closeOut(event,'m-assign')">
   <div class="modal">
-    <div class="modal-hd"><div class="modal-title">Tugaskan Desainer</div><div class="modal-close" onclick="closeModal('m-assign')">✕</div></div>
+    <div class="modal-hd"><div class="modal-title">Tugaskan Desainer</div><div class="modal-close" onclick="closeModal('m-assign')"><i class="fas fa-times"></i></div></div>
     <div class="modal-body">
       <div class="fg"><label class="fl">Milestone</label><select class="fc"><option>Visual Identity System (MS-3)</option><option>Collateral Desain (MS-4)</option></select></div>
       <div class="fg">
@@ -1251,7 +1252,7 @@ select.fc{cursor:pointer}
 <!-- Modal: New Milestone -->
 <div class="modal-overlay" id="m-new-milestone" onclick="closeOut(event,'m-new-milestone')">
   <div class="modal">
-    <div class="modal-hd"><div class="modal-title">Tambah Milestone</div><div class="modal-close" onclick="closeModal('m-new-milestone')">✕</div></div>
+    <div class="modal-hd"><div class="modal-title">Tambah Milestone</div><div class="modal-close" onclick="closeModal('m-new-milestone')"><i class="fas fa-times"></i></div></div>
     <div class="modal-body">
       <div class="fg"><label class="fl">Nama Milestone</label><input type="text" class="fc" placeholder="cth: Desain Logo"></div>
       <div class="fg"><label class="fl">Target Pencapaian</label><textarea class="fc" rows="3" placeholder="Apa yang harus dicapai?"></textarea></div>
@@ -1264,7 +1265,7 @@ select.fc{cursor:pointer}
 <!-- Modal: New User -->
 <div class="modal-overlay" id="m-new-user" onclick="closeOut(event,'m-new-user')">
   <div class="modal">
-    <div class="modal-hd"><div class="modal-title">Tambah Pengguna</div><div class="modal-close" onclick="closeModal('m-new-user')">✕</div></div>
+    <div class="modal-hd"><div class="modal-title">Tambah Pengguna</div><div class="modal-close" onclick="closeModal('m-new-user')"><i class="fas fa-times"></i></div></div>
     <div class="modal-body">
       <div class="fr"><div class="fg"><label class="fl">Nama Lengkap</label><input type="text" class="fc"></div><div class="fg"><label class="fl">Role</label><select class="fc"><option>Admin</option><option>Desainer</option><option>Klien</option></select></div></div>
       <div class="fg"><label class="fl">Email</label><input type="email" class="fc"></div>
